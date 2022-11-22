@@ -1,18 +1,20 @@
 <template>
   <div class="grid h-[100vh] items-center">
     <div>
-      <GhostIcon />
-      <GhostUnderlineIcon class="mt-[2.7rem] mb-[3rem]" />
-      <div class="text-center">
+      <div>
+        <GandalfIcon class="z-10" />
+        <GandalfUnion class="absolute top-[4rem] left-[19rem]" />
+      </div>
+      <div class="text-center mt-[3rem]">
         <div
           class="font-[Halvetica Neue] font-bold text-[#FFFFFF] text-[4.7rem]"
         >
-          Whoops!
+          You shall not pass!
         </div>
         <div
           class="font-[Halvetica Neue] mt-[1rem] mb-[5rem] font-medium text-[#FFFFFF] text-[2.4rem]"
         >
-          We can't see the page you are looking for
+          Sorry, but you don’t have permission to access this page
         </div>
         <button
           @click="goHome"
@@ -26,8 +28,8 @@
 </template>
 
 <script setup>
-import GhostIcon from "@/components/icons/GhostIcon.vue";
-import GhostUnderlineIcon from "@/components/icons/GhostUnderlineIcon.vue";
+import GandalfIcon from "@/components/icons/GandalfIcon.vue";
+import GandalfUnion from "@/components/icons/GandalfUnionIcon.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
