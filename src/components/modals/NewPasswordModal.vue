@@ -1,38 +1,47 @@
 <template>
   <Teleport to="#app">
     <div
-      v-if="false"
-      class="fixed flex justify-center items-center top-[0rem] left-[0rem] w-[100vw] h-[100vh] bg-modal"
+      @click="router.push({ name: 'home' })"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
-      <div class="w-[60rem] bg-[#222030] rounded-[1rem]">
+      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
           title="Create new password"
           description="Your new password must be different from previous used passwords"
         />
 
-        <div class="flex mb-[5.3rem]">
-          <Form class="min-w-[36rem]" @submit.prevent="">
+        <div class="mb-[5.3rem] flex">
+          <Form
+            class="min-w-[36rem]"
+            @submit="changePassword"
+            v-slot="{ meta }"
+          >
+            {{ setFormIsValid(meta) }}
             <MainField
               title="Password"
               type="password"
               placeholder="At least 8 & max.15 lower case characters"
               rules="required|min:8|max:15"
               :keepAsterisk="true"
+              :onClearField="onPasswordClear"
+              @onFieldChange="onPasswordChange"
             />
             <MainField
               title="Confirm password"
               type="password"
               placeholder="Confirm password"
-              rules="required|min:8|max:15"
+              rules="required|min:8|max:15|confirmed:@Password"
               :keepAsterisk="true"
+              :onClearField="onConfirmPasswordClear"
+              @onFieldChange="onConfirmPasswordChange"
             />
 
-            <MainButton description="Reset password" :onClick="() => false" />
-            <div class="text-center flex items-center">
+            <MainButton description="Reset password" :onClick="() => ''" />
+            <div class="flex items-center text-center">
               <BackArrowIcon class="mr-[0rem]" />
               <router-link
                 class="font-[Helvetica Neue] ml-[1.1rem] text-[1.6rem] text-[#6C757D]"
-                :to="'#'"
+                :to="{ name: 'home', params: { modal: 'login' } }"
                 >Back to log in
               </router-link>
             </div>
@@ -49,4 +58,37 @@ import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import BackArrowIcon from "@/components/icons/BackArrowIcon.vue";
 import { Form } from "vee-validate";
+import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
+import axios from "@/config/axios.js";
+
+const router = useRouter();
+const route = useRoute();
+
+const email = ref(localStorage.getItem("email"));
+const password = ref("");
+const confirmPassword = ref("");
+const token = route.params.data;
+const formIsValid = ref(false);
+
+const onPasswordClear = () => (password.value = "");
+const onPasswordChange = (val) => (password.value = val);
+const onConfirmPasswordChange = (val) => (confirmPassword.value = val);
+const onConfirmPasswordClear = () => (confirmPassword.value = "");
+const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
+
+const changePassword = async () => {
+  if (formIsValid.value && confirmPassword.value === password.value) {
+    await axios.post("http://127.0.0.1:8000/api/reset-password", {
+      email: email.value,
+      password: password.value,
+      password_confirmation: confirmPassword.value,
+      token,
+    });
+    router.push({
+      name: "home",
+      params: { modal: "password-changed" },
+    });
+  }
+};
 </script>

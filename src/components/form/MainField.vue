@@ -1,30 +1,83 @@
 <template>
   <div class="my-[1.6rem]">
     <label
-      class="block font-[Helvetica Neue] mb-[0.8rem] text-[1.6rem] text-[#FFFFFF]"
+      class="font-[Helvetica Neue] mb-[0.8rem] block text-[1.6rem] text-[#FFFFFF]"
       :for="title"
       >{{ title
       }}<span
         v-if="keepAsterisk"
-        class="absolute text-[#DC3545] top-[0.2rem] ml-[0.4rem]"
+        class="absolute top-[0.2rem] ml-[0.4rem] text-[#DC3545]"
         >*</span
       ></label
     >
     <Field
-      class="box-border w-full py-[0.7rem] px-[1.3rem] bg-[#CED4DA] text-[1.6rem] border-[1px] border-solid border-[#CED4DA] rounded-[0.4rem]"
-      :id="title"
       :name="title"
-      :type="type"
-      :placeholder="placeholder"
       :rules="rules"
-    />
+      v-slot="{ field, meta }"
+      @change="onFieldChange"
+    >
+      <input
+        class="box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] bg-[#CED4DA] py-[0.7rem] pl-[1.3rem] pr-[3.8rem] text-[1.6rem] focus:outline-[#CED4DA]"
+        :class="{
+          'border-[#198754]': icon === 'success',
+          'border-[#DC3545]': icon === 'invalid',
+        }"
+        v-bind="field"
+        :type="type"
+        :placeholder="placeholder"
+        @blur="onFieldBlur(meta)"
+        @input="onFieldInput"
+      />
+      <p>
+        <ErrorMessage
+          class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+          :name="title"
+        />
+      </p>
+      <MainIconButton
+        v-if="icon === 'filled'"
+        @click="onFilledIconClick(field)"
+      >
+        <FilledIcon />
+      </MainIconButton>
+      <MainIconButton v-if="icon === 'success'">
+        <SuccessIcon />
+      </MainIconButton>
+      <MainIconButton v-if="icon === 'invalid'">
+        <InvalidIcon />
+      </MainIconButton>
+    </Field>
   </div>
 </template>
 
 <script setup>
-import { Field } from "vee-validate";
+import { Field, ErrorMessage } from "vee-validate";
+import MainIconButton from "@/components/form/MainIconButton.vue";
+import FilledIcon from "@/components/icons/form/FilledIcon.vue";
+import SuccessIcon from "@/components/icons/form/SuccessIcon.vue";
+import InvalidIcon from "@/components/icons/form/InvalidIcon.vue";
+import { ref } from "vue-demi";
 
-defineProps({
+const icon = ref("");
+const onFilledIconClick = (field) => {
+  field.value = "";
+  props.onClearField();
+  setTimeout(() => (icon.value = ""), 100);
+};
+
+const onFieldBlur = (meta) => {
+  if (meta.valid && meta.touched) {
+    setTimeout(() => (icon.value = "success"), 200);
+  } else if (meta.touched) {
+    setTimeout(() => (icon.value = "invalid"), 200);
+  }
+};
+const onFieldInput = () => (icon.value = "filled");
+
+const emit = defineEmits(["onFieldChange"]);
+const onFieldChange = (e) => emit("onFieldChange", e.target.value);
+
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -45,6 +98,10 @@ defineProps({
     type: Boolean,
     required: false,
     default: false,
+  },
+  onClearField: {
+    type: Function,
+    required: true,
   },
 });
 </script>

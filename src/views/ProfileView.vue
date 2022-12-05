@@ -1,7 +1,7 @@
 <template>
   <div>
     <TheHeader />
-    <div class="flex mt-[3.2rem]">
+    <div class="mt-[3.2rem] flex">
       <div class="ml-[6.95rem]">
         <BaseNavigation />
       </div>
@@ -11,15 +11,15 @@
           <div class="flex items-center gap-[3.2rem]">
             <div class="my-[1.6rem]">
               <label
-                class="block font-[Helvetica Neue] mb-[0.8rem] text-[1.6rem] text-[#FFFFFF]"
+                class="font-[Helvetica Neue] mb-[0.8rem] block text-[1.6rem] text-[#FFFFFF]"
                 for="Username"
                 >Username</label
               >
               <div
-                class="pb-[5.6rem] border-b-[1px] border-solid border-profileUnderline"
+                class="border-profileUnderline border-b-[1px] border-solid pb-[5.6rem]"
               >
                 <Field
-                  class="min-w-[52.8rem] py-[0.9rem] px-[1.7rem] bg-[#CED4DA] text-[1.6rem] border-[1px] border-solid border-[#CED4DA] rounded-[0.48rem]"
+                  class="min-w-[52.8rem] rounded-[0.48rem] border-[1px] border-solid border-[#CED4DA] bg-[#CED4DA] py-[0.9rem] px-[1.7rem] text-[1.6rem]"
                   id="Username"
                   name="Username"
                   type="text"
@@ -27,20 +27,20 @@
                 />
                 <button
                   @click="false"
-                  class="ml-[3.3rem] font-[Helvetica Neue] text-[2rem] text-[#CED4DA]"
+                  class="font-[Helvetica Neue] ml-[3.3rem] text-[2rem] text-[#CED4DA]"
                 >
                   Edit
                 </button>
               </div>
 
               <label
-                class="block font-[Helvetica Neue] mt-[4.2rem] mb-[0.8rem] text-[1.6rem] text-[#FFFFFF]"
+                class="font-[Helvetica Neue] mt-[4.2rem] mb-[0.8rem] block text-[1.6rem] text-[#FFFFFF]"
                 for="Email"
                 >Email</label
               >
               <div>
                 <Field
-                  class="min-w-[52.8rem] py-[0.9rem] px-[1.7rem] bg-[#CED4DA] text-[1.6rem] border-[1px] border-solid border-[#CED4DA] rounded-[0.48rem]"
+                  class="min-w-[52.8rem] rounded-[0.48rem] border-[1px] border-solid border-[#CED4DA] bg-[#CED4DA] py-[0.9rem] px-[1.7rem] text-[1.6rem]"
                   id="Email"
                   name="Email"
                   type="email"
@@ -53,13 +53,13 @@
         <div class="mt-[4rem] text-end">
           <button
             @click="false"
-            class="font-[Helvetica Neue] text-[2rem] text-[#CED4DA] mr-[2.6rem]"
+            class="font-[Helvetica Neue] mr-[2.6rem] text-[2rem] text-[#CED4DA]"
           >
             Cancel
           </button>
           <button
             @click="false"
-            class="font-[Helvetica Neue] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] rounded-[0.48rem]"
+            class="font-[Helvetica Neue] active:bg-[hover:bg-[#CC0E10]] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10]"
           >
             Save Changes
           </button>

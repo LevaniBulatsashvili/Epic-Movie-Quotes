@@ -14,16 +14,16 @@
       </div>
     </div>
 
-    <router-link :to="{ name: 'newsFeed' }" class="flex my-[4rem] gap-[4.2rem]">
+    <router-link :to="{ name: 'newsFeed' }" class="my-[4rem] flex gap-[4.2rem]">
       <HouseIcon class="mx-[0px]" />
-      <div class="font-[Helvetica Neue] text-[2.4rem] text-[#FFFFFF] ml-[0rem]">
+      <div class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] text-[#FFFFFF]">
         News feed
       </div>
     </router-link>
 
     <router-link :to="{ name: 'movies' }" class="flex gap-[4.2rem]">
       <CameraIcon class="mr-[0rem]" />
-      <div class="font-[Helvetica Neue] text-[2.4rem] text-[#FFFFFF] ml-[0rem]">
+      <div class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] text-[#FFFFFF]">
         List of movies
       </div>
     </router-link>

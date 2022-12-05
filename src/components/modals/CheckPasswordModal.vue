@@ -5,18 +5,24 @@
       class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
       <div @click.stop class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem]">
-        <CheckmarkIcon class="mt-[7.2rem]" />
+        <PaperPlaneIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
-          title="Thank you!"
-          description="Your account has been activated."
+          title="Check your email"
+          description="Please check your email and follow the instructions to reset your password."
           textColor="#FFFFFF"
         />
         <MainButton
-          class="mx-[9rem] mt-[4rem] mb-[7rem]"
-          description="Go to my news feed"
-          :onClick="() => false"
+          @Click="router.push({ name: 'home' })"
+          class="mx-[9rem] mt-[4rem] mb-[3.2rem]"
+          description="Go to my email"
         />
+        <div
+          @click="router.push({ name: 'home' })"
+          class="mb-[4.7rem] cursor-pointer text-center text-[1.6rem] text-[#6C757D]"
+        >
+          Skip, I’ll confirm later
+        </div>
       </div>
     </div>
   </Teleport>
@@ -25,7 +31,7 @@
 <script setup>
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
-import CheckmarkIcon from "@/components/icons/CheckmarkIcon.vue";
+import PaperPlaneIcon from "@/components/icons/PaperPlaneIcon.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

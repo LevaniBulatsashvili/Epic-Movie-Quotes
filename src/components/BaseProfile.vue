@@ -1,7 +1,7 @@
 <template>
-  <div class="box-border ml-[18.7rem] rounded-[1.2rem]">
+  <div class="ml-[18.7rem] box-border rounded-[1.2rem]">
     <div
-      class="font-[Helvetica Neue] mb-[12.6rem] ml-[3rem] font-medium text-[2.4rem] text-[#FFFFFF]"
+      class="font-[Helvetica Neue] mb-[12.6rem] ml-[3rem] text-[2.4rem] font-medium text-[#FFFFFF]"
     >
       My profile
     </div>
