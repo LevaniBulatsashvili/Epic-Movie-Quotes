@@ -1,14 +1,14 @@
 <template>
-  <div class="bg-no-repeat h-[120rem]" :class="backgroundImage">
+  <div class="h-[120rem] bg-no-repeat" :class="backgroundImage">
     <div class="ml-[17rem] pt-[41.5rem]">
       <HomeLineIcon class="absolute top-[45rem] h-[3px]" />
       <div class="ml-[6.9rem]">
         <div
-          class="font-[Montserrat] mb-[1.6rem] mr-[93rem] font-bold text-[#FFFFFF] text-[5rem]"
+          class="mb-[1.6rem] mr-[93rem] font-[Montserrat] text-[5rem] font-bold text-[#FFFFFF]"
         >
           “{{ quote }}”
         </div>
-        <div class="font-[Halvetica Neue] font-bold text-[#D9D9D9] text-[3rem]">
+        <div class="font-[Halvetica Neue] text-[3rem] font-bold text-[#D9D9D9]">
           {{ props.movie }}
         </div>
       </div>

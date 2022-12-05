@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col items-center gap-[1.2rem] mt-[5.3rem] mb-[2.4rem]">
+  <div class="mt-[5.3rem] mb-[2.4rem] flex flex-col items-center gap-[1.2rem]">
     <div
-      class="font-[Helvetica Neue] font-medium text-[3.2rem] leading-[120%] text-[#FFFFFF]"
+      class="font-[Helvetica Neue] text-[3.2rem] font-medium leading-[120%] text-[#FFFFFF]"
     >
       {{ title }}
     </div>
@@ -30,6 +30,6 @@ const props = defineProps({
 
 const paragraphClass = computed(
   () =>
-    `font-[Helvetica Neue] mx-[6rem] text-center text-[1.6rem] text-[${props.textColor}]`
+    `font-[Helvetica Neue] text-center text-[1.6rem] text-[${props.textColor}]`
 );
 </script>

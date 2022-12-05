@@ -1,21 +1,21 @@
 <template>
   <Teleport to="#app">
     <div
-      v-if="false"
-      class="fixed flex justify-center items-center top-[0rem] left-[0rem] w-[100vw] h-[100vh] bg-modal"
+      @click="router.push({ name: 'home' })"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
-      <div class="w-[54rem] bg-[#222030] rounded-[1rem]">
+      <div @click.stop class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem]">
         <PaperPlaneIcon class="mt-[7.2rem]" />
         <MainHeader
-          class="gap-[3.2rem] mt-[2.1rem]"
+          class="mt-[2.1rem] gap-[3.2rem]"
           title="Thank you!"
-          description="Please check your email and follow the instructions to activate your account."
+          description="Your account has been activated"
           textColor="#FFFFFF"
         />
         <MainButton
-          class="mt-[4rem] mb-[7rem]"
-          description="Go to my email"
-          :onClick="() => false"
+          class="mx-[9rem] mt-[4rem] mb-[7rem]"
+          description="Go to my news feed"
+          @Click="router.push({ name: 'newsFeed' })"
         />
       </div>
     </div>
@@ -26,4 +26,13 @@
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import PaperPlaneIcon from "@/components/icons/PaperPlaneIcon.vue";
+import { useRoute, useRouter } from "vue-router";
+import { onMounted } from "vue";
+import { useAuthStore } from "@/stores/auth";
+
+const router = useRouter();
+const route = useRoute();
+const auth = useAuthStore();
+
+onMounted(() => auth.verifyEmail(route.params.data, route.params.hash));
 </script>

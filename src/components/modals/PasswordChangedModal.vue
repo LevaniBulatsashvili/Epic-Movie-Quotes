@@ -1,21 +1,21 @@
 <template>
   <Teleport to="#app">
     <div
-      v-if="false"
-      class="fixed flex justify-center items-center top-[0rem] left-[0rem] w-[100vw] h-[100vh] bg-modal"
+      @click="router.push({ name: 'home' })"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
-      <div class="w-[54rem] bg-[#222030] rounded-[1rem]">
+      <div @click.stop class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem]">
         <CheckmarkIcon class="mt-[7.2rem]" />
         <MainHeader
-          class="gap-[3.2rem] mt-[2.1rem]"
+          class="mt-[2.1rem] gap-[3.2rem]"
           title="Success!"
-          description="Your Email changed successfully"
+          description="Your Password changed successfully"
           textColor="#FFFFFF"
         />
         <MainButton
-          class="mt-[4rem] mb-[7rem]"
-          description="Go to my news feed"
-          :onClick="() => false"
+          class="mx-[9rem] mt-[4rem] mb-[7rem]"
+          description="Login"
+          @Click="router.push({ name: 'home', params: { modal: 'login' } })"
         />
       </div>
     </div>
@@ -26,4 +26,7 @@
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import CheckmarkIcon from "@/components/icons/CheckmarkIcon.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 </script>

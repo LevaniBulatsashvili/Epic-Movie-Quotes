@@ -1,9 +1,9 @@
 <template>
   <div
-    class="bg-[#11101A] pt-[2.4rem] px-[2.4rem] pb-[4.1rem] mb-[4rem] rounded-[1.2rem]"
+    class="mb-[4rem] rounded-[1.2rem] bg-[#11101A] px-[2.4rem] pt-[2.4rem] pb-[4.1rem]"
   >
     <div
-      class="pb-[2.5rem] border-b-[1px] border-solid border-NewsCardUnderline"
+      class="border-NewsCardUnderline border-b-[1px] border-solid pb-[2.5rem]"
     >
       <div class="flex items-center">
         <img class="mx-[0px]" src="@/assets/png/profile.png" />
@@ -22,13 +22,13 @@
 
       <img src="@/assets/png/mainProfile.png" />
 
-      <div class="flex mt-[2.45rem]">
-        <div class="flex mx-[0rem]">
+      <div class="mt-[2.45rem] flex">
+        <div class="mx-[0rem] flex">
           <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">3</div>
           <CommentIcon class="ml-[1.2rem] mr-[2.4rem]" />
         </div>
 
-        <div class="flex mx-[0rem]">
+        <div class="mx-[0rem] flex">
           <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">10</div>
           <LikeIcon class="ml-[1.2rem]" />
         </div>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div
-        class="font-[Helvetica Neue] pb-[2.4rem] ml-[8.4rem] text-[2rem] text-[#FFFFFF] border-b-[1px] border-solid border-NewsCardUnderline"
+        class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]"
       >
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
         nunc vel massa facilisis consequat elit morbi convallis convallis.
@@ -62,7 +62,7 @@
       <div class="flex items-center">
         <img class="mx-[0px] mr-[2.4rem]" src="@/assets/png/profile.png" />
         <input
-          class="font-[Helvetica Neue] w-full py-[1.1rem] px-[2.7rem] bg-[#24222F] text-[2rem] text-[#CED4DA] opacity-[0.6] rounded-[1rem]"
+          class="font-[Helvetica Neue] w-full rounded-[1rem] bg-[#24222F] py-[1.1rem] px-[2.7rem] text-[2rem] text-[#CED4DA] opacity-[0.6]"
           type="text"
           placeholder="Write a comment"
         />

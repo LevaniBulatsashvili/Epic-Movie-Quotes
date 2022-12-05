@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-[36rem] mt-[2.4rem] mb-[1.6rem] flex justify-center">
+  <div class="mt-[2.4rem] mb-[1.6rem] flex justify-center">
     <button
       @click="onClick"
-      class="font-[Helvetica Neue] w-full flex justify-center py-[0.7rem] px-[1.3rem] bg-[#E31221] rounded-[0.4rem] text-[1.6rem] text-[#FFFFFF]"
+      class="font-[Helvetica Neue] flex w-full justify-center rounded-[0.4rem] bg-[#E31221] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF] hover:bg-[#CC0E10] active:bg-[#CC0E10]"
     >
       {{ description }}
     </button>
@@ -17,7 +17,7 @@ defineProps({
   },
   onClick: {
     type: Function,
-    required: true,
+    required: false,
   },
 });
 </script>

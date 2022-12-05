@@ -2,7 +2,7 @@
   <div>
     <TheHeader />
 
-    <div class="flex mt-[3.2rem]">
+    <div class="mt-[3.2rem] flex">
       <div class="ml-[6.95rem]">
         <BaseNavigation />
       </div>
@@ -10,7 +10,7 @@
       <div class="ml-[0rem]">
         <div class="flex]">
           <div
-            class="flex flex-grow bg-[#24222F] mb-[2.2rem] opacity-[0.6] rounded-[1rem] items-center"
+            class="mb-[2.2rem] flex flex-grow items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
           >
             <WriteIcon class="ml-[1.75rem] mr-[1.65rem]" />
             <div
@@ -19,7 +19,7 @@
               Write new quote
             </div>
           </div>
-          <div class="flex mb-[2.2rem] items-center">
+          <div class="mb-[2.2rem] flex items-center">
             <SearchIcon class="ml-[2.4rem] mr-[1.6rem]" />
             <div
               class="font-[Helvetica Neue] mx-[0rem] text-[2rem] text-[#CED4DA]"

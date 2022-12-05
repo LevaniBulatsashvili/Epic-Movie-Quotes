@@ -5,20 +5,20 @@
         <GandalfIcon class="z-10" />
         <GandalfUnion class="absolute top-[4rem] left-[19rem]" />
       </div>
-      <div class="text-center mt-[3rem]">
+      <div class="mt-[3rem] text-center">
         <div
-          class="font-[Halvetica Neue] font-bold text-[#FFFFFF] text-[4.7rem]"
+          class="font-[Halvetica Neue] text-[4.7rem] font-bold text-[#FFFFFF]"
         >
           You shall not pass!
         </div>
         <div
-          class="font-[Halvetica Neue] mt-[1rem] mb-[5rem] font-medium text-[#FFFFFF] text-[2.4rem]"
+          class="font-[Halvetica Neue] mt-[1rem] mb-[5rem] text-[2.4rem] font-medium text-[#FFFFFF]"
         >
           Sorry, but you don’t have permission to access this page
         </div>
         <button
           @click="goHome"
-          class="font-[Halvetica Neue] py-[0.9rem] px-[1.7rem] bg-[#E31221] rounded-[0.48rem] text-[#FFFFFF] text-[2rem]"
+          class="font-[Halvetica Neue] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10] active:bg-[#CC0E10]"
         >
           Return home
         </button>
