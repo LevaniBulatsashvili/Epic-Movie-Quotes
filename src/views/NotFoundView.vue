@@ -26,8 +26,8 @@
 </template>
 
 <script setup>
-import GhostIcon from "@/components/icons/GhostIcon.vue";
-import GhostUnderlineIcon from "@/components/icons/GhostUnderlineIcon.vue";
+import GhostIcon from "@/components/icons/notFound/GhostIcon.vue";
+import GhostUnderlineIcon from "@/components/icons/notFound/GhostUnderlineIcon.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

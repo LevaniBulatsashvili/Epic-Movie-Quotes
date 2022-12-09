@@ -70,8 +70,8 @@
 </template>
 
 <script setup>
-import TheHeader from "@/components/TheHeader.vue";
-import BaseNavigation from "@/components/BaseNavigation.vue";
-import BaseProfile from "@/components/BaseProfile.vue";
+import TheHeader from "@/components/shared/TheHeader.vue";
+import BaseNavigation from "@/components/shared/BaseNavigation.vue";
+import BaseProfile from "@/components/profile/BaseProfile.vue";
 import { Form, Field } from "vee-validate";
 </script>

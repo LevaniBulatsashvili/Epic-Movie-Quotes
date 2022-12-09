@@ -28,8 +28,8 @@
 </template>
 
 <script setup>
-import GandalfIcon from "@/components/icons/GandalfIcon.vue";
-import GandalfUnion from "@/components/icons/GandalfUnionIcon.vue";
+import GandalfIcon from "@/components/icons/forbidden/GandalfIcon.vue";
+import GandalfUnion from "@/components/icons/forbidden/GandalfUnionIcon.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

@@ -10,6 +10,7 @@
         millions of movie lines
       </div>
       <button
+        @click="router.push({ name: 'newsFeed' })"
         class="font-[Halvetica Neue] mt-[3rem] rounded-[0.48rem] border-[1px] border-solid border-[#E31221] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10]"
       >
         Get started
@@ -48,20 +49,21 @@
 </template>
 
 <script setup>
-import TheHeader from "@/components/TheHeader.vue";
-import HomeFooter from "@/components/HomeFooter.vue";
-import HomeCard from "@/components/HomeCard.vue";
-import RegisterModal from "@/components/modals/RegisterModal.vue";
-import LoginModal from "@/components/modals/LoginModal.vue";
-import VerifyEmailModal from "@/components/modals/VerifyEmailModal.vue";
-import CheckEmailModal from "@/components/modals/CheckEmailModal.vue";
-import AccountActivatedModal from "@/components/modals/AccountActivatedModal.vue";
-import ForgotPasswordModal from "@/components/modals/ForgotPasswordModal.vue";
-import CheckPasswordModal from "@/components/modals/CheckPasswordModal.vue";
-import NewPasswordModal from "@/components/modals/NewPasswordModal.vue";
-import PasswordChangedModal from "@/components/modals/PasswordChangedModal.vue";
+import TheHeader from "@/components/shared/TheHeader.vue";
+import HomeFooter from "@/components/home/HomeFooter.vue";
+import HomeCard from "@/components/home/HomeCard.vue";
+import RegisterModal from "@/components/modals/auth/RegisterModal.vue";
+import LoginModal from "@/components/modals/auth/LoginModal.vue";
+import VerifyEmailModal from "@/components/modals/auth/VerifyEmailModal.vue";
+import CheckEmailModal from "@/components/modals/auth/CheckEmailModal.vue";
+import AccountActivatedModal from "@/components/modals/auth/AccountActivatedModal.vue";
+import ForgotPasswordModal from "@/components/modals/auth/ForgotPasswordModal.vue";
+import CheckPasswordModal from "@/components/modals/auth/CheckPasswordModal.vue";
+import NewPasswordModal from "@/components/modals/auth/NewPasswordModal.vue";
+import PasswordChangedModal from "@/components/modals/auth/PasswordChangedModal.vue";
 import { computed } from "vue-demi";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
+const router = useRouter();
 const modal = computed(() => useRoute().params.modal);
 </script>

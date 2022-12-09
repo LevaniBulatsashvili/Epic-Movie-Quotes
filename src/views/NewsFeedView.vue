@@ -28,18 +28,27 @@
             </div>
           </div>
         </div>
-        <NewsCard v-for="card in cards" :key="card" />
+        <NewsCard v-for="quote in movieStore.quotes"
+          :key="quote.id"
+          :quoteId="quote.id"
+          :likes="quote.likes.length"
+          :comments="quote.comments"
+          />
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import TheHeader from "@/components/TheHeader.vue";
-import BaseNavigation from "@/components/BaseNavigation.vue";
-import NewsCard from "@/components/NewsCard.vue";
+import TheHeader from "@/components/shared/TheHeader.vue";
+import BaseNavigation from "@/components/shared/BaseNavigation.vue";
+import NewsCard from "@/components/news/NewsCard.vue";
 import WriteIcon from "@/components/icons/newsFeed/WriteIcon.vue";
-import SearchIcon from "@/components/icons/newsFeed/SearchIcon.vue";
+import SearchIcon from "@/components/icons/shared/SearchIcon.vue";
+import { useMovieStore } from "@/stores/movie";
+import { onBeforeMount } from "vue-demi";
 
-const cards = [1, 2];
+const movieStore = useMovieStore();
+
+onBeforeMount(() => movieStore.getRecentQuotes());
 </script>
