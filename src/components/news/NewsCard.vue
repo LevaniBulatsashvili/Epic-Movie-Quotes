@@ -24,20 +24,20 @@
 
       <div class="mt-[2.45rem] flex">
         <div class="mx-[0rem] flex">
-          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">3</div>
+          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">{{ comments.length }}</div>
           <CommentIcon class="ml-[1.2rem] mr-[2.4rem]" />
         </div>
 
         <div class="mx-[0rem] flex">
-          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">10</div>
-          <LikeIcon class="ml-[1.2rem]" />
+          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">{{ likes }}</div>
+          <LikeIcon @click="likeOrDislike" class="ml-[1.2rem] cursor-pointer" />
         </div>
       </div>
     </div>
 
     <div
       v-for="comment in comments"
-      :key="comment"
+      :key="comment.id"
       class="mt-[2.4rem] max-w-[93rem]"
     >
       <div class="flex items-center">
@@ -45,16 +45,13 @@
         <div
           class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
         >
-          Maia Nakashidze
+          {{ comment.username }}
         </div>
       </div>
       <div
         class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]"
       >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        nunc vel massa facilisis consequat elit morbi convallis convallis.
-        Volutpat vitae et nisl et. Adipiscing enim integer mi leo nisl. Arcu
-        vitae mauris odio eget.
+        {{ comment.body }}
       </div>
     </div>
 
@@ -62,6 +59,7 @@
       <div class="flex items-center">
         <img class="mx-[0px] mr-[2.4rem]" src="@/assets/png/profile.png" />
         <input
+          @keyup.enter="writeComment"
           class="font-[Helvetica Neue] w-full rounded-[1rem] bg-[#24222F] py-[1.1rem] px-[2.7rem] text-[2rem] text-[#CED4DA] opacity-[0.6]"
           type="text"
           placeholder="Write a comment"
@@ -72,7 +70,36 @@
 </template>
 
 <script setup>
-import CommentIcon from "@/components/icons/newsFeed/CommentIcon.vue";
-import LikeIcon from "@/components/icons/newsFeed/LikeIcon.vue";
-const comments = [1, 2];
+import CommentIcon from "@/components/icons/shared/CommentIcon.vue";
+import LikeIcon from "@/components/icons/shared/LikeIcon.vue";
+import { useAuthStore } from "@/stores/auth.js";
+import { useMovieStore } from "@/stores/movie";
+import { ref } from "vue-demi";
+
+const movieStore = useMovieStore();
+const auth = useAuthStore();
+const comment = ref("");
+
+const likeOrDislike = () =>
+  movieStore.likeOrDislikeQuote(props.quoteId, auth.user.id);
+
+const writeComment = () => {
+  movieStore.commentOnQuote(props.quoteId, auth.user.username, comment.value);
+  comment.value = "";
+};
+
+const props = defineProps({
+  quoteId: {
+    type: Number,
+    required: true,
+  },
+  likes: {
+    type: Number,
+    required: true,
+  },
+  comments: {
+    type: Array,
+    required: true,
+  },
+});
 </script>

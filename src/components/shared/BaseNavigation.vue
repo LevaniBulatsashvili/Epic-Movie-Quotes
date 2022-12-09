@@ -1,10 +1,12 @@
 <template>
-  <nav>
+  <nav class="min-w-[22rem]">
     <div class="flex">
-      <img src="@/assets/png/profile.png" />
+      <img class="mx-[0rem]" src="@/assets/png/profile.png" />
       <div>
-        <div class="font-[Helvetica Neue] text-[2.4rem] text-[#FFFFFF]">
-          Nino Tabagari
+        <div
+          class="font-[Helvetica Neue] text-[2.4rem] capitalize text-[#FFFFFF]"
+        >
+          {{ auth.user.username }}
         </div>
         <router-link
           :to="{ name: 'profile' }"
@@ -31,6 +33,9 @@
 </template>
 
 <script setup>
-import HouseIcon from "@/components/icons/HouseIcon.vue";
-import CameraIcon from "@/components/icons/CameraIcon.vue";
+import HouseIcon from "@/components/icons/component/HouseIcon.vue";
+import CameraIcon from "@/components/icons/component/CameraIcon.vue";
+import { useAuthStore } from "@/stores/auth";
+
+const auth = useAuthStore();
 </script>

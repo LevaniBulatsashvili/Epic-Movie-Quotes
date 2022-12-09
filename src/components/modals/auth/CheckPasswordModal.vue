@@ -31,7 +31,7 @@
 <script setup>
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
-import PaperPlaneIcon from "@/components/icons/PaperPlaneIcon.vue";
+import PaperPlaneIcon from "@/components/icons/component/PaperPlaneIcon.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();

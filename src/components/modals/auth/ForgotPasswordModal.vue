@@ -16,7 +16,9 @@
             @submit="forgotPassword"
             v-slot="{ meta }"
           >
-            {{ setFormIsValid(meta) }}
+            <div class="hidden">
+              {{ setFormIsValid(meta) }}
+            </div>
             <MainField
               title="Email"
               type="email"
@@ -54,7 +56,7 @@
 import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
-import BackArrowIcon from "@/components/icons/BackArrowIcon.vue";
+import BackArrowIcon from "@/components/icons/component/BackArrowIcon.vue";
 import { Form } from "vee-validate";
 import { ref } from "vue";
 import { useRouter } from "vue-router";

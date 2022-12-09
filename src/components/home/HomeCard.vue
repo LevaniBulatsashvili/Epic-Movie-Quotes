@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import HomeLineIcon from "@/components/icons/HomeLineIcon.vue";
+import HomeLineIcon from "@/components/icons/component/HomeLineIcon.vue";
 
 const props = defineProps(["quote", "movie", "backgroundImage"]);
 </script>

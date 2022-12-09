@@ -24,12 +24,29 @@
             {{ notificationAmount }}
           </div>
         </div>
-        <button
-          @click="langDropdown"
-          class="font-[Halvetica Neue] flex w-[9.6rem] items-center pl-[4rem] text-[1.6rem] text-[#FFFFFF]"
-        >
-          Eng<DownArrowIcon />
-        </button>
+        <div>
+          <button
+            @click="toggleDropdown"
+            class="font-[Halvetica Neue] flex w-[9.6rem] max-w-[8rem] items-center pl-[2rem] text-[1.6rem] text-[#FFFFFF]"
+          >
+            {{ locale }}
+            <DownArrowIcon />
+          </button>
+          <div v-if="langDropdown" class="absolute z-10 mt-[1rem] border">
+            <button
+              @click="setLocaleEn"
+              class="block px-[5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
+            >
+              En
+            </button>
+            <button
+              @click="setLocaleKa"
+              class="block px-[5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
+            >
+              Ka
+            </button>
+          </div>
+        </div>
         <button
           v-if="!auth.isAuthenticated"
           @click="router.push({ name: 'home', params: { modal: 'register' } })"
@@ -57,15 +74,30 @@
 </template>
 
 <script setup>
-import DownArrowIcon from "@/components/icons/DownArrowIcon.vue";
-import BellIcon from "@/components/icons/BellIcon.vue";
+import DownArrowIcon from "@/components/icons/component/DownArrowIcon.vue";
+import BellIcon from "@/components/icons/component/BellIcon.vue";
 import { ref } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 import axios from "@/config/axios.js";
+import { setLocale } from "@vee-validate/i18n";
 
 const auth = useAuthStore();
 const router = useRouter();
+const locale = ref("Eng");
+
+const langDropdown = ref(false);
+const toggleDropdown = () => (langDropdown.value = !langDropdown.value);
+const setLocaleEn = () => {
+  setLocale("en");
+  locale.value = "Eng";
+  langDropdown.value = false;
+};
+const setLocaleKa = () => {
+  setLocale("ka");
+  locale.value = "Ka";
+  langDropdown.value = false;
+};
 
 const logout = async () => {
   await axios.post("http://127.0.0.1:8000/api/logout");
@@ -75,6 +107,5 @@ const logout = async () => {
 
 const notificationAmount = ref(1);
 
-const langDropdown = () => {};
 const notifications = () => {};
 </script>

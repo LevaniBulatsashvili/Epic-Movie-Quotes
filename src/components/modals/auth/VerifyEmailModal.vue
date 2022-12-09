@@ -25,7 +25,7 @@
 <script setup>
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
-import PaperPlaneIcon from "@/components/icons/PaperPlaneIcon.vue";
+import PaperPlaneIcon from "@/components/icons/component/PaperPlaneIcon.vue";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted } from "vue";
 import { useAuthStore } from "@/stores/auth";

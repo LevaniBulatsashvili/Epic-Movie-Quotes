@@ -12,7 +12,9 @@
 
         <div class="mb-[5.3rem] flex">
           <Form class="min-w-[36rem]" @submit="() => ''" v-slot="{ meta }">
-            {{ setFormIsValid(meta) }}
+            <div class="hidden">
+              {{ setFormIsValid(meta) }}
+            </div>
 
             <MainField
               title="Name"
@@ -82,8 +84,8 @@
 import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
+import GoogleIcon from "@/components/icons/component/GoogleIcon.vue";
 import { Form } from "vee-validate";
-import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";

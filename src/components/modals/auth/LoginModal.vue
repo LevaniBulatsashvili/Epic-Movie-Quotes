@@ -93,8 +93,8 @@
 import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
+import GoogleIcon from "@/components/icons/component/GoogleIcon.vue";
 import { Form } from "vee-validate";
-import GoogleIcon from "@/components/icons/GoogleIcon.vue";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
