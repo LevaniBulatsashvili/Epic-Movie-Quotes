@@ -1,18 +1,19 @@
 <template>
   <div class="mt-[3rem] mb-[0.8rem] flex items-center">
-    <img class="mx-[0rem]" src="@/assets/png/profile.png" />
+    <img v-if="!user.thumbnail" class="mx-[0rem]" src="@/assets/png/profile.png" />
+    <img v-else class="mx-[0rem]" :src="'http://127.0.0.1:8000/storage/' + user.thumbnail" />
     <div
       class="font-[Halvetica Neue] ml-[1.6rem] text-[2rem] capitalize text-[#FFFFFF]"
     >
-      {{ username }}
+      {{ user.username }}
     </div>
   </div>
 </template>
 
 <script setup>
 defineProps({
-  username: {
-    type: String,
+  user: {
+    type: Object,
     required: true,
   },
 });

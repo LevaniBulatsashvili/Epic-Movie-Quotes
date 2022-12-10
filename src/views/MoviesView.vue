@@ -12,7 +12,7 @@
           <div
             class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] font-medium text-[#FFFFFF]"
           >
-            My list of movies (Total {{ movieStore.movies.length }})
+            {{ $t("movie.my_list_of_movies") }} ({{ $t("movie.total") }} {{ movieStore.movies.length }})
           </div>
 
           <div class="mr-[0rem] flex items-center">
@@ -20,13 +20,13 @@
               class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex items-center gap-[1.6rem] text-[2rem] text-[#CED4DA]"
             >
               <SearchIcon />
-              Search
+              {{ $t("movie.search") }}
             </div>
             <button
               @click="router.push({ name: 'addMovie' })"
               class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
             >
-              <PlusIcon />Add movie
+              <PlusIcon />{{ $t("movie.add_movie") }}
             </button>
           </div>
         </div>
@@ -37,6 +37,7 @@
             :id="movie.id"
             :name="movie.name"
             :quotes="movie.quotes"
+            :thumbnail="movie.thumbnail"
             :key="movie.id"
           />
         </div>

@@ -13,7 +13,7 @@
               <label
                 class="font-[Helvetica Neue] mb-[0.8rem] block text-[1.6rem] text-[#FFFFFF]"
                 for="Username"
-                >Username</label
+                >{{ $t("profile.username") }}</label
               >
               <div
                 class="border-profileUnderline border-b-[1px] border-solid pb-[5.6rem]"
@@ -29,14 +29,14 @@
                   @click="false"
                   class="font-[Helvetica Neue] ml-[3.3rem] text-[2rem] text-[#CED4DA]"
                 >
-                  Edit
+                  {{ $t("profile.edit") }}
                 </button>
               </div>
 
               <label
                 class="font-[Helvetica Neue] mt-[4.2rem] mb-[0.8rem] block text-[1.6rem] text-[#FFFFFF]"
                 for="Email"
-                >Email</label
+                >{{ $t("profile.email") }}</label
               >
               <div>
                 <Field
@@ -55,13 +55,13 @@
             @click="false"
             class="font-[Helvetica Neue] mr-[2.6rem] text-[2rem] text-[#CED4DA]"
           >
-            Cancel
+            {{ $t("profile.cancel") }}
           </button>
           <button
             @click="false"
-            class="font-[Helvetica Neue] active:bg-[hover:bg-[#CC0E10]] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10]"
+            class="font-[Helvetica Neue] active:bg-[hover:bg-[#CC0E10]] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10] capitalize"
           >
-            Save Changes
+            {{ $t("profile.save_changes") }}
           </button>
         </div>
       </BaseProfile>

@@ -16,7 +16,7 @@
           <div
             class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
-            edit movie
+            {{ $t("movie_modal.edit_movie") }}
           </div>
           <CloseIcon
             @click="
@@ -30,7 +30,7 @@
         </div>
 
         <div class="mx-[3.2rem] mb-[3.2rem]">
-          <MovieProfile :username="auth.user.username" />
+          <MovieProfile :user="auth.user" />
 
           <Form
             class="w-full max-w-[89.7rem]"
@@ -43,18 +43,18 @@
             <MovieField
               title="name_en"
               type="text"
-              placeholder="Movie name"
+              :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
-              lang="Eng"
+              :lang="$t('movie_modal.en')"
               @onFieldChange="onNameEnChange"
             />
             <MovieField
               @onFieldChange="onNameKaChange"
               title="name_ka"
               type="text"
-              placeholder="ფილმის სახელი"
+              :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
-              lang="ქარ"
+              :lang="$t('movie_modal.ka')"
             />
 
             <div
@@ -77,7 +77,7 @@
                   <div
                     class="font-[Halvetica Neue] text-[1.8rem] font-bold capitalize leading-[100%] text-[#FFFFFF]"
                   >
-                    {{ genre.en }}
+                    {{ genre[locale] }}
                   </div>
                 </div>
               </div>
@@ -87,17 +87,17 @@
               @onFieldChange="onDirectorEnChange"
               title="director_en"
               type="text"
-              placeholder="Director"
+              :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
-              lang="Eng"
+              :lang="$t('movie_modal.en')"
             />
             <MovieField
               @onFieldChange="onDirectorKaChange"
               title="director_ka"
               type="text"
-              placeholder="რეჟისორი"
+              :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
-              lang="ქარ"
+              :lang="$t('movie_modal.ka')"
             />
 
             <MovieField
@@ -105,32 +105,23 @@
               as="textarea"
               title="description_en"
               type="textarea"
-              placeholder="Movie description"
+              :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
-              lang="Eng"
+              :lang="$t('movie_modal.en')"
             />
             <MovieField
               @onFieldChange="ondescriptionKaChange"
               as="textarea"
               title="description_ka"
               type="textarea"
-              placeholder="ფილმის აღწერა"
+              :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
-              lang="ქარ"
+              :lang="$t('movie_modal.ka')"
             />
 
-            <!-- <Field name="file">
-              <div class="flex mt-[3.4rem] mb-[3.2rem] bg-[#11101A] border-[1px] border-solid border-[#6C757D] items-center">
-                <CameraIcon class="ml-[1.8rem] mr-[1.1rem] my-[3rem]" />
-                <div class="font-[Halvetica Neue] mx-[0rem] text-[2rem] text-[#FFFFFF]">Drag & drop your image here or</div>
-                <input
-                  @change="onFileChange"
-                  class="absolute left-[36rem] border-box bg-[#11101A] opacity-[0.8] border-[1px] border-solid border-[#6C757D] rounded-[0.4rem]"
-                  type="file" />
-              </div>
-            </Field> -->
-
-            <MainButton description="Edit movie" :onClick="editMovie" />
+            <FileDropdown @onFileChanged="onFileChanged" />
+            
+            <MainButton :description="$t('movie_modal.edit_movie')" :onClick="editMovie" />
           </Form>
         </div>
       </div>
@@ -140,10 +131,11 @@
 
 <script setup>
 import MovieProfile from "@/components/movie/MovieProfile.vue";
+import FileDropdown from "@/components/movie/FileDropdown.vue";
 import MovieField from "@/components/form/MovieField.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import CloseIcon from "@/components/icons/movie/CloseIcon.vue";
-import { Form, Field } from "vee-validate";
+import { Form } from "vee-validate";
 import { reactive, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
@@ -154,6 +146,7 @@ const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
+const locale = sessionStorage.getItem("locale") ?? "en";
 
 const allGenres = movieStore.allGenres;
 const nameEn = ref("");
@@ -162,7 +155,7 @@ const directorEn = ref("");
 const directorKa = ref("");
 const descriptionEn = ref("");
 const descriptionKa = ref("");
-// let file = reactive({});
+const file = ref("");
 
 const selectedGenres = reactive([]);
 const onNameEnChange = (val) => (nameEn.value = val);
@@ -171,7 +164,8 @@ const onDirectorEnChange = (val) => (directorEn.value = val);
 const onDirectorKaChange = (val) => (directorKa.value = val);
 const ondescriptionEnChange = (val) => (descriptionEn.value = val);
 const ondescriptionKaChange = (val) => (descriptionKa.value = val);
-// const onFileChange = (e) => file = e.target.files[0];
+
+const onFileChanged = (val) => (file.value = val);
 
 const onGenreClick = (genre) => {
   const index = selectedGenres.indexOf(genre);
@@ -183,26 +177,19 @@ const formIsValid = ref(false);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
 const editMovie = async () => {
-  // console.log(file);
-  // let fd = new FormData();
-  // fd.append("image", file);
-  // console.log(fd);
-
   if (formIsValid.value) {
+    const fd = new FormData();
+    fd.append("name_en", nameEn.value);
+    fd.append("name_ka", nameKa.value);
+    fd.append("director_en", directorEn.value);
+    fd.append("director_ka", directorKa.value);
+    fd.append("description_en", descriptionEn.value);
+    fd.append("description_ka", descriptionKa.value);
+    fd.append("genres", JSON.stringify(Object.values(selectedGenres)));
+    if (file.value) (fd.append("thumbnail", file.value));
+
     try {
-      const res = await axios.patch(
-        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}`,
-        {
-          name_en: nameEn.value,
-          name_ka: nameKa.value,
-          director_en: directorEn.value,
-          director_ka: directorKa.value,
-          description_en: descriptionEn.value,
-          description_ka: descriptionKa.value,
-          // image: fd,
-          genres: Object.values(selectedGenres),
-        }
-      );
+      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${route.params.id}`, fd);
       const editedMovie = res.data.movie;
       editedMovie.genres = res.data.genres;
       movieStore.movie = editedMovie;

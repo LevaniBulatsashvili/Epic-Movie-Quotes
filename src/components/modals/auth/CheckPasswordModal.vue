@@ -8,20 +8,20 @@
         <PaperPlaneIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
-          title="Check your email"
-          description="Please check your email and follow the instructions to reset your password."
+          :title="$t('auth.check_your_email')"
+          :description="$t('auth.please_check_your_email_and_follow_the_instructions_to_reset_your_password')"
           textColor="#FFFFFF"
         />
         <MainButton
           @Click="router.push({ name: 'home' })"
           class="mx-[9rem] mt-[4rem] mb-[3.2rem]"
-          description="Go to my email"
+          :description="$t('auth.go_to_my_email')"
         />
         <div
           @click="router.push({ name: 'home' })"
           class="mb-[4.7rem] cursor-pointer text-center text-[1.6rem] text-[#6C757D]"
         >
-          Skip, I’ll confirm later
+          {{ $t("auth.skip_i_will_confirm_later") }}
         </div>
       </div>
     </div>

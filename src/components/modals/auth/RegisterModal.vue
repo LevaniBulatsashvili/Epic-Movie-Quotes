@@ -6,8 +6,8 @@
     >
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
-          title="Create an account"
-          description="Start your journey!"
+          :title="$t('auth.create_an_account')"
+          :description="$t('auth.start_your_journey')"
         />
 
         <div class="mb-[5.3rem] flex">
@@ -17,60 +17,60 @@
             </div>
 
             <MainField
-              title="Name"
+              :title="$t('auth.name')"
               type="text"
-              placeholder="At least 3 & max.15 lower case characters"
+              :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
               rules="required|min:3|max:15"
               :keepAsterisk="true"
               :onClearField="onUsernameClear"
               @onFieldChange="onUsernameChange"
             />
             <MainField
-              title="Email"
+              :title="$t('auth.email')"
               type="email"
-              placeholder="Enter your email"
+              :placeholder="$t('auth.enter_your_email')"
               rules="required|email"
               :keepAsterisk="true"
               :onClearField="onEmailClear"
               @onFieldChange="onEmailChange"
             />
             <MainField
-              title="Password"
+              :title="$t('auth.password')"
               type="password"
-              placeholder="At least 8 & max.15 lower case characters"
+              :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
               rules="required|min:8|max:15"
               :keepAsterisk="true"
               :onClearField="onPasswordClear"
               @onFieldChange="onPasswordChange"
             />
             <MainField
-              title="Confirm password"
+              :title="$t('auth.confirm_password')"
               type="password"
-              placeholder="Confirm password"
+              :placeholder="$t('auth.confirm_password')"
               rules="required|min:8|max:15|confirmed:@Password"
               :keepAsterisk="true"
               :onClearField="onConfirmPasswordClear"
               @onFieldChange="onConfirmPasswordChange"
             />
 
-            <MainButton description="Get started" :onClick="register" />
+            <MainButton :description="$t('auth.get_started')" :onClick="register" />
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
             >
               <GoogleIcon class="mx-[0rem] mr-[0.83rem]" />
-              Sign up with Google
+              {{ $t("auth.sign_up_with_Google") }}
             </button>
             <div
               class="font-[Helvetica Neue] text-center text-[1.6rem] text-[#6C757D]"
             >
-              Already have an account?
+              {{ $t("auth.already_have_an_account") }}
               <span
                 @click="
                   router.push({ name: 'home', params: { modal: 'login' } })
                 "
                 class="font-[Helvetica Neue] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
-                >Log in</span
+                >{{ $t("auth.log_in") }}</span
               >
             </div>
           </Form>

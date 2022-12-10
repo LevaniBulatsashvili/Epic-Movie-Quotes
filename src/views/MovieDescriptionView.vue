@@ -2,15 +2,15 @@
   <div>
     <TheHeader />
 
-    <div v-if="movieStore.movie" class="mt-[3.2rem] flex">
+    <div v-if="(movieStore.movie && movieStore.quotes)" class="mt-[3.2rem] flex">
       <div class="ml-[7rem] mr-[12.7rem]">
         <BaseNavigation />
       </div>
       <div class="pr-[7rem]">
         <div
-          class="font-[Halvetica Neue] mb-[3.5rem] text-[2.4rem] font-medium text-[#FFFFFF]"
+          class="font-[Halvetica Neue] mb-[3.5rem] text-[2.4rem] font-medium text-[#FFFFFF] capitalize"
         >
-          Movie Description
+          {{ $t("movie_description.movie_description") }}
         </div>
         <MovieDetails
           :id="movieStore.movie.id"
@@ -18,6 +18,7 @@
           :director="movieStore.movie.director"
           :description="movieStore.movie.description"
           :genres="movieStore.movie.genres"
+          :thumbnail="movieStore.movie.thumbnail"
         />
         <div class="mt-[4rem] mb-[6rem] flex items-center">
           <div
@@ -26,22 +27,23 @@
             <div
               class="font-[Helvetica Neue] pr-[1.6rem] text-[2.4rem] text-[#FFFFFF]"
             >
-              Quotes (total {{ movieStore.quotes.length }})
+              {{ $t("movie_description.quotes") }} ({{ $t("movie_description.total") }} {{ movieStore.quotes.length }})
             </div>
           </div>
           <button
             @click="router.push({ name: 'addQuote' })"
             class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
           >
-            <PlusIcon />Add quote
+            <PlusIcon />{{ $t("movie_description.add_quote") }}
           </button>
         </div>
         <div v-for="quote in movieStore.quotes" :key="quote.id">
           <MovieQuotes
             :quoteId="quote.id"
-            :body="quote.body.en"
+            :body="quote.body"
             :comments="quote.comments.length"
             :likes="quote.likes"
+            :thumbnail="quote.thumbnail"
           />
         </div>
       </div>

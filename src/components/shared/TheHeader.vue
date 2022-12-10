@@ -34,16 +34,16 @@
           </button>
           <div v-if="langDropdown" class="absolute z-10 mt-[1rem] border">
             <button
-              @click="setLocaleEn"
+              @click="setLocaleEn()"
               class="block px-[5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
             >
-              En
+              {{ $t("header.en") }}
             </button>
             <button
-              @click="setLocaleKa"
+              @click="setLocaleKa()"
               class="block px-[5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
             >
-              Ka
+              {{ $t("header.ka") }}
             </button>
           </div>
         </div>
@@ -52,21 +52,21 @@
           @click="router.push({ name: 'home', params: { modal: 'register' } })"
           class="font-[Halvetica Neue] ml-[3rem] w-[10.9rem] rounded-[0.4rem] border-[1px] border-solid border-[#E31221] bg-[#E31221] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF] hover:bg-[#CC0E10] active:bg-[#CC0E10]"
         >
-          Sign Up
+          {{ $t("header.sign_up") }}
         </button>
         <button
           v-if="!auth.isAuthenticated"
           @click="router.push({ name: 'home', params: { modal: 'login' } })"
           class="font-[Halvetica Neue] w-[9.6rem] rounded-[0.4rem] border-[1px] border-solid border-[#FFFFFF] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
         >
-          Log in
+          {{ $t("header.log_in") }}
         </button>
         <button
           v-else
           @click="logout"
           class="font-[Halvetica Neue] w-[9.6rem] rounded-[0.4rem] border-[1px] border-solid border-[#FFFFFF] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
         >
-          Logout
+          {{ $t("header.logout") }}
         </button>
       </div>
     </nav>
@@ -81,21 +81,28 @@ import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 import axios from "@/config/axios.js";
 import { setLocale } from "@vee-validate/i18n";
+import i18n from "@/config/i18n/index.js";
 
 const auth = useAuthStore();
 const router = useRouter();
-const locale = ref("Eng");
+const locale = ref(sessionStorage.getItem("locale") === "ka" ? "ქარ" : "Eng");
+if (sessionStorage.getItem("locale") === "ka") (i18n.global.locale = "ka");
 
 const langDropdown = ref(false);
 const toggleDropdown = () => (langDropdown.value = !langDropdown.value);
 const setLocaleEn = () => {
+  sessionStorage.setItem("locale", "en");
+  i18n.global.locale = "en";
   setLocale("en");
   locale.value = "Eng";
   langDropdown.value = false;
 };
+
 const setLocaleKa = () => {
+  sessionStorage.setItem("locale", "ka");
+  i18n.global.locale = "ka";
   setLocale("ka");
-  locale.value = "Ka";
+  locale.value = "ქარ";
   langDropdown.value = false;
 };
 

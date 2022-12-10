@@ -8,13 +8,13 @@
         <PaperPlaneIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
-          title="Thank you!"
-          description="Your account has been activated"
+          :title="$t('auth.thank_you')"
+          :description="$t('auth.your_account_has_been_activated')"
           textColor="#FFFFFF"
         />
         <MainButton
           class="mx-[9rem] mt-[4rem] mb-[7rem]"
-          description="Go to my news feed"
+          :description="$t('auth.go_to_my_news_feed')"
           @Click="router.push({ name: 'newsFeed' })"
         />
       </div>

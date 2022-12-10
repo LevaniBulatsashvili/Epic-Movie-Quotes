@@ -6,8 +6,8 @@
     >
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
-          title="Forgot password?"
-          description="Enter the email and we’ll send an email with instructions to reset your password"
+          :title="$t('auth.forgot_password')"
+          :description="$t('auth.enter_your_email_and_we_will_send_an_email_with_instructions_to_reset_your_password')"
         />
 
         <div class="mb-[5.3rem] flex">
@@ -20,15 +20,15 @@
               {{ setFormIsValid(meta) }}
             </div>
             <MainField
-              title="Email"
+              :title="$t('auth.email')"
               type="email"
-              placeholder="Enter your email"
+              :placeholder="$t('auth.enter_your_email')"
               rules="required|email"
               :onClearField="onEmailClear"
               @onFieldChange="onEmailChange"
             />
 
-            <MainButton description="Send instructions" :onClick="() => ''" />
+            <MainButton :description="$t('auth.send_instructions')" :onClick="() => ''" />
 
             <div class="flex items-center">
               <BackArrowIcon
@@ -42,7 +42,7 @@
                   router.push({ name: 'home', params: { modal: 'login' } })
                 "
                 class="font-[Helvetica Neue] ml-[1.1rem] cursor-pointer text-[1.6rem] text-[#6C757D]"
-                >Back to log in
+                >{{ $t("auth.back_to_log_in") }}
               </span>
             </div>
           </Form>

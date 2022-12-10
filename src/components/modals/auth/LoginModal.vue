@@ -6,8 +6,8 @@
     >
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
-          title="Log in to your account"
-          description="Welcome back! Please enter your details."
+          :title="$t('auth.log_in_to_your_account')"
+          :description="$t('auth.welcome_back_please_enter_your_details')"
         />
 
         <div class="mb-[5.3rem] flex">
@@ -17,17 +17,17 @@
             </div>
 
             <MainField
-              title="Email"
+              :title="$t('auth.email')"
               type="text"
-              placeholder="Enter your email"
+              :placeholder="$t('auth.enter_your_email')"
               rules="required|min:3"
               :onClearField="onUsernameOrEmailClear"
               @onFieldChange="onUsernameOrEmailChange"
             />
             <MainField
-              title="Password"
+              :title="$t('auth.password')"
               type="password"
-              placeholder="Password"
+              :placeholder="$t('auth.password')"
               rules="required|min:8|max:15"
               :onClearField="onPasswordClear"
               @onFieldChange="onPasswordChange"
@@ -45,7 +45,7 @@
                 <label
                   class="font-[Helvetica Neue] text-[1.6rem] text-[#FFFFFF]"
                   for="remember_me"
-                  >Remember me</label
+                  >{{ $t("auth.remember_me") }}</label
                 >
               </div>
               <div
@@ -57,29 +57,29 @@
                   })
                 "
               >
-                Forgot password
+                {{ $t("auth.forgot_password") }}
               </div>
             </div>
 
-            <MainButton description="Sign in" />
+            <MainButton :description="$t('auth.sign_in')" />
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
             >
               <GoogleIcon class="mx-[0rem] mr-[0.83rem]" />
-              Sign in with Google
+              {{ $t("auth.sign_in_with_google") }}
             </button>
 
             <div
               class="font-[Helvetica Neue] text-center text-[1.6rem] text-[#6C757D]"
             >
-              Dont have an account?
+              {{ $t("auth.dont_have_an_account") }}
               <span
                 class="font-[Helvetica Neue] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
                 @click="
                   router.push({ name: 'home', params: { modal: 'register' } })
                 "
-                >Sign up
+                >{{ $t("auth.sign_up") }}
               </span>
             </div>
           </Form>
