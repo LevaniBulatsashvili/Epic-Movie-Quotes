@@ -1,0 +1,18 @@
+{
+  "add_movie": "კინოს დამატება",
+  "movie_name": "კინოს სახელი",
+  "en": "ინგ",
+  "ka": "ქართ",
+  "director": "რეჟისორი",
+  "movie_description": "კინოს აღწერა",
+  "drag_drop_your_image_here_or": "ჩააგდეთ თქვენი სურათი აქ, ან",
+  "choose_file": "აირჩიეთ ფაილი",
+  "add_quote": "ციტატის დამატება",
+  "quote": "ციტატა",
+  "edit_movie": "კინოს რედაქტირება",
+  "edit_quote": "ციტატის რედაქტირება",
+  "save_changes": "ცვლილებების შენახვა",
+  "delete": "წაშლა",
+  "view_quote": "ციტატის ნახვა",
+  "write_a_comment": "კომენტარის დაწერა"
+}

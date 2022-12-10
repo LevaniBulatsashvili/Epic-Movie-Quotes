@@ -8,6 +8,7 @@ export const useMovieStore = defineStore("movie", {
       movie: null,
       quotes: [],
       quote: {},
+      page: 1,
       allGenres: [
         {
           en: "romance",
@@ -83,9 +84,10 @@ export const useMovieStore = defineStore("movie", {
     },
     getRecentQuotes() {
       axios
-        .get(`http://127.0.0.1:8000/api/quotes/recent`)
+        .get(`http://127.0.0.1:8000/api/quotes/recent?page=${this.page}`)
         .then((res) => {
-          this.quotes = res.data.quotes;
+          this.page++;
+          this.quotes = [...this.quotes, ...res.data.quotes.data];
         })
         .catch((err) => console.log(err));
     },
@@ -116,17 +118,18 @@ export const useMovieStore = defineStore("movie", {
         })
         .catch((err) => console.log(err));
     },
-    commentOnQuote(quoteId, username, body) {
+    commentOnQuote(quoteId, username, thumbnail, body) {
       axios
         .post(`http://127.0.0.1:8000/api/admin/quotes/${quoteId}/comment`, {
           username,
+          thumbnail,
           body,
         })
         .then((res) => {
-          this.quote.comments.push(res.data.quoteComment);
+          if (this.quote.id) this.quote.comments.push(res.data.quoteComment);
           this.quotes = this.quotes.map(quote => {
             if (quote.id !== quoteId) return quote;
-            quote.comments.push(res.data.comment);
+            quote.comments.push(res.data.quoteComment);
             return quote;
           });
         })

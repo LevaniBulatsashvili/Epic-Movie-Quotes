@@ -6,8 +6,8 @@
     >
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
-          title="Create new password"
-          description="Your new password must be different from previous used passwords"
+          :title="$t('auth.create_new_password')"
+          :description="$t('auth.your_new_password_must_be_different_from_previous_used_passwords')"
         />
 
         <div class="mb-[5.3rem] flex">
@@ -20,31 +20,31 @@
               {{ setFormIsValid(meta) }}
             </div>
             <MainField
-              title="Password"
+              :title="$t('auth.password')"
               type="password"
-              placeholder="At least 8 & max.15 lower case characters"
+              :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
               rules="required|min:8|max:15"
               :keepAsterisk="true"
               :onClearField="onPasswordClear"
               @onFieldChange="onPasswordChange"
             />
             <MainField
-              title="Confirm password"
+              :title="$t('auth.confirm_password')"
               type="password"
-              placeholder="Confirm password"
+              :placeholder="$t('auth.confirm_password')"
               rules="required|min:8|max:15|confirmed:@Password"
               :keepAsterisk="true"
               :onClearField="onConfirmPasswordClear"
               @onFieldChange="onConfirmPasswordChange"
             />
 
-            <MainButton description="Reset password" :onClick="() => ''" />
+            <MainButton :description="$t('auth.reset_password')" :onClick="() => ''" />
             <div class="flex items-center text-center">
               <BackArrowIcon class="mr-[0rem]" />
               <router-link
                 class="font-[Helvetica Neue] ml-[1.1rem] text-[1.6rem] text-[#6C757D]"
                 :to="{ name: 'home', params: { modal: 'login' } }"
-                >Back to log in
+                >{{ $t("auth.back_to_log_in") }}
               </router-link>
             </div>
           </Form>

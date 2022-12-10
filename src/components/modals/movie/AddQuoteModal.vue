@@ -17,7 +17,7 @@
           <div
             class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
-            add quote
+            {{ $t("movie_modal.add_quote") }}
           </div>
           <CloseIcon
             @click="
@@ -31,18 +31,18 @@
         </div>
 
         <div class="mx-[3.2rem]">
-          <MovieProfile :username="auth.user.username" />
+          <MovieProfile :user="auth.user" />
 
           <div class="my-[3rem] flex">
             <img
               class="mx-[0rem] max-h-[15.8rem] max-w-[29rem]"
-              src="@/assets/png/movie.png"
+              :src="'http://127.0.0.1:8000/storage/' + movieStore.movie.thumbnail"
             />
             <div class="ml-[2.7rem]">
               <div
                 class="font-[Halvetica Neue] mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
               >
-                {{ movieStore.movie.name.en }}
+                {{ movieStore.movie.name[locale] }}
               </div>
               <div class="mt-[1.5rem] mb-[2.1rem] flex">
                 <div
@@ -50,16 +50,16 @@
                   v-for="genre in genres"
                   :key="genre"
                 >
-                  <MovieGenre :genre="genre.genre.en" />
+                  <MovieGenre :genre="genre.genre[locale]" />
                 </div>
               </div>
               <div
                 class="font-[Halvetica Neue] text-[1.8rem] capitalize text-[#CED4DA]"
               >
-                Director:
+                {{ $t("movie_modal.director") }}:
                 <span
                   class="font-[Halvetica Neue] ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
-                  >{{ movieStore.movie.director.en }}</span
+                  >{{ movieStore.movie.director[locale] }}</span
                 >
               </div>
             </div>
@@ -80,39 +80,23 @@
                 as="textarea"
                 title="quote_en"
                 type="textarea"
-                placeholder="Quote"
+                :placeholder="$t('movie_modal.quote')"
                 rules="required|max:255"
-                lang="Eng"
+                :lang="$t('movie_modal.en')"
               />
               <MovieField
                 @onFieldChange="onQuoteKaChange"
                 as="textarea"
                 title="quote_ka"
                 type="textarea"
-                placeholder="ციტატა"
+                :placeholder="$t('movie_modal.quote')"
                 rules="required|max:255"
-                lang="ქარ"
+                :lang="$t('movie_modal.ka')"
               />
 
-              <Field name="file">
-                <div
-                  class="mt-[3.4rem] mb-[3.2rem] flex items-center border-[1px] border-solid border-[#6C757D] bg-[#11101A]"
-                >
-                  <CameraIcon class="my-[3rem] ml-[1.8rem] mr-[1.1rem]" />
-                  <div
-                    class="font-[Halvetica Neue] mx-[0rem] text-[2rem] text-[#FFFFFF]"
-                  >
-                    Drag & drop your image here or
-                  </div>
-                  <input
-                    @change="onFileChange"
-                    class="border-box absolute left-[36rem] rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] opacity-[0.8]"
-                    type="file"
-                  />
-                </div>
-              </Field>
+              <FileDropdown @onFileChanged="onFileChanged" />
 
-              <MainButton description="Add quote" :onClick="addQuote" />
+              <MainButton :description="$t('movie_modal.add_quote')" :onClick="addQuote" />
             </Form>
           </div>
         </div>
@@ -126,9 +110,9 @@ import MovieField from "@/components/form/MovieField.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import MovieGenre from "@/components/movie/MovieGenre.vue";
 import MovieProfile from "@/components/movie/MovieProfile.vue";
+import FileDropdown from "@/components/movie/FileDropdown.vue";
 import CloseIcon from "@/components/icons/movie/CloseIcon.vue";
-import CameraIcon from "@/components/icons/movie/CameraIcon.vue";
-import { Form, Field } from "vee-validate";
+import { Form } from "vee-validate";
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
@@ -139,28 +123,32 @@ const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
-const genres = movieStore.movie.genres;
+const genres = ref([]);
+const locale = sessionStorage.getItem("locale") ?? "en";
+setTimeout(() => (genres.value = movieStore.movie.genres), 300);
 
 const quoteEn = ref("");
 const quoteKa = ref("");
+const file = ref("");
 
 const onQuoteEnChange = (val) => (quoteEn.value = val);
 const onQuoteKaChange = (val) => (quoteKa.value = val);
+const onFileChanged = (val) => (file.value = val);
 
 const formIsValid = ref(false);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
 const addQuote = async () => {
-  if (formIsValid.value) {
+  if (formIsValid.value && file.value) {
+    const fd = new FormData();
+    fd.append("username", auth.user.username);
+    fd.append("quote_en", quoteEn.value);
+    fd.append("quote_ka", quoteKa.value);
+    fd.append("thumbnail", file.value);
+    fd.append("user_thumbnail", auth.user.thumbnail);
+
     try {
-      const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}/quotes`,
-        {
-          quote_en: quoteEn.value,
-          quote_ka: quoteKa.value,
-          // image: fd,
-        }
-      );
+      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${route.params.id}/quotes`, fd);
       movieStore.quotes.push(res.data.quote);
       router.push({
         name: "movieDescription",

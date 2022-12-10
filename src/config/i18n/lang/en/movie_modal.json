@@ -1,0 +1,18 @@
+{
+  "add_movie": "Add movie",
+  "movie_name": "Movie name",
+  "en": "Eng",
+  "ka": "Ka",
+  "director": "Director",
+  "movie_description": "Movie description",
+  "drag_drop_your_image_here_or": "Drag & drop your image here or",
+  "choose_file": "Choose file",
+  "add_quote": "Add quote",
+  "quote": "Quote",
+  "edit_movie": "Edit movie",
+  "edit_quote": "Edit quote",
+  "save_changes": "Save changes",
+  "delete": "Delete",
+  "view_quote": "View quote",
+  "write_a_comment": "Write a comment"
+}

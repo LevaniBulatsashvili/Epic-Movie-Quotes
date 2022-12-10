@@ -3,7 +3,7 @@
     <div
       class="border-quoteUnderline flex items-start border-b-[1px] border-solid pb-[2.4rem]"
     >
-      <img class="mx-[0rem]" src="@/assets/png/quote.png" />
+      <img :src="'http://127.0.0.1:8000/storage/' + thumbnail" />
       <div class="ml-[3.4rem] w-full">
         <div @click="toggleQuoteDropdown" class="mb-[2.8rem] flex">
           <ThreeDotIcon class="mr-[0rem] cursor-pointer" />
@@ -21,7 +21,7 @@
               class="font-[Halvetica Neue] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <EyeIcon />
-              View quote
+              {{ $t("movie_description.view_quote") }}
             </button>
             <button
               @click="
@@ -33,19 +33,19 @@
               class="font-[Halvetica Neue] my-[3.2rem] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <PencilIcon />
-              Edit
+              {{ $t("movie_description.edit") }}
             </button>
             <button
               @click="deleteQuote"
               class="font-[Halvetica Neue] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <GarbageIcon />
-              Delete
+              {{ $t("movie_description.delete") }}
             </button>
           </div>
         </div>
         <div class="font-[Halvetica Neue] text-[2.4rem] italic text-[#CED4DA]">
-          "{{ body }}"
+          "{{ body[locale] }}"
         </div>
       </div>
     </div>
@@ -95,6 +95,7 @@ const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
 const quoteDropdown = ref(false);
+const locale = sessionStorage.getItem("locale") ?? "en";
 const toggleQuoteDropdown = () => (quoteDropdown.value = !quoteDropdown.value);
 
 const deleteQuote = () => {
@@ -106,22 +107,23 @@ const likeOrDislike = () =>
 
 const props = defineProps({
   body: {
-    type: String,
-    required: false,
-    default: "Frankly, my dear, I don'tgive a damn.",
+    type: Object,
+    required: true,
   },
   comments: {
     type: Number,
-    required: false,
-    default: 3,
+    required: true,
   },
   likes: {
     type: Number,
-    required: false,
-    default: 10,
+    required: true,
   },
   quoteId: {
     type: Number,
+    required: true,
+  },
+  thumbnail: {
+    type: String,
     required: true,
   },
 });

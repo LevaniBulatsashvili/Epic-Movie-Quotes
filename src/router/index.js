@@ -82,11 +82,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore();
-
   if (!auth.isAuthenticated) {
     try {
       const res = await axios.get("http://127.0.0.1:8000/api/is-auth");
-      // console.log(res.data.user);
       if (!auth.isAuthenticated) {
         auth.isAuthenticated = true;
         auth.user = res.data.user;

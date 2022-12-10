@@ -39,7 +39,7 @@
           <div
             class="font-[Halvetica Neue] mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
-            view quote
+            {{ $t("movie_modal.view_quote") }}
           </div>
           <CloseIcon
             @click="
@@ -53,18 +53,18 @@
         </div>
 
         <div class="mx-[3.2rem]">
-          <MovieProfile :username="auth.user.username" />
+          <MovieProfile :user="auth.user" />
 
           <div class="my-[2rem]">
             <div
               class="font-[Halvetica Neue] box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
             >
-              "Frankly, my dear, I don'tgive a damn."
+              "{{ movieStore.quote.body.en }}"
             </div>
             <div
               class="font-[Halvetica Neue] absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
             >
-              Eng
+             {{ $t("movie_modal.en") }}
             </div>
           </div>
 
@@ -72,17 +72,17 @@
             <div
               class="font-[Halvetica Neue] box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
             >
-              "ციტატა ქართულ ენაზე."
+              "{{ movieStore.quote.body.ka }}"
             </div>
             <div
               class="font-[Halvetica Neue] absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
             >
-              ქარ
+              {{ $t("movie_modal.ka") }}
             </div>
           </div>
 
           <div class="mb-[3.2rem] flex">
-            <img class="w-full" src="@/assets/png/movie.png" />
+            <img class="w-full" :src="'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail" />
           </div>
 
           <div class="mt-[2.4rem] flex pb-[2.6rem]">
@@ -110,7 +110,9 @@
             class="mt-[2.4rem] max-w-[93rem]"
           >
             <div class="flex items-center">
-              <img class="mx-[0px]" src="@/assets/png/profile.png" />
+              <img v-if="!comment.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
+              <img v-else class="mx-[0rem] mr-[2.4rem]"
+                :src="'http://127.0.0.1:8000/storage/' + comment.thumbnail" />
               <div
                 class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
               >
@@ -126,14 +128,16 @@
           <div class="mt-[2.4rem]">
             <div class="flex items-center">
               <img
+                v-if="!auth.user.thumbnail"
                 class="mx-[0px] mr-[2.4rem]"
                 src="@/assets/png/profile.png"
               />
+              <img v-else class="mx-[0rem] mr-[2.4rem]" :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail" />
               <input
                 @keyup.enter="writeComment"
                 class="font-[Helvetica Neue] w-full rounded-[1rem] bg-[#24222F] py-[1.1rem] px-[2.7rem] text-[2rem] text-[#CED4DA] opacity-[0.6]"
                 type="text"
-                placeholder="Write a comment"
+                :placeholder="$t('movie_modal.write_a_comment')"
                 v-model="comment"
               />
             </div>
@@ -161,6 +165,7 @@ const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
 const comment = ref("");
+const locale = sessionStorage.getItem("locale") ?? "en";
 
 const deleteQuote = () => {
   movieStore.deleteQuote(route.params.quoteId);
@@ -171,7 +176,7 @@ const likeOrDislike = () =>
   movieStore.likeOrDislikeQuote(route.params.quoteId, auth.user.id);
 
 const writeComment = () => {
-  movieStore.commentOnQuote(+route.params.quoteId, auth.user.username, comment.value);
+  movieStore.commentOnQuote(+route.params.quoteId, auth.user.username, auth.user.thumbnail, comment.value);
   comment.value = "";
 };
 

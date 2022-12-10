@@ -16,7 +16,7 @@
             <div
               class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] text-[2rem] text-[#FFFFFF]"
             >
-              Write new quote
+              {{ $t('news.write_new_quote') }}
             </div>
           </div>
           <div class="mb-[2.2rem] flex items-center">
@@ -24,15 +24,13 @@
             <div
               class="font-[Helvetica Neue] mx-[0rem] text-[2rem] text-[#CED4DA]"
             >
-              Search by
+              {{ $t('news.search_by') }}
             </div>
           </div>
         </div>
         <NewsCard v-for="quote in movieStore.quotes"
           :key="quote.id"
-          :quoteId="quote.id"
-          :likes="quote.likes.length"
-          :comments="quote.comments"
+          :quote="quote"
           />
       </div>
     </div>
@@ -46,9 +44,25 @@ import NewsCard from "@/components/news/NewsCard.vue";
 import WriteIcon from "@/components/icons/newsFeed/WriteIcon.vue";
 import SearchIcon from "@/components/icons/shared/SearchIcon.vue";
 import { useMovieStore } from "@/stores/movie";
-import { onBeforeMount } from "vue-demi";
+import { onBeforeMount, onBeforeUnmount } from "vue-demi";
 
 const movieStore = useMovieStore();
 
+const onScroll = () => {
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = window.scrollY;
+
+  if (Math.ceil(scrolled) + 100 >= scrollable) {
+    movieStore.getRecentQuotes();
+    window.removeEventListener("scroll", onScroll);
+    setTimeout(() => {
+      window.addEventListener("scroll", onScroll);
+    }, 1000);
+  }
+};
+
+window.addEventListener("scroll", onScroll);
+
 onBeforeMount(() => movieStore.getRecentQuotes());
+onBeforeUnmount(() => (window.removeEventListener("scroll", onScroll)));
 </script>

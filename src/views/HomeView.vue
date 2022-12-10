@@ -6,33 +6,32 @@
       <div
         class="text-center font-[Montserrat] text-[6rem] font-bold text-[#DDCCAA]"
       >
-        Find any quote in<br />
-        millions of movie lines
+        {{ $t("home.find_any_quote_in_millions_of_movie_lines") }}
       </div>
       <button
         @click="router.push({ name: 'newsFeed' })"
         class="font-[Halvetica Neue] mt-[3rem] rounded-[0.48rem] border-[1px] border-solid border-[#E31221] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10]"
       >
-        Get started
+        {{ $t("home.get_started") }}
       </button>
     </div>
 
     <HomeCard
       backgroundImage="bg-intersteller"
-      quote="You have to leave somethig behind to go forward"
-      movie="Interstellar, 2014"
+      :quote="$t('home.you_have_to_leave_somethig_behind_to_go_forward')"
+      :movie="$t('home.interstellar_2014')"
     />
 
     <HomeCard
       backgroundImage="bg-tenenbaums"
-      quote="I think we’re just gonna have to be secretly in love with earch other and leave it that"
-      movie="The Royal Tenenbaums,2001"
+      :quote="$t('home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that')"
+      :movie="$t('home.the_royal_tenenbaums_2001')"
     />
 
     <HomeCard
       backgroundImage="bg-lotr"
-      quote="I think we’re just gonna have to be secretly in love with earch other and leave it that"
-      movie="The Royal Tenenbaums,2001"
+      :quote="$t('home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that')"
+      :movie="$t('home.the_royal_tenenbaums_2001')"
     />
 
     <HomeFooter />

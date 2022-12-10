@@ -8,13 +8,13 @@
         <CheckmarkIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
-          title="Success!"
-          description="Your Password changed successfully"
+          :title="$t('auth.success')"
+          :description="$t('auth.Your_Password_changed_successfully')"
           textColor="#FFFFFF"
         />
         <MainButton
           class="mx-[9rem] mt-[4rem] mb-[7rem]"
-          description="Login"
+          :description="$t('auth.login')"
           @Click="router.push({ name: 'home', params: { modal: 'login' } })"
         />
       </div>

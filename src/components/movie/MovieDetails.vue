@@ -1,12 +1,12 @@
 <template>
   <div class="flex">
-    <img src="@/assets/png/movie.png" />
+    <img :src="'http://127.0.0.1:8000/storage/' + thumbnail" />
     <div class="pl-[2.1rem]">
       <div class="flex">
         <div
           class="font-[Halvetica Neue] mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
         >
-          {{ name.en }}
+          {{ name[locale] }}
         </div>
         <div
           class="mr-[0rem] flex items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
@@ -33,22 +33,22 @@
           v-for="genre in genres"
           :key="genre.id"
         >
-          <MovieGenre :genre="genre.genre.en" />
+          <MovieGenre :genre="genre.genre[locale]" />
         </div>
       </div>
       <div
         class="font-[Halvetica Neue] text-[1.8rem] capitalize text-[#CED4DA]"
       >
-        Director:
+        {{ $t("movie_description.director") }}:
         <span
           class="font-[Halvetica Neue] ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
-          >{{ director.en }}</span
+          >{{ director[locale] }}</span
         >
       </div>
       <div
         class="font-[Halvetica Neue] text-[1.8rem] capitalize text-[#CED4DA]"
       >
-        Budget:
+        {{ $t("movie_description.budget") }}:
         <span
           class="font-[Halvetica Neue] ml-[1.6rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
           >{{ budget }}$</span
@@ -57,7 +57,7 @@
       <div
         class="font-[Halvetica Neue] mt-[2rem] text-[1.8rem] capitalize text-[#CED4DA]"
       >
-        {{ description.en }}
+        {{ description[locale] }}
       </div>
     </div>
   </div>
@@ -73,6 +73,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const movieStore = useMovieStore();
 const genres = props.genres;
+const locale = sessionStorage.getItem("locale") ?? "en";
 
 const deleteMovie = () => {
   movieStore.deleteMovie(props.id);
@@ -103,6 +104,10 @@ const props = defineProps({
   },
   genres: {
     type: Object,
+    required: true,
+  },
+  thumbnail: {
+    type: String,
     required: true,
   },
 });
