@@ -17,20 +17,26 @@
             </div>
 
             <MainField
+              @input="onUsernameChange"
               :title="$t('auth.name')"
               type="text"
               :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
               rules="required|min:3|max:15"
               :keepAsterisk="true"
+              :asyncValidationFailed="usernameTaken"
+              :asyncError="$t('auth.username_is_taken')"
               :onClearField="onUsernameClear"
               @onFieldChange="onUsernameChange"
             />
             <MainField
+              @input="onEmailChange"
               :title="$t('auth.email')"
               type="email"
               :placeholder="$t('auth.enter_your_email')"
               rules="required|email"
               :keepAsterisk="true"
+              :asyncValidationFailed="emailTaken"
+              :asyncError="$t('auth.email_is_taken')"
               :onClearField="onEmailClear"
               @onFieldChange="onEmailChange"
             />
@@ -100,13 +106,22 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const formIsValid = ref(false);
+const usernameTaken = ref(false);
+const emailTaken = ref(false);
 
 const onUsernameClear = () => (username.value = "");
 const onEmailClear = () => (email.value = "");
 const onPasswordClear = () => (password.value = "");
 const onConfirmPasswordClear = () => (confirmPassword.value = "");
-const onUsernameChange = (val) => (username.value = val);
-const onEmailChange = (val) => (email.value = val);
+const onUsernameChange = (val) => {
+  username.value = val;
+  usernameTaken.value = false;
+};
+const onEmailChange = (val) => {
+  email.value = val;
+  emailTaken.value = false;
+};
+
 const onPasswordChange = (val) => (password.value = val);
 const onConfirmPasswordChange = (val) => (confirmPassword.value = val);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
@@ -125,11 +140,11 @@ const register = async () => {
         params: { modal: "check-email" },
       });
     } catch (err) {
-      if (err.response.data.errors.email !== undefined) {
-        console.log("username is taken");
+      if (err.response.data.errors.username !== undefined) {
+        usernameTaken.value = true;
       }
       if (err.response.data.errors.email !== undefined) {
-        console.log("email is taken");
+        emailTaken.value = true;
       }
     }
   }
