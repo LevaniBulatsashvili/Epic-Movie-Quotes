@@ -12,7 +12,7 @@
 
         <div class="mb-[5.3rem] flex">
           <div class="min-w-[36rem]">
-            <Form class="" @submit.prevent="() => ''" v-slot="{ meta }">
+            <Form class="" @submit="() => ''" v-slot="{ meta }">
               <div class="hidden">
                 {{ setFormIsValid(meta) }}
               </div>

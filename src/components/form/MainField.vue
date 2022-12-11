@@ -42,7 +42,6 @@
       </p>
       <MainIconButton
         v-if="icon === 'filled'"
-        @click="onFilledIconClick(field)"
       >
         <FilledIcon />
       </MainIconButton>
@@ -65,11 +64,6 @@ import InvalidIcon from "@/components/icons/form/InvalidIcon.vue";
 import { ref } from "vue-demi";
 
 const icon = ref("");
-const onFilledIconClick = (field) => {
-  field.value = "";
-  props.onClearField();
-  setTimeout(() => (icon.value = ""), 100);
-};
 
 const onFieldBlur = (meta) => {
   if (meta.valid && meta.touched) {

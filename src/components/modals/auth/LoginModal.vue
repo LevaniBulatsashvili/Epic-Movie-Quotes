@@ -18,6 +18,7 @@
               </div>
 
               <MainField
+                @input="onUsernameOrEmailChange"
                 :title="$t('auth.email')"
                 type="text"
                 :placeholder="$t('auth.enter_your_email')"
@@ -26,6 +27,7 @@
                 @onFieldChange="onUsernameOrEmailChange"
               />
               <MainField
+                @input="onPasswordChange"
                 :title="$t('auth.password')"
                 type="password"
                 :placeholder="$t('auth.password')"
@@ -33,6 +35,9 @@
                 :onClearField="onPasswordClear"
                 @onFieldChange="onPasswordChange"
               />
+              <p v-if="asyncValidationFailed" class="font-[Halvetica Neue] mb-[1.5rem] text-[1.4rem] text-[#DC3545]">
+                {{ $t("auth.user_does_not_exist") }}
+              </p>
 
               <div class="flex">
                 <div class="ml-[0rem] flex gap-[0.8rem]">
@@ -108,12 +113,19 @@ const username_email = ref("");
 const password = ref("");
 const rememberMe = ref(false);
 const formIsValid = ref(false);
+const asyncValidationFailed = ref(false);
 
 const onUsernameOrEmailClear = () => (username_email.value = "");
 const onPasswordClear = () => (password.value = "");
-const onUsernameOrEmailChange = (val) => (username_email.value = val);
+
+const onUsernameOrEmailChange = (val) => {
+  username_email.value = val;
+  asyncValidationFailed.value = false;
+};
+
 const onPasswordChange = (val) => {
   password.value = val;
+  asyncValidationFailed.value = false;
 };
 const setFormIsValid = (meta) => {
   formIsValid.value = meta.valid;
@@ -124,14 +136,15 @@ const auth = useAuthStore();
 const login = async () => {
   if (formIsValid.value) {
     try {
-      await axios.post("http://127.0.0.1:8000/api/login", {
+      const res = await axios.post("http://127.0.0.1:8000/api/login", {
         username_email: username_email.value,
         password: password.value,
         remember_me: rememberMe.value,
       });
-      router.push({ name: "newsFeed" });
+      if (res.data.message) router.push({ name: "home", params: { modal: "check-email" } });
+      else router.push({ name: "newsFeed" });
     } catch (err) {
-      console.log(err.response.data);
+      asyncValidationFailed.value = true;
     }
   }
 };
