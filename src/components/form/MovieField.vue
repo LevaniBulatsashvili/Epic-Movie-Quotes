@@ -14,11 +14,14 @@
     >
       {{ lang }}
     </div>
+    <p>
+      <ErrorMessage class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]" :name="title" />
+    </p>
   </div>
 </template>
 
 <script setup>
-import { Field } from "vee-validate";
+import { Field, ErrorMessage } from "vee-validate";
 
 const emit = defineEmits(["onFieldChange"]);
 const onFieldChange = (e) => emit("onFieldChange", e.target.value);

@@ -14,7 +14,7 @@ const router = createRouter({
       component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: "/news-feed",
+      path: "/news-feed/:modal?",
       name: "newsFeed",
       component: () => import("@/views/NewsFeedView.vue"),
       beforeEnter: isAuthenticated,

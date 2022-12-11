@@ -3,5 +3,10 @@
   "search_by": "Search by",
   "enter": "Enter",
   "to_search_movies_enter": "to search movies, Enter",
-  "to_search_quotes": "to search quotes"
+  "to_search_quotes": "to search quotes",
+  "post": "Post",
+  "quote": "quote",
+  "start_create_new_quote": "Start create new quote",
+  "choose_movie": "Choose movie",
+  "please_select_a_movie": "Please select a movie"
 }

@@ -12,9 +12,10 @@
           <div
             class="mb-[2.2rem] flex flex-grow items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
           >
-            <WriteIcon class="ml-[1.75rem] mr-[1.65rem]" />
+            <WriteIcon @click="router.push({ name: 'newsFeed', params: { modal: 'add-quote' } })" class="ml-[1.75rem] mr-[1.65rem] cursor-pointer" />
             <div
-              class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] text-[2rem] text-[#FFFFFF]"
+            @click="router.push({ name: 'newsFeed', params: { modal: 'add-quote' } })"
+              class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] text-[2rem] text-[#FFFFFF] cursor-pointer"
             >
               {{ $t("news.write_new_quote") }}
             </div>
@@ -48,21 +49,28 @@
       </div>
     </div>
   </div>
+
+  <AddQuoteModalVue v-if="path === '/news-feed/add-quote'" />
 </template>
 
 <script setup>
 import TheHeader from "@/components/shared/TheHeader.vue";
 import BaseNavigation from "@/components/shared/BaseNavigation.vue";
 import NewsCard from "@/components/news/NewsCard.vue";
+import AddQuoteModalVue from "@/components/modals/news/AddQuoteModal.vue";
 import WriteIcon from "@/components/icons/newsFeed/WriteIcon.vue";
 import SearchIcon from "@/components/icons/shared/SearchIcon.vue";
 import { useMovieStore } from "@/stores/movie";
-import { onBeforeMount, onBeforeUnmount, ref } from "vue-demi";
+import { computed, onBeforeMount, onBeforeUnmount, ref } from "vue-demi";
 import { useAuthStore } from "@/stores/auth";
+import { useRoute, useRouter } from "vue-router";
 
+const router = useRouter();
+const path = computed(() => useRoute().path);
 const movieStore = useMovieStore();
 const auth = useAuthStore();
 const searching = ref(false);
+
 
 const onSearchClicked = () => {
   searching.value = true;

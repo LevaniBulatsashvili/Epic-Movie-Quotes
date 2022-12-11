@@ -12,5 +12,17 @@ configure({
         confirmed: "{field} განსხვავებულია",
       },
     },
+    en: {
+      names: {
+        name_en: "name",
+        name_ka: "name",
+        director_en: "director",
+        director_ka: "director",
+        description_en: "description",
+        description_ka: "description",
+        quote_en: "quote",
+        quote_ka: "quote",
+      },
+    }
   }),
 });
