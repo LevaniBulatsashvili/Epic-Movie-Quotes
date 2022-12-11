@@ -193,7 +193,7 @@ const editMovie = async () => {
 
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${route.params.id}`,
         fd
       );
       const editedMovie = res.data.movie;

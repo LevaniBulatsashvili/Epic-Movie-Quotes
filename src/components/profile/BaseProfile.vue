@@ -16,7 +16,7 @@
         <img
           v-else
           class="absolute bottom-[4rem] left-[40.5rem]"
-          :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+          :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <div class="text-center">
           <label
@@ -50,6 +50,7 @@
 import { useAuthStore } from "@/stores/auth.js";
 import { ref } from "vue-demi";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const auth = useAuthStore();
 const file = ref("");
 const wrongFileType = ref(false);

@@ -37,7 +37,7 @@
             <img
               class="mx-[0rem] max-h-[15.8rem] max-w-[29rem]"
               :src="
-                'http://127.0.0.1:8000/storage/' + movieStore.movie.thumbnail
+  backendUrl + '/storage/' + movieStore.movie.thumbnail
               "
             />
             <div class="ml-[2.7rem]">
@@ -124,6 +124,7 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie.js";
 import axios from "@/config/axios.js";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
@@ -154,7 +155,7 @@ const addQuote = async () => {
 
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}/quotes`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${route.params.id}/quotes`,
         fd
       );
       movieStore.quotes.push(res.data.quote);

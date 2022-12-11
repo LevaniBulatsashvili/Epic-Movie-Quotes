@@ -144,7 +144,7 @@ const addQuote = async () => {
 
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin/movies/${movieId.value}/quotes`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${movieId.value}/quotes`,
         fd
       );
       movieStore.quotes.unshift(res.data.quote);

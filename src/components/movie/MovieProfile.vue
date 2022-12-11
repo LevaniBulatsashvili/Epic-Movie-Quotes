@@ -8,7 +8,7 @@
     <img
       v-else
       class="mx-[0rem]"
-      :src="'http://127.0.0.1:8000/storage/' + user.thumbnail"
+      :src="backendUrl + '/storage/' + user.thumbnail"
     />
     <div
       class="font-[Halvetica Neue] ml-[1.6rem] text-[2rem] capitalize text-[#FFFFFF]"
@@ -19,6 +19,8 @@
 </template>
 
 <script setup>
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 defineProps({
   user: {
     type: Object,

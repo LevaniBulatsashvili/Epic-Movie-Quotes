@@ -85,7 +85,7 @@
             <img
               class="w-full"
               :src="
-                'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail
+                backendUrl + '/storage/' + movieStore.quote.thumbnail
               "
             />
           </div>
@@ -123,7 +123,7 @@
               <img
                 v-else
                 class="mx-[0rem] mr-[2.4rem]"
-                :src="'http://127.0.0.1:8000/storage/' + comment.thumbnail"
+                :src="backendUrl + '/storage/' + comment.thumbnail"
               />
               <div
                 class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
@@ -147,7 +147,7 @@
               <img
                 v-else
                 class="mx-[0rem] mr-[2.4rem]"
-                :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+                :src="backendUrl + '/storage/' + auth.user.thumbnail"
               />
               <input
                 @keyup.enter="writeComment"
@@ -176,6 +176,7 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie";
 import { onBeforeMount, ref } from "vue-demi";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();

@@ -81,7 +81,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const forgotPassword = async () => {
   if (formIsValid.value) {
     localStorage.setItem("email", email.value);
-    await axios.post("http://127.0.0.1:8000/api/forgot-password", {
+    await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/forgot-password", {
       email: email.value,
     });
     router.push({

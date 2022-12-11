@@ -74,7 +74,7 @@
               <img
                 class="w-full"
                 :src="
-                  'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail
+                  backendUrl + '/storage/' + movieStore.quote.thumbnail
                 "
               />
 
@@ -105,6 +105,7 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie";
 import axios from "@/config/axios.js";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
@@ -132,7 +133,7 @@ const editQuote = async () => {
 
     try {
       const res = await axios.post(
-        `http://127.0.0.1:8000/api/admin/quotes/${route.params.quoteId}`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/quotes/${route.params.quoteId}`,
         fd
       );
       const editedQuote = res.data.quote;

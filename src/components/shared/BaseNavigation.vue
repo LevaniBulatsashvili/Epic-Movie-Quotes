@@ -9,7 +9,7 @@
       <img
         v-else
         class="mx-[0rem]"
-        :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+        :src="backendUrl + '/storage/' + auth.user.thumbnail"
       />
       <div>
         <div
@@ -46,5 +46,6 @@ import HouseIcon from "@/components/icons/component/HouseIcon.vue";
 import CameraIcon from "@/components/icons/component/CameraIcon.vue";
 import { useAuthStore } from "@/stores/auth";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const auth = useAuthStore();
 </script>

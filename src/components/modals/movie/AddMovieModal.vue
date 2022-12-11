@@ -183,7 +183,7 @@ const addMovie = async () => {
 
     try {
       const res = await axios.post(
-        "http://127.0.0.1:8000/api/admin/movies",
+        import.meta.env.VITE_BACKEND_API_BASE_URL + "/admin/movies",
         fd
       );
       const movie = res.data.movie;

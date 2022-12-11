@@ -107,7 +107,7 @@ const setLocaleKa = () => {
 };
 
 const logout = async () => {
-  await axios.post("http://127.0.0.1:8000/api/logout");
+  await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/logout");
   auth.isAuthenticated = false;
   router.push({ name: "home" });
 };

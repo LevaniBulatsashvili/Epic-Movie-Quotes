@@ -1,6 +1,6 @@
 <template>
   <div class="flex">
-    <img :src="'http://127.0.0.1:8000/storage/' + thumbnail" />
+    <img :src="backendUrl + '/storage/' + thumbnail" />
     <div class="pl-[2.1rem]">
       <div class="flex">
         <div
@@ -70,6 +70,7 @@ import MovieGenre from "@/components/movie/MovieGenre.vue";
 import { useMovieStore } from "@/stores/movie";
 import { useRouter } from "vue-router";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const movieStore = useMovieStore();
 const genres = props.genres;

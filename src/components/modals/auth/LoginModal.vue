@@ -136,7 +136,7 @@ const auth = useAuthStore();
 const login = async () => {
   if (formIsValid.value) {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/login", {
+      const res = await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/login", {
         username_email: username_email.value,
         password: password.value,
         remember_me: rememberMe.value,

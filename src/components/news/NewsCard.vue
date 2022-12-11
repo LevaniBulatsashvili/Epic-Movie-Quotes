@@ -14,7 +14,7 @@
         <img
           v-else
           class="mx-[0rem]"
-          :src="'http://127.0.0.1:8000/storage/' + quote.user_thumbnail"
+          :src="backendUrl + '/storage/' + quote.user_thumbnail"
         />
         <div
           class="font-[Helvetica Neue] ml-[1.6rem] text-[2rem] text-[#FFFFFF]"
@@ -29,7 +29,7 @@
         {{ quote.body[locale] }}
       </div>
 
-      <img :src="'http://127.0.0.1:8000/storage/' + quote.thumbnail" />
+      <img :src="backendUrl + '/storage/' + quote.thumbnail" />
 
       <div class="mt-[2.45rem] flex">
         <div class="mx-[0rem] flex">
@@ -62,7 +62,7 @@
         <img
           v-else
           class="mx-[0rem]"
-          :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+          :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <div
           class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
@@ -87,7 +87,7 @@
         <img
           v-else
           class="mx-[0rem]"
-          :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+          :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <input
           @keyup.enter="writeComment"
@@ -112,6 +112,7 @@ const movieStore = useMovieStore();
 const auth = useAuthStore();
 const comment = ref("");
 const locale = sessionStorage.getItem("locale") ?? "en";
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const likeOrDislike = () =>
   movieStore.likeOrDislikeQuote(props.quote.id, auth.user.id);

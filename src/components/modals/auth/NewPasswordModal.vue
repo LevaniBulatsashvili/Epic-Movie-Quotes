@@ -89,7 +89,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
 const changePassword = async () => {
   if (formIsValid.value && confirmPassword.value === password.value) {
-    await axios.post("http://127.0.0.1:8000/api/reset-password", {
+    await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/reset-password", {
       email: email.value,
       password: password.value,
       password_confirmation: confirmPassword.value,
