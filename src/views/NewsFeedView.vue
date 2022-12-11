@@ -12,10 +12,23 @@
           <div
             class="mb-[2.2rem] flex flex-grow items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
           >
-            <WriteIcon @click="router.push({ name: 'newsFeed', params: { modal: 'add-quote' } })" class="ml-[1.75rem] mr-[1.65rem] cursor-pointer" />
+            <WriteIcon
+              @click="
+                router.push({
+                  name: 'newsFeed',
+                  params: { modal: 'add-quote' },
+                })
+              "
+              class="ml-[1.75rem] mr-[1.65rem] cursor-pointer"
+            />
             <div
-            @click="router.push({ name: 'newsFeed', params: { modal: 'add-quote' } })"
-              class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] text-[2rem] text-[#FFFFFF] cursor-pointer"
+              @click="
+                router.push({
+                  name: 'newsFeed',
+                  params: { modal: 'add-quote' },
+                })
+              "
+              class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] cursor-pointer text-[2rem] text-[#FFFFFF]"
             >
               {{ $t("news.write_new_quote") }}
             </div>
@@ -23,10 +36,12 @@
           <input
             @click.stop
             @keyup.enter="onSearch"
-            class="w-[69rem] search font-[Halvetica Neue] border-b-[1px] border-solid border-searchBorder bg-transparent ml-[5rem] px-[1.5rem] mb-[2.2rem] text-[2rem] text-searchText"
+            class="search font-[Halvetica Neue] border-searchBorder text-searchText ml-[5rem] mb-[2.2rem] w-[69rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] text-[2rem]"
             :class="{ hidden: !searching }"
             type="text"
-            :placeholder="`${$t('news.enter')} @ ${$t('news.to_search_movies_enter')} # ${$t('news.to_search_quotes')}`"
+            :placeholder="`${$t('news.enter')} @ ${$t(
+              'news.to_search_movies_enter'
+            )} # ${$t('news.to_search_quotes')}`"
           />
           <div
             v-if="!searching"
@@ -71,7 +86,6 @@ const movieStore = useMovieStore();
 const auth = useAuthStore();
 const searching = ref(false);
 
-
 const onSearchClicked = () => {
   searching.value = true;
 };
@@ -79,7 +93,8 @@ const onSearchClicked = () => {
 const onSearch = (e) => {
   let searchBy = e.target.value;
   const from = searchBy[0] === "@" ? "movie" : "";
-  if (searchBy[0] === "@" || searchBy[0] === "#") (searchBy = searchBy.substring(1));
+  if (searchBy[0] === "@" || searchBy[0] === "#")
+    searchBy = searchBy.substring(1);
   searching.value = false;
 
   movieStore.getQuotes(

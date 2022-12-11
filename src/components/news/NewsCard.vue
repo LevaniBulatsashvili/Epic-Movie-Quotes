@@ -6,8 +6,16 @@
       class="border-NewsCardUnderline border-b-[1px] border-solid pb-[2.5rem]"
     >
       <div class="flex items-center">
-        <img v-if="!quote.user_thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
-        <img v-else class="mx-[0rem]" :src="'http://127.0.0.1:8000/storage/' + quote.user_thumbnail" />
+        <img
+          v-if="!quote.user_thumbnail"
+          class="mx-[0px]"
+          src="@/assets/png/profile.png"
+        />
+        <img
+          v-else
+          class="mx-[0rem]"
+          :src="'http://127.0.0.1:8000/storage/' + quote.user_thumbnail"
+        />
         <div
           class="font-[Helvetica Neue] ml-[1.6rem] text-[2rem] text-[#FFFFFF]"
         >
@@ -25,12 +33,16 @@
 
       <div class="mt-[2.45rem] flex">
         <div class="mx-[0rem] flex">
-          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">{{ quote.comments.length }}</div>
+          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">
+            {{ quote.comments.length }}
+          </div>
           <CommentIcon class="ml-[1.2rem] mr-[2.4rem]" />
         </div>
 
         <div class="mx-[0rem] flex">
-          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">{{ quote.likes }}</div>
+          <div class="mx-[0rem] text-[2rem] text-[#FFFFFF]">
+            {{ quote.likes }}
+          </div>
           <LikeIcon @click="likeOrDislike" class="ml-[1.2rem] cursor-pointer" />
         </div>
       </div>
@@ -42,8 +54,16 @@
       class="mt-[2.4rem] max-w-[93rem]"
     >
       <div class="flex items-center">
-        <img v-if="!auth.user.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
-        <img v-else class="mx-[0rem]" :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail" />
+        <img
+          v-if="!auth.user.thumbnail"
+          class="mx-[0px]"
+          src="@/assets/png/profile.png"
+        />
+        <img
+          v-else
+          class="mx-[0rem]"
+          :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+        />
         <div
           class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
         >
@@ -59,8 +79,16 @@
 
     <div class="mt-[2.4rem]">
       <div class="flex items-center">
-        <img v-if="!auth.user.thumbnail" class="mx-[0px] mr-[2.4rem]" src="@/assets/png/profile.png" />
-        <img v-else class="mx-[0rem]" :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail" />
+        <img
+          v-if="!auth.user.thumbnail"
+          class="mx-[0px] mr-[2.4rem]"
+          src="@/assets/png/profile.png"
+        />
+        <img
+          v-else
+          class="mx-[0rem]"
+          :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail"
+        />
         <input
           @keyup.enter="writeComment"
           class="font-[Helvetica Neue] w-full rounded-[1rem] bg-[#24222F] py-[1.1rem] px-[2.7rem] text-[2rem] text-[#CED4DA] opacity-[0.6]"
@@ -89,7 +117,12 @@ const likeOrDislike = () =>
   movieStore.likeOrDislikeQuote(props.quote.id, auth.user.id);
 
 const writeComment = () => {
-  movieStore.commentOnQuote(props.quote.id, auth.user.username, auth.user.thumbnail, comment.value);
+  movieStore.commentOnQuote(
+    props.quote.id,
+    auth.user.username,
+    auth.user.thumbnail,
+    comment.value
+  );
   comment.value = "";
 };
 
@@ -97,6 +130,6 @@ const props = defineProps({
   quote: {
     type: Object,
     required: true,
-  }
+  },
 });
 </script>

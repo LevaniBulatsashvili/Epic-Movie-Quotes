@@ -42,9 +42,11 @@ export const useMovieStore = defineStore("movie", {
     };
   },
   actions: {
-    getMovies(userId, lang="", search="") {
+    getMovies(userId, lang = "", search = "") {
       axios
-        .get(`http://127.0.0.1:8000/api/user/${userId}/movies?lang=${lang}&search=${search}`)
+        .get(
+          `http://127.0.0.1:8000/api/user/${userId}/movies?lang=${lang}&search=${search}`
+        )
         .then((res) => (this.movies = res.data.movies))
         .catch((err) => console.log(err));
     },
@@ -74,9 +76,11 @@ export const useMovieStore = defineStore("movie", {
         })
         .catch((err) => console.log(err));
     },
-    getQuotes(movieId, lang="", search="", from="") {
+    getQuotes(movieId, lang = "", search = "", from = "") {
       axios
-        .get(`http://127.0.0.1:8000/api/quotes/${movieId}?lang=${lang}&search=${search}&from=${from}`)
+        .get(
+          `http://127.0.0.1:8000/api/quotes/${movieId}?lang=${lang}&search=${search}&from=${from}`
+        )
         .then((res) => {
           this.quotes = res.data.quotes;
         })
@@ -127,7 +131,7 @@ export const useMovieStore = defineStore("movie", {
         })
         .then((res) => {
           if (this.quote.id) this.quote.comments.push(res.data.quoteComment);
-          this.quotes = this.quotes.map(quote => {
+          this.quotes = this.quotes.map((quote) => {
             if (quote.id !== quoteId) return quote;
             quote.comments.push(res.data.quoteComment);
             return quote;

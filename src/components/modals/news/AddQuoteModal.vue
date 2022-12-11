@@ -1,44 +1,84 @@
 <template>
   <Teleport to="#app">
-    <div  @click="router.push({ name: 'newsFeed' })"
-    class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center">
+    <div
+      @click="router.push({ name: 'newsFeed' })"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+    >
       <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
-        <div class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid">
-          <div class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]">
+        <div
+          class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
+        >
+          <div
+            class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+          >
             {{ $t("news.write_new_quote") }}
           </div>
-          <CloseIcon 
-          @click="router.push({name: 'newsFeed'})" 
-          class="mr-[4.1rem] cursor-pointer" />
+          <CloseIcon
+            @click="router.push({ name: 'newsFeed' })"
+            class="mr-[4.1rem] cursor-pointer"
+          />
         </div>
 
         <div class="mx-[3.2rem]">
           <div class="mb-[3.2rem] flex">
-            <Form class="w-full max-w-[89.7rem]" @submit="() => ''" v-slot="{ meta }">
+            <Form
+              class="w-full max-w-[89.7rem]"
+              @submit="() => ''"
+              v-slot="{ meta }"
+            >
               <div class="hidden">
                 {{ setFormIsValid(meta) }}
               </div>
 
-              <MovieField @onFieldChange="onQuoteEnChange" as="textarea" title="quote_en" type="textarea"
-                :placeholder="$t('news.start_create_new_quote')" rules="required|max:255" :lang="$t('movie_modal.en')" />
-              <MovieField @onFieldChange="onQuoteKaChange" as="textarea" title="quote_ka" type="textarea"
-                :placeholder="$t('news.start_create_new_quote')" rules="required|max:255" :lang="$t('movie_modal.ka')" />
+              <MovieField
+                @onFieldChange="onQuoteEnChange"
+                as="textarea"
+                title="quote_en"
+                type="textarea"
+                :placeholder="$t('news.start_create_new_quote')"
+                rules="required|max:255"
+                :lang="$t('movie_modal.en')"
+              />
+              <MovieField
+                @onFieldChange="onQuoteKaChange"
+                as="textarea"
+                title="quote_ka"
+                type="textarea"
+                :placeholder="$t('news.start_create_new_quote')"
+                rules="required|max:255"
+                :lang="$t('movie_modal.ka')"
+              />
 
               <FileDropdown @onFileChanged="onFileChanged" />
 
               <div>
-                <div @click="toggleMovieDropdown" class="font-[Halvetica Neue] flex items-center py-[2.5rem] bg-[#000000] rounded-[0.4rem] cursor-pointer">
+                <div
+                  @click="toggleMovieDropdown"
+                  class="font-[Halvetica Neue] flex cursor-pointer items-center rounded-[0.4rem] bg-[#000000] py-[2.5rem]"
+                >
                   <CameraIcon class="ml-[2.4rem] mr-[1.2rem]" />
-                  <div class="ml-[0rem] text-[2.4rem] text-[#FFFFFF]">{{ $t("news.choose_movie") }}</div>
+                  <div class="ml-[0rem] text-[2.4rem] text-[#FFFFFF]">
+                    {{ $t("news.choose_movie") }}
+                  </div>
                   <DropArrowIcon class="mr-[2.4rem]" />
                 </div>
                 <div v-if="movieDropdown" class="bg-[#000000]">
-                  <button v-for="movie in movieStore.movies" :key="movie.id" @click="setMovieId(movie.id)" class="block w-full mx-auto py-[1.5rem] text-[2rem] text-[#FFFFFF] hover:bg-purple-900 border-[1px] border-solid border-purple-400">
-                   {{ movie.name[locale] }}
+                  <button
+                    v-for="movie in movieStore.movies"
+                    :key="movie.id"
+                    @click="setMovieId(movie.id)"
+                    class="mx-auto block w-full border-[1px] border-solid border-purple-400 py-[1.5rem] text-[2rem] text-[#FFFFFF] hover:bg-purple-900"
+                  >
+                    {{ movie.name[locale] }}
                   </button>
                 </div>
               </div>
-              <div v-if="movieNotSelected" class="font-[Halvetica Neue] p-[1rem] mt-[0.5rem] bg-purple-800 text-[1.6rem] text-[#FFFFFF]">{{ $t("news.please_select_a_movie") }}</div>
+              <div
+                v-if="movieNotSelected"
+                class="font-[Halvetica Neue] mt-[0.5rem] bg-purple-800 p-[1rem] text-[1.6rem] text-[#FFFFFF]"
+              >
+                {{ $t("news.please_select_a_movie") }}
+              </div>
 
               <MainButton :description="$t('news.post')" :onClick="addQuote" />
             </Form>
@@ -89,7 +129,7 @@ const setMovieId = (id) => {
 
 const toggleMovieDropdown = () => {
   movieNotSelected.value = false;
-  movieDropdown.value = !movieDropdown.value
+  movieDropdown.value = !movieDropdown.value;
 };
 
 const addQuote = async () => {
@@ -103,9 +143,12 @@ const addQuote = async () => {
     fd.append("user_thumbnail", auth.user.thumbnail);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${movieId.value}/quotes`, fd);
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/admin/movies/${movieId.value}/quotes`,
+        fd
+      );
       movieStore.quotes.unshift(res.data.quote);
-      router.push({name: "newsFeed"});
+      router.push({ name: "newsFeed" });
     } catch (err) {
       console.log(err);
     }

@@ -120,8 +120,11 @@
             />
 
             <FileDropdown @onFileChanged="onFileChanged" />
-            
-            <MainButton :description="$t('movie_modal.edit_movie')" :onClick="editMovie" />
+
+            <MainButton
+              :description="$t('movie_modal.edit_movie')"
+              :onClick="editMovie"
+            />
           </Form>
         </div>
       </div>
@@ -186,10 +189,13 @@ const editMovie = async () => {
     fd.append("description_en", descriptionEn.value);
     fd.append("description_ka", descriptionKa.value);
     fd.append("genres", JSON.stringify(Object.values(selectedGenres)));
-    if (file.value) (fd.append("thumbnail", file.value));
+    if (file.value) fd.append("thumbnail", file.value);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${route.params.id}`, fd);
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}`,
+        fd
+      );
       const editedMovie = res.data.movie;
       editedMovie.genres = res.data.genres;
       movieStore.movie = editedMovie;

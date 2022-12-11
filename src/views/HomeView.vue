@@ -24,13 +24,21 @@
 
     <HomeCard
       backgroundImage="bg-tenenbaums"
-      :quote="$t('home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that')"
+      :quote="
+        $t(
+          'home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that'
+        )
+      "
       :movie="$t('home.the_royal_tenenbaums_2001')"
     />
 
     <HomeCard
       backgroundImage="bg-lotr"
-      :quote="$t('home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that')"
+      :quote="
+        $t(
+          'home.i_think_we_are_just_gonna_have_to_be_secretly_in_love_with_earch_other_and_leave_it_that'
+        )
+      "
       :movie="$t('home.the_royal_tenenbaums_2001')"
     />
 

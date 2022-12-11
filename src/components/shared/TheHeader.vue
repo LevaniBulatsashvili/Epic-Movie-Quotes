@@ -86,7 +86,7 @@ import i18n from "@/config/i18n/index.js";
 const auth = useAuthStore();
 const router = useRouter();
 const locale = ref(sessionStorage.getItem("locale") === "ka" ? "ქარ" : "Eng");
-if (sessionStorage.getItem("locale") === "ka") (i18n.global.locale = "ka");
+if (sessionStorage.getItem("locale") === "ka") i18n.global.locale = "ka";
 
 const langDropdown = ref(false);
 const toggleDropdown = () => (langDropdown.value = !langDropdown.value);

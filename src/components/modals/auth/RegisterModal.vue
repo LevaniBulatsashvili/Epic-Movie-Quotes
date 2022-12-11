@@ -11,56 +11,61 @@
         />
 
         <div class="mb-[5.3rem] flex">
-          <Form class="min-w-[36rem]" @submit="() => ''" v-slot="{ meta }">
-            <div class="hidden">
-              {{ setFormIsValid(meta) }}
-            </div>
+          <div class="min-w-[36rem]">
+            <Form class="" @submit.prevent="() => ''" v-slot="{ meta }">
+              <div class="hidden">
+                {{ setFormIsValid(meta) }}
+              </div>
 
-            <MainField
-              @input="onUsernameChange"
-              :title="$t('auth.name')"
-              type="text"
-              :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
-              rules="required|min:3|max:15"
-              :keepAsterisk="true"
-              :asyncValidationFailed="usernameTaken"
-              :asyncError="$t('auth.username_is_taken')"
-              :onClearField="onUsernameClear"
-              @onFieldChange="onUsernameChange"
-            />
-            <MainField
-              @input="onEmailChange"
-              :title="$t('auth.email')"
-              type="email"
-              :placeholder="$t('auth.enter_your_email')"
-              rules="required|email"
-              :keepAsterisk="true"
-              :asyncValidationFailed="emailTaken"
-              :asyncError="$t('auth.email_is_taken')"
-              :onClearField="onEmailClear"
-              @onFieldChange="onEmailChange"
-            />
-            <MainField
-              :title="$t('auth.password')"
-              type="password"
-              :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
-              rules="required|min:8|max:15"
-              :keepAsterisk="true"
-              :onClearField="onPasswordClear"
-              @onFieldChange="onPasswordChange"
-            />
-            <Field class="hidden" name="passwordsMatch" v-model="password" />
-            <MainField
-              :title="$t('auth.confirm_password')"
-              type="password"
-              :placeholder="$t('auth.confirm_password')"
-              rules="required|min:8|max:15|confirmed:@passwordsMatch"
-              :keepAsterisk="true"
-              :onClearField="onConfirmPasswordClear"
-              @onFieldChange="onConfirmPasswordChange"
-            />
+              <MainField
+                @input="onUsernameChange"
+                :title="$t('auth.name')"
+                type="text"
+                :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
+                rules="required|min:3|max:15"
+                :keepAsterisk="true"
+                :asyncValidationFailed="usernameTaken"
+                :asyncError="$t('auth.username_is_taken')"
+                :onClearField="onUsernameClear"
+                @onFieldChange="onUsernameChange"
+              />
+              <MainField
+                @input="onEmailChange"
+                :title="$t('auth.email')"
+                type="email"
+                :placeholder="$t('auth.enter_your_email')"
+                rules="required|email"
+                :keepAsterisk="true"
+                :asyncValidationFailed="emailTaken"
+                :asyncError="$t('auth.email_is_taken')"
+                :onClearField="onEmailClear"
+                @onFieldChange="onEmailChange"
+              />
+              <MainField
+                :title="$t('auth.password')"
+                type="password"
+                :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
+                rules="required|min:8|max:15"
+                :keepAsterisk="true"
+                :onClearField="onPasswordClear"
+                @onFieldChange="onPasswordChange"
+              />
+              <Field class="hidden" name="passwordsMatch" v-model="password" />
+              <MainField
+                :title="$t('auth.confirm_password')"
+                type="password"
+                :placeholder="$t('auth.confirm_password')"
+                rules="required|min:8|max:15|confirmed:@passwordsMatch"
+                :keepAsterisk="true"
+                :onClearField="onConfirmPasswordClear"
+                @onFieldChange="onConfirmPasswordChange"
+              />
 
-            <MainButton :description="$t('auth.get_started')" :onClick="register" />
+              <MainButton
+                :description="$t('auth.get_started')"
+                :onClick="register"
+              />
+            </Form>
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
@@ -80,7 +85,7 @@
                 >{{ $t("auth.log_in") }}</span
               >
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>

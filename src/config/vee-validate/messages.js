@@ -23,6 +23,6 @@ configure({
         quote_en: "quote",
         quote_ka: "quote",
       },
-    }
+    },
   }),
 });

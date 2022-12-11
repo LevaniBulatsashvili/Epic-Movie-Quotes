@@ -34,7 +34,12 @@
           :name="title"
         />
       </p>
-      <p v-if="asyncValidationFailed" class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]">{{ asyncError }}</p>
+      <p
+        v-if="asyncValidationFailed"
+        class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+      >
+        {{ asyncError }}
+      </p>
       <MainIconButton
         v-if="icon === 'filled'"
         @click="onFilledIconClick(field)"
@@ -113,6 +118,6 @@ const props = defineProps({
     type: String,
     required: false,
     default: "",
-  }
+  },
 });
 </script>

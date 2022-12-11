@@ -14,7 +14,11 @@
         <div
           class="font-[Halvetica Neue] mt-[1rem] mb-[5rem] text-[2.4rem] font-medium text-[#FFFFFF]"
         >
-          {{ $t("forbidden.sorry_but_you_dont_have_permission_to_access_this_page") }}
+          {{
+            $t(
+              "forbidden.sorry_but_you_dont_have_permission_to_access_this_page"
+            )
+          }}
         </div>
         <button
           @click="goHome"

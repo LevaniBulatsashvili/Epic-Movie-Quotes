@@ -44,6 +44,6 @@ const props = defineProps({
   thumbnail: {
     type: String,
     required: true,
-  }
+  },
 });
 </script>

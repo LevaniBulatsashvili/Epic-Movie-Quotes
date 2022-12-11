@@ -7,7 +7,11 @@
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
           :title="$t('auth.create_new_password')"
-          :description="$t('auth.your_new_password_must_be_different_from_previous_used_passwords')"
+          :description="
+            $t(
+              'auth.your_new_password_must_be_different_from_previous_used_passwords'
+            )
+          "
         />
 
         <div class="mb-[5.3rem] flex">
@@ -39,7 +43,10 @@
               @onFieldChange="onConfirmPasswordChange"
             />
 
-            <MainButton :description="$t('auth.reset_password')" :onClick="() => ''" />
+            <MainButton
+              :description="$t('auth.reset_password')"
+              :onClick="() => ''"
+            />
             <div class="flex items-center text-center">
               <BackArrowIcon class="mr-[0rem]" />
               <router-link

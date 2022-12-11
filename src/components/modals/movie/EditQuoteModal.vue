@@ -71,9 +71,17 @@
 
               <FileDropdown @onFileChanged="onFileChanged" />
 
-              <img class="w-full" :src="'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail" />
+              <img
+                class="w-full"
+                :src="
+                  'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail
+                "
+              />
 
-              <MainButton :description="$t('movie_modal.save_changes')" :onClick="editQuote" />
+              <MainButton
+                :description="$t('movie_modal.save_changes')"
+                :onClick="editQuote"
+              />
             </Form>
           </div>
         </div>
@@ -118,12 +126,15 @@ const editQuote = async () => {
     const fd = new FormData();
     fd.append("username", auth.user.username);
     fd.append("quote_en", quoteEn.value);
-    fd.append("quote_ka", quoteKa.value);;
-    if (file.value) (fd.append("thumbnail", file.value));
+    fd.append("quote_ka", quoteKa.value);
+    if (file.value) fd.append("thumbnail", file.value);
     fd.append("user_thumbnail", auth.user.thumbnail);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/admin/quotes/${route.params.quoteId}`, fd);
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/admin/quotes/${route.params.quoteId}`,
+        fd
+      );
       const editedQuote = res.data.quote;
       movieStore.quotes = movieStore.quotes.map((quote) =>
         quote.id !== editedQuote.id ? quote : editedQuote

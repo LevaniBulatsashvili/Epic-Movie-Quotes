@@ -59,7 +59,7 @@
           </button>
           <button
             @click="false"
-            class="font-[Helvetica Neue] active:bg-[hover:bg-[#CC0E10]] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10] capitalize"
+            class="font-[Helvetica Neue] active:bg-[hover:bg-[#CC0E10]] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] capitalize text-[#FFFFFF] hover:bg-[#CC0E10]"
           >
             {{ $t("profile.save_changes") }}
           </button>

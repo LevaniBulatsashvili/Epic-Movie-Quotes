@@ -2,13 +2,13 @@
   <div>
     <TheHeader />
 
-    <div v-if="(movieStore.movie && movieStore.quotes)" class="mt-[3.2rem] flex">
+    <div v-if="movieStore.movie && movieStore.quotes" class="mt-[3.2rem] flex">
       <div class="ml-[7rem] mr-[12.7rem]">
         <BaseNavigation />
       </div>
       <div class="pr-[7rem]">
         <div
-          class="font-[Halvetica Neue] mb-[3.5rem] text-[2.4rem] font-medium text-[#FFFFFF] capitalize"
+          class="font-[Halvetica Neue] mb-[3.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
         >
           {{ $t("movie_description.movie_description") }}
         </div>
@@ -27,7 +27,10 @@
             <div
               class="font-[Helvetica Neue] pr-[1.6rem] text-[2.4rem] text-[#FFFFFF]"
             >
-              {{ $t("movie_description.quotes") }} ({{ $t("movie_description.total") }} {{ movieStore.quotes.length }})
+              {{ $t("movie_description.quotes") }} ({{
+                $t("movie_description.total")
+              }}
+              {{ movieStore.quotes.length }})
             </div>
           </div>
           <button

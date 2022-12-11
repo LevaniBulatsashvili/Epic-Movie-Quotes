@@ -36,7 +36,9 @@
           <div class="my-[3rem] flex">
             <img
               class="mx-[0rem] max-h-[15.8rem] max-w-[29rem]"
-              :src="'http://127.0.0.1:8000/storage/' + movieStore.movie.thumbnail"
+              :src="
+                'http://127.0.0.1:8000/storage/' + movieStore.movie.thumbnail
+              "
             />
             <div class="ml-[2.7rem]">
               <div
@@ -96,7 +98,10 @@
 
               <FileDropdown @onFileChanged="onFileChanged" />
 
-              <MainButton :description="$t('movie_modal.add_quote')" :onClick="addQuote" />
+              <MainButton
+                :description="$t('movie_modal.add_quote')"
+                :onClick="addQuote"
+              />
             </Form>
           </div>
         </div>
@@ -148,7 +153,10 @@ const addQuote = async () => {
     fd.append("user_thumbnail", auth.user.thumbnail);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${route.params.id}/quotes`, fd);
+      const res = await axios.post(
+        `http://127.0.0.1:8000/api/admin/movies/${route.params.id}/quotes`,
+        fd
+      );
       movieStore.quotes.push(res.data.quote);
       router.push({
         name: "movieDescription",

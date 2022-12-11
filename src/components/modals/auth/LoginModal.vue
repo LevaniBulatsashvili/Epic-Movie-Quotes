@@ -11,57 +11,59 @@
         />
 
         <div class="mb-[5.3rem] flex">
-          <Form class="min-w-[36rem]" @submit="login" v-slot="{ meta }">
-            <div class="hidden">
-              {{ setFormIsValid(meta) }}
-            </div>
+          <div>
+            <Form class="min-w-[36rem]" @submit="login" v-slot="{ meta }">
+              <div class="hidden">
+                {{ setFormIsValid(meta) }}
+              </div>
 
-            <MainField
-              :title="$t('auth.email')"
-              type="text"
-              :placeholder="$t('auth.enter_your_email')"
-              rules="required|min:3"
-              :onClearField="onUsernameOrEmailClear"
-              @onFieldChange="onUsernameOrEmailChange"
-            />
-            <MainField
-              :title="$t('auth.password')"
-              type="password"
-              :placeholder="$t('auth.password')"
-              rules="required|min:8|max:15"
-              :onClearField="onPasswordClear"
-              @onFieldChange="onPasswordChange"
-            />
+              <MainField
+                :title="$t('auth.email')"
+                type="text"
+                :placeholder="$t('auth.enter_your_email')"
+                rules="required|min:3"
+                :onClearField="onUsernameOrEmailClear"
+                @onFieldChange="onUsernameOrEmailChange"
+              />
+              <MainField
+                :title="$t('auth.password')"
+                type="password"
+                :placeholder="$t('auth.password')"
+                rules="required|min:8|max:15"
+                :onClearField="onPasswordClear"
+                @onFieldChange="onPasswordChange"
+              />
 
-            <div class="flex">
-              <div class="ml-[0rem] flex gap-[0.8rem]">
-                <input
-                  class="h-[2.4rem] w-[1.6rem]"
-                  name="remember_me"
-                  id="remember_me"
-                  type="checkbox"
-                  v-model="rememberMe"
-                />
-                <label
-                  class="font-[Helvetica Neue] text-[1.6rem] text-[#FFFFFF]"
-                  for="remember_me"
-                  >{{ $t("auth.remember_me") }}</label
+              <div class="flex">
+                <div class="ml-[0rem] flex gap-[0.8rem]">
+                  <input
+                    class="h-[2.4rem] w-[1.6rem]"
+                    name="remember_me"
+                    id="remember_me"
+                    type="checkbox"
+                    v-model="rememberMe"
+                  />
+                  <label
+                    class="font-[Helvetica Neue] text-[1.6rem] text-[#FFFFFF]"
+                    for="remember_me"
+                    >{{ $t("auth.remember_me") }}</label
+                  >
+                </div>
+                <div
+                  class="mr-[0rem] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
+                  @click="
+                    router.push({
+                      name: 'home',
+                      params: { modal: 'forgot-password' },
+                    })
+                  "
                 >
+                  {{ $t("auth.forgot_password") }}
+                </div>
               </div>
-              <div
-                class="mr-[0rem] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
-                @click="
-                  router.push({
-                    name: 'home',
-                    params: { modal: 'forgot-password' },
-                  })
-                "
-              >
-                {{ $t("auth.forgot_password") }}
-              </div>
-            </div>
 
-            <MainButton :description="$t('auth.sign_in')" />
+              <MainButton :description="$t('auth.sign_in')" />
+            </Form>
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
@@ -82,7 +84,7 @@
                 >{{ $t("auth.sign_up") }}
               </span>
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>

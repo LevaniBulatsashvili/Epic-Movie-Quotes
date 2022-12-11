@@ -15,7 +15,10 @@
       {{ lang }}
     </div>
     <p>
-      <ErrorMessage class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]" :name="title" />
+      <ErrorMessage
+        class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+        :name="title"
+      />
     </p>
   </div>
 </template>
