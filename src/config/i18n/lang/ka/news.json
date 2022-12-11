@@ -1,4 +1,7 @@
 {
   "write_new_quote": "ახალი ციტატის დაწერა",
-  "search_by": "ძიება"
+  "search_by": "ძიება",
+  "enter": "ჩაწერეთ",
+  "to_search_movies_enter": "კინოებისთვის, ჩაწერეთ",
+  "to_search_quotes": "ციტატებისთვის"
 }

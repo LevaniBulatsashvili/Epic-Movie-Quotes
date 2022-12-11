@@ -168,6 +168,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const addMovie = async () => {
   if (formIsValid.value && file.value) {
     const fd = new FormData();
+    fd.append("user_id", auth.user.id);
     fd.append("name_en", nameEn.value);
     fd.append("name_ka", nameKa.value);
     fd.append("director_en", directorEn.value);

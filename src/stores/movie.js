@@ -42,9 +42,9 @@ export const useMovieStore = defineStore("movie", {
     };
   },
   actions: {
-    getMovies() {
+    getMovies(userId, lang="", search="") {
       axios
-        .get("http://127.0.0.1:8000/api/movies")
+        .get(`http://127.0.0.1:8000/api/user/${userId}/movies?lang=${lang}&search=${search}`)
         .then((res) => (this.movies = res.data.movies))
         .catch((err) => console.log(err));
     },
@@ -74,9 +74,9 @@ export const useMovieStore = defineStore("movie", {
         })
         .catch((err) => console.log(err));
     },
-    getQuotes(movieId) {
+    getQuotes(movieId, lang="", search="", from="") {
       axios
-        .get(`http://127.0.0.1:8000/api/quotes/${movieId}`)
+        .get(`http://127.0.0.1:8000/api/quotes/${movieId}?lang=${lang}&search=${search}&from=${from}`)
         .then((res) => {
           this.quotes = res.data.quotes;
         })

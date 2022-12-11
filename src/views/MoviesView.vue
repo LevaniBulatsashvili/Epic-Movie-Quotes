@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
@@ -16,8 +16,11 @@
           </div>
 
           <div class="mr-[0rem] flex items-center">
+            <input @click.stop @keyup.enter="onSearch" class="search font-[Halvetica Neue] bg-transparent px-[1.5rem] py-[0.5rem] mr-[5rem] border-b-[1px] border-solid border-searchBorder text-[2rem] text-searchText" :class="{ 'hidden': !searching }" type="text" :placeholder="$t('movie.enter_to_search')" />
             <div
-              class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex items-center gap-[1.6rem] text-[2rem] text-[#CED4DA]"
+              v-if="!searching"
+              @click.stop="onSearchClicked"
+              class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex items-center gap-[1.6rem] text-[2rem] text-[#CED4DA] cursor-pointer"
             >
               <SearchIcon />
               {{ $t("movie.search") }}
@@ -55,15 +58,34 @@ import MovieCard from "@/components/movie/MovieCard.vue";
 import AddMovieModal from "@/components/modals/movie/AddMovieModal.vue";
 import SearchIcon from "@/components/icons/shared/SearchIcon.vue";
 import PlusIcon from "@/components/icons/movie/PlusIcon.vue";
-import { computed, onBeforeMount } from "vue-demi";
+import { computed, onBeforeMount, ref } from "vue-demi";
 import { useRoute, useRouter } from "vue-router";
+import { useAuthStore } from "@/stores/auth";
 import { useMovieStore } from "@/stores/movie";
 
 const router = useRouter();
 const movieStore = useMovieStore();
+const auth = useAuthStore();
 const path = computed(() => useRoute().path);
+const searching = ref(false);
+
+const onSearchClicked = () => {
+  searching.value = true;
+};
+
+const removeSearch = () => (searching.value = false);
+
+const onSearch = (e) => {
+  const searchBy = e.target.value;
+  searching.value = false;
+  movieStore.getMovies(
+    auth.user.id,
+    sessionStorage.getItem("locale") ?? "en",
+    searchBy
+  );
+};
 
 onBeforeMount(() => {
-  movieStore.getMovies();
+  movieStore.getMovies(auth.user.id);
 });
 </script>
