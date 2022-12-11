@@ -28,11 +28,12 @@
               :onClearField="onPasswordClear"
               @onFieldChange="onPasswordChange"
             />
+            <Field class="hidden" name="passwordsMatch" v-model="password" />
             <MainField
               :title="$t('auth.confirm_password')"
               type="password"
               :placeholder="$t('auth.confirm_password')"
-              rules="required|min:8|max:15|confirmed:@Password"
+              rules="required|min:8|max:15|confirmed:@passwordsMatch"
               :keepAsterisk="true"
               :onClearField="onConfirmPasswordClear"
               @onFieldChange="onConfirmPasswordChange"
@@ -59,7 +60,7 @@ import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import BackArrowIcon from "@/components/icons/component/BackArrowIcon.vue";
-import { Form } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 import axios from "@/config/axios.js";
