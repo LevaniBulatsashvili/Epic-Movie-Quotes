@@ -108,11 +108,11 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie";
 import { ref } from "vue-demi";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const movieStore = useMovieStore();
 const auth = useAuthStore();
 const comment = ref("");
 const locale = sessionStorage.getItem("locale") ?? "en";
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const likeOrDislike = () =>
   movieStore.likeOrDislikeQuote(props.quote.id, auth.user.id);

@@ -20,6 +20,13 @@
         </div>
 
         <div class="mx-[3.2rem]">
+          <div class="flex items-center mt-[3rem] mb-[1.9rem]">
+            <img v-if="!auth.user.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
+            <img v-else class="mx-[0rem]" :src="backendUrl + '/storage/' + auth.user.thumbnail" />
+            <div class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]">
+              {{ auth.user.username }}
+            </div>
+          </div>
           <div class="mb-[3.2rem] flex">
             <Form
               class="w-full max-w-[89.7rem]"
@@ -103,6 +110,7 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie.js";
 import axios from "@/config/axios.js";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const auth = useAuthStore();
 const movieStore = useMovieStore();

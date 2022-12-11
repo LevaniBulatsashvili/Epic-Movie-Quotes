@@ -58,6 +58,7 @@
                 :placeholder="$t('movie_modal.quote')"
                 rules="required|max:255"
                 :lang="$t('movie_modal.en')"
+                :baseValue="movieStore.quote.body.en"
               />
               <MovieField
                 @onFieldChange="onQuoteKaChange"
@@ -67,6 +68,7 @@
                 :placeholder="$t('movie_modal.quote')"
                 rules="required|max:255"
                 :lang="$t('movie_modal.ka')"
+                :baseValue="movieStore.quote.body.en"
               />
 
               <FileDropdown @onFileChanged="onFileChanged" />

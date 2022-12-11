@@ -1,6 +1,7 @@
 <template>
   <Teleport to="#app">
     <div
+      v-if="movieStore.movie"
       @click="
         router.push({
           name: 'movieDescription',
@@ -46,15 +47,17 @@
               :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.name.en"
               @onFieldChange="onNameEnChange"
             />
             <MovieField
-              @onFieldChange="onNameKaChange"
               title="name_ka"
               type="text"
               :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.name.ka"
+              @onFieldChange="onNameKaChange"
             />
 
             <div
@@ -90,6 +93,7 @@
               :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.director.en"
             />
             <MovieField
               @onFieldChange="onDirectorKaChange"
@@ -98,6 +102,7 @@
               :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.director.ka"
             />
 
             <MovieField
@@ -108,6 +113,7 @@
               :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.description.en"
             />
             <MovieField
               @onFieldChange="ondescriptionKaChange"
@@ -117,6 +123,7 @@
               :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.description.ka"
             />
 
             <FileDropdown @onFileChanged="onFileChanged" />
