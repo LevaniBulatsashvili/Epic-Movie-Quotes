@@ -11,6 +11,8 @@ module.exports = {
       colors: {
         modal: "rgba(0, 0, 0, 0.54)",
         dropdown: "rgba(151, 71, 255, 0.4)",
+        searchBorder: "rgba(239, 239, 239, 0.3)",
+        searchText: "rgba(239, 239, 239, 0.6)",
         movieModal: "rgba(17, 16, 26, 0.54)",
         movieModalUnderline: "rgba(239, 239, 239, 0.2)",
         quoteUnderline: "rgba(239, 239, 239, 0.2)",

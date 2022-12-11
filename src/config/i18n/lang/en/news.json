@@ -1,4 +1,7 @@
 {
   "write_new_quote": "Write new quote",
-  "search_by": "Search by"
+  "search_by": "Search by",
+  "enter": "Enter",
+  "to_search_movies_enter": "to search movies, Enter",
+  "to_search_quotes": "to search quotes"
 }

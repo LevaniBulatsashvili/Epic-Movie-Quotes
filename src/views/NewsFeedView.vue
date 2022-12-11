@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
@@ -8,7 +8,7 @@
       </div>
 
       <div class="ml-[0rem]">
-        <div class="flex]">
+        <div class="flex min-w-[70rem]">
           <div
             class="mb-[2.2rem] flex flex-grow items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
           >
@@ -16,22 +16,35 @@
             <div
               class="font-[Helvetica Neue] my-[1.1rem] mx-[0px] text-[2rem] text-[#FFFFFF]"
             >
-              {{ $t('news.write_new_quote') }}
+              {{ $t("news.write_new_quote") }}
             </div>
           </div>
-          <div class="mb-[2.2rem] flex items-center">
+          <input
+            @click.stop
+            @keyup.enter="onSearch"
+            class="w-[69rem] search font-[Halvetica Neue] border-b-[1px] border-solid border-searchBorder bg-transparent ml-[5rem] px-[1.5rem] mb-[2.2rem] text-[2rem] text-searchText"
+            :class="{ hidden: !searching }"
+            type="text"
+            :placeholder="`${$t('news.enter')} @ ${$t('news.to_search_movies_enter')} # ${$t('news.to_search_quotes')}`"
+          />
+          <div
+            v-if="!searching"
+            @click.stop="onSearchClicked"
+            class="mb-[2.2rem] flex items-center"
+          >
             <SearchIcon class="ml-[2.4rem] mr-[1.6rem]" />
             <div
               class="font-[Helvetica Neue] mx-[0rem] text-[2rem] text-[#CED4DA]"
             >
-              {{ $t('news.search_by') }}
+              {{ $t("news.search_by") }}
             </div>
           </div>
         </div>
-        <NewsCard v-for="quote in movieStore.quotes"
+        <NewsCard
+          v-for="quote in movieStore.quotes"
           :key="quote.id"
           :quote="quote"
-          />
+        />
       </div>
     </div>
   </div>
@@ -44,9 +57,32 @@ import NewsCard from "@/components/news/NewsCard.vue";
 import WriteIcon from "@/components/icons/newsFeed/WriteIcon.vue";
 import SearchIcon from "@/components/icons/shared/SearchIcon.vue";
 import { useMovieStore } from "@/stores/movie";
-import { onBeforeMount, onBeforeUnmount } from "vue-demi";
+import { onBeforeMount, onBeforeUnmount, ref } from "vue-demi";
+import { useAuthStore } from "@/stores/auth";
 
 const movieStore = useMovieStore();
+const auth = useAuthStore();
+const searching = ref(false);
+
+const onSearchClicked = () => {
+  searching.value = true;
+};
+
+const onSearch = (e) => {
+  let searchBy = e.target.value;
+  const from = searchBy[0] === "@" ? "movie" : "";
+  if (searchBy[0] === "@" || searchBy[0] === "#") (searchBy = searchBy.substring(1));
+  searching.value = false;
+
+  movieStore.getQuotes(
+    auth.user.id,
+    sessionStorage.getItem("locale") ?? "en",
+    searchBy,
+    from
+  );
+};
+
+const removeSearch = () => (searching.value = false);
 
 const onScroll = () => {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -64,5 +100,5 @@ const onScroll = () => {
 window.addEventListener("scroll", onScroll);
 
 onBeforeMount(() => movieStore.getRecentQuotes());
-onBeforeUnmount(() => (window.removeEventListener("scroll", onScroll)));
+onBeforeUnmount(() => window.removeEventListener("scroll", onScroll));
 </script>
