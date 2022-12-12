@@ -14,7 +14,7 @@ const router = createRouter({
       component: () => import("@/views/HomeView.vue"),
     },
     {
-      path: "/news-feed",
+      path: "/news-feed/:modal?",
       name: "newsFeed",
       component: () => import("@/views/NewsFeedView.vue"),
       beforeEnter: isAuthenticated,
@@ -84,7 +84,7 @@ router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore();
   if (!auth.isAuthenticated) {
     try {
-      const res = await axios.get("http://127.0.0.1:8000/api/is-auth");
+      const res = await axios.get(import.meta.env.VITE_BACKEND_API_BASE_URL + "/is-auth");
       if (!auth.isAuthenticated) {
         auth.isAuthenticated = true;
         auth.user = res.data.user;

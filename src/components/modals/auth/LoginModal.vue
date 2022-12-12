@@ -11,57 +11,64 @@
         />
 
         <div class="mb-[5.3rem] flex">
-          <Form class="min-w-[36rem]" @submit="login" v-slot="{ meta }">
-            <div class="hidden">
-              {{ setFormIsValid(meta) }}
-            </div>
+          <div>
+            <Form class="min-w-[36rem]" @submit="login" v-slot="{ meta }">
+              <div class="hidden">
+                {{ setFormIsValid(meta) }}
+              </div>
 
-            <MainField
-              :title="$t('auth.email')"
-              type="text"
-              :placeholder="$t('auth.enter_your_email')"
-              rules="required|min:3"
-              :onClearField="onUsernameOrEmailClear"
-              @onFieldChange="onUsernameOrEmailChange"
-            />
-            <MainField
-              :title="$t('auth.password')"
-              type="password"
-              :placeholder="$t('auth.password')"
-              rules="required|min:8|max:15"
-              :onClearField="onPasswordClear"
-              @onFieldChange="onPasswordChange"
-            />
+              <MainField
+                @input="onUsernameOrEmailChange"
+                :title="$t('auth.email')"
+                type="text"
+                :placeholder="$t('auth.enter_your_email')"
+                rules="required|min:3"
+                :onClearField="onUsernameOrEmailClear"
+                @onFieldChange="onUsernameOrEmailChange"
+              />
+              <MainField
+                @input="onPasswordChange"
+                :title="$t('auth.password')"
+                type="password"
+                :placeholder="$t('auth.password')"
+                rules="required|min:8|max:15"
+                :onClearField="onPasswordClear"
+                @onFieldChange="onPasswordChange"
+              />
+              <p v-if="asyncValidationFailed" class="font-[Halvetica Neue] mb-[1.5rem] text-[1.4rem] text-[#DC3545]">
+                {{ $t("auth.user_does_not_exist") }}
+              </p>
 
-            <div class="flex">
-              <div class="ml-[0rem] flex gap-[0.8rem]">
-                <input
-                  class="h-[2.4rem] w-[1.6rem]"
-                  name="remember_me"
-                  id="remember_me"
-                  type="checkbox"
-                  v-model="rememberMe"
-                />
-                <label
-                  class="font-[Helvetica Neue] text-[1.6rem] text-[#FFFFFF]"
-                  for="remember_me"
-                  >{{ $t("auth.remember_me") }}</label
+              <div class="flex">
+                <div class="ml-[0rem] flex gap-[0.8rem]">
+                  <input
+                    class="h-[2.4rem] w-[1.6rem]"
+                    name="remember_me"
+                    id="remember_me"
+                    type="checkbox"
+                    v-model="rememberMe"
+                  />
+                  <label
+                    class="font-[Helvetica Neue] text-[1.6rem] text-[#FFFFFF]"
+                    for="remember_me"
+                    >{{ $t("auth.remember_me") }}</label
+                  >
+                </div>
+                <div
+                  class="mr-[0rem] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
+                  @click="
+                    router.push({
+                      name: 'home',
+                      params: { modal: 'forgot-password' },
+                    })
+                  "
                 >
+                  {{ $t("auth.forgot_password") }}
+                </div>
               </div>
-              <div
-                class="mr-[0rem] cursor-pointer text-[1.6rem] text-[#0D6EFD] underline"
-                @click="
-                  router.push({
-                    name: 'home',
-                    params: { modal: 'forgot-password' },
-                  })
-                "
-              >
-                {{ $t("auth.forgot_password") }}
-              </div>
-            </div>
 
-            <MainButton :description="$t('auth.sign_in')" />
+              <MainButton :description="$t('auth.sign_in')" />
+            </Form>
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
@@ -82,7 +89,7 @@
                 >{{ $t("auth.sign_up") }}
               </span>
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>
@@ -106,12 +113,19 @@ const username_email = ref("");
 const password = ref("");
 const rememberMe = ref(false);
 const formIsValid = ref(false);
+const asyncValidationFailed = ref(false);
 
 const onUsernameOrEmailClear = () => (username_email.value = "");
 const onPasswordClear = () => (password.value = "");
-const onUsernameOrEmailChange = (val) => (username_email.value = val);
+
+const onUsernameOrEmailChange = (val) => {
+  username_email.value = val;
+  asyncValidationFailed.value = false;
+};
+
 const onPasswordChange = (val) => {
   password.value = val;
+  asyncValidationFailed.value = false;
 };
 const setFormIsValid = (meta) => {
   formIsValid.value = meta.valid;
@@ -122,14 +136,15 @@ const auth = useAuthStore();
 const login = async () => {
   if (formIsValid.value) {
     try {
-      await axios.post("http://127.0.0.1:8000/api/login", {
+      const res = await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/login", {
         username_email: username_email.value,
         password: password.value,
         remember_me: rememberMe.value,
       });
-      router.push({ name: "newsFeed" });
+      if (res.data.message) router.push({ name: "home", params: { modal: "check-email" } });
+      else router.push({ name: "newsFeed" });
     } catch (err) {
-      console.log(err.response.data);
+      asyncValidationFailed.value = true;
     }
   }
 };

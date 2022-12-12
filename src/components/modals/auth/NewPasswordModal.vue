@@ -7,7 +7,11 @@
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
           :title="$t('auth.create_new_password')"
-          :description="$t('auth.your_new_password_must_be_different_from_previous_used_passwords')"
+          :description="
+            $t(
+              'auth.your_new_password_must_be_different_from_previous_used_passwords'
+            )
+          "
         />
 
         <div class="mb-[5.3rem] flex">
@@ -28,17 +32,21 @@
               :onClearField="onPasswordClear"
               @onFieldChange="onPasswordChange"
             />
+            <Field class="hidden" name="passwordsMatch" v-model="password" />
             <MainField
               :title="$t('auth.confirm_password')"
               type="password"
               :placeholder="$t('auth.confirm_password')"
-              rules="required|min:8|max:15|confirmed:@Password"
+              rules="required|min:8|max:15|confirmed:@passwordsMatch"
               :keepAsterisk="true"
               :onClearField="onConfirmPasswordClear"
               @onFieldChange="onConfirmPasswordChange"
             />
 
-            <MainButton :description="$t('auth.reset_password')" :onClick="() => ''" />
+            <MainButton
+              :description="$t('auth.reset_password')"
+              :onClick="() => ''"
+            />
             <div class="flex items-center text-center">
               <BackArrowIcon class="mr-[0rem]" />
               <router-link
@@ -59,7 +67,7 @@ import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import BackArrowIcon from "@/components/icons/component/BackArrowIcon.vue";
-import { Form } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
 import axios from "@/config/axios.js";
@@ -81,7 +89,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
 const changePassword = async () => {
   if (formIsValid.value && confirmPassword.value === password.value) {
-    await axios.post("http://127.0.0.1:8000/api/reset-password", {
+    await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/reset-password", {
       email: email.value,
       password: password.value,
       password_confirmation: confirmPassword.value,

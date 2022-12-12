@@ -7,7 +7,7 @@
         <div
           class="font-[Halvetica Neue] text-[4.7rem] font-bold text-[#FFFFFF]"
         >
-        {{ $t("not_found.whoops") }}!
+          {{ $t("not_found.whoops") }}!
         </div>
         <div
           class="font-[Halvetica Neue] mt-[1rem] mb-[5rem] text-[2.4rem] font-medium text-[#FFFFFF]"

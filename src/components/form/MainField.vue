@@ -34,9 +34,14 @@
           :name="title"
         />
       </p>
+      <p
+        v-if="asyncValidationFailed"
+        class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+      >
+        {{ asyncError }}
+      </p>
       <MainIconButton
         v-if="icon === 'filled'"
-        @click="onFilledIconClick(field)"
       >
         <FilledIcon />
       </MainIconButton>
@@ -59,11 +64,6 @@ import InvalidIcon from "@/components/icons/form/InvalidIcon.vue";
 import { ref } from "vue-demi";
 
 const icon = ref("");
-const onFilledIconClick = (field) => {
-  field.value = "";
-  props.onClearField();
-  setTimeout(() => (icon.value = ""), 100);
-};
 
 const onFieldBlur = (meta) => {
   if (meta.valid && meta.touched) {
@@ -102,6 +102,16 @@ const props = defineProps({
   onClearField: {
     type: Function,
     required: true,
+  },
+  asyncValidationFailed: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  asyncError: {
+    type: String,
+    required: false,
+    default: "",
   },
 });
 </script>

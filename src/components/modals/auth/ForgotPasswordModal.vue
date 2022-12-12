@@ -7,7 +7,11 @@
       <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
         <MainHeader
           :title="$t('auth.forgot_password')"
-          :description="$t('auth.enter_your_email_and_we_will_send_an_email_with_instructions_to_reset_your_password')"
+          :description="
+            $t(
+              'auth.enter_your_email_and_we_will_send_an_email_with_instructions_to_reset_your_password'
+            )
+          "
         />
 
         <div class="mb-[5.3rem] flex">
@@ -28,7 +32,10 @@
               @onFieldChange="onEmailChange"
             />
 
-            <MainButton :description="$t('auth.send_instructions')" :onClick="() => ''" />
+            <MainButton
+              :description="$t('auth.send_instructions')"
+              :onClick="() => ''"
+            />
 
             <div class="flex items-center">
               <BackArrowIcon
@@ -74,7 +81,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const forgotPassword = async () => {
   if (formIsValid.value) {
     localStorage.setItem("email", email.value);
-    await axios.post("http://127.0.0.1:8000/api/forgot-password", {
+    await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/forgot-password", {
       email: email.value,
     });
     router.push({

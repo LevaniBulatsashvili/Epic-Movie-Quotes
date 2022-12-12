@@ -1,6 +1,7 @@
 <template>
   <Teleport to="#app">
     <div
+      v-if="movieStore.movie"
       @click="
         router.push({
           name: 'movieDescription',
@@ -46,15 +47,17 @@
               :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.name.en"
               @onFieldChange="onNameEnChange"
             />
             <MovieField
-              @onFieldChange="onNameKaChange"
               title="name_ka"
               type="text"
               :placeholder="$t('movie_modal.movie_name')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.name.ka"
+              @onFieldChange="onNameKaChange"
             />
 
             <div
@@ -90,6 +93,7 @@
               :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.director.en"
             />
             <MovieField
               @onFieldChange="onDirectorKaChange"
@@ -98,6 +102,7 @@
               :placeholder="$t('movie_modal.director')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.director.ka"
             />
 
             <MovieField
@@ -108,6 +113,7 @@
               :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
               :lang="$t('movie_modal.en')"
+              :baseValue="movieStore.movie.description.en"
             />
             <MovieField
               @onFieldChange="ondescriptionKaChange"
@@ -117,11 +123,15 @@
               :placeholder="$t('movie_modal.movie_description')"
               rules="required|max:255"
               :lang="$t('movie_modal.ka')"
+              :baseValue="movieStore.movie.description.ka"
             />
 
             <FileDropdown @onFileChanged="onFileChanged" />
-            
-            <MainButton :description="$t('movie_modal.edit_movie')" :onClick="editMovie" />
+
+            <MainButton
+              :description="$t('movie_modal.edit_movie')"
+              :onClick="editMovie"
+            />
           </Form>
         </div>
       </div>
@@ -186,10 +196,13 @@ const editMovie = async () => {
     fd.append("description_en", descriptionEn.value);
     fd.append("description_ka", descriptionKa.value);
     fd.append("genres", JSON.stringify(Object.values(selectedGenres)));
-    if (file.value) (fd.append("thumbnail", file.value));
+    if (file.value) fd.append("thumbnail", file.value);
 
     try {
-      const res = await axios.post(`http://127.0.0.1:8000/api/admin/movies/${route.params.id}`, fd);
+      const res = await axios.post(
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${route.params.id}`,
+        fd
+      );
       const editedMovie = res.data.movie;
       editedMovie.genres = res.data.genres;
       movieStore.movie = editedMovie;

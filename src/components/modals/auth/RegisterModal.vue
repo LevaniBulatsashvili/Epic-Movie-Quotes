@@ -11,49 +11,61 @@
         />
 
         <div class="mb-[5.3rem] flex">
-          <Form class="min-w-[36rem]" @submit="() => ''" v-slot="{ meta }">
-            <div class="hidden">
-              {{ setFormIsValid(meta) }}
-            </div>
+          <div class="min-w-[36rem]">
+            <Form class="" @submit="() => ''" v-slot="{ meta }">
+              <div class="hidden">
+                {{ setFormIsValid(meta) }}
+              </div>
 
-            <MainField
-              :title="$t('auth.name')"
-              type="text"
-              :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
-              rules="required|min:3|max:15"
-              :keepAsterisk="true"
-              :onClearField="onUsernameClear"
-              @onFieldChange="onUsernameChange"
-            />
-            <MainField
-              :title="$t('auth.email')"
-              type="email"
-              :placeholder="$t('auth.enter_your_email')"
-              rules="required|email"
-              :keepAsterisk="true"
-              :onClearField="onEmailClear"
-              @onFieldChange="onEmailChange"
-            />
-            <MainField
-              :title="$t('auth.password')"
-              type="password"
-              :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
-              rules="required|min:8|max:15"
-              :keepAsterisk="true"
-              :onClearField="onPasswordClear"
-              @onFieldChange="onPasswordChange"
-            />
-            <MainField
-              :title="$t('auth.confirm_password')"
-              type="password"
-              :placeholder="$t('auth.confirm_password')"
-              rules="required|min:8|max:15|confirmed:@Password"
-              :keepAsterisk="true"
-              :onClearField="onConfirmPasswordClear"
-              @onFieldChange="onConfirmPasswordChange"
-            />
+              <MainField
+                @input="onUsernameChange"
+                :title="$t('auth.name')"
+                type="text"
+                :placeholder="$t('auth.at_least_3_max15_lower case_characters')"
+                rules="required|min:3|max:15"
+                :keepAsterisk="true"
+                :asyncValidationFailed="usernameTaken"
+                :asyncError="$t('auth.username_is_taken')"
+                :onClearField="onUsernameClear"
+                @onFieldChange="onUsernameChange"
+              />
+              <MainField
+                @input="onEmailChange"
+                :title="$t('auth.email')"
+                type="email"
+                :placeholder="$t('auth.enter_your_email')"
+                rules="required|email"
+                :keepAsterisk="true"
+                :asyncValidationFailed="emailTaken"
+                :asyncError="$t('auth.email_is_taken')"
+                :onClearField="onEmailClear"
+                @onFieldChange="onEmailChange"
+              />
+              <MainField
+                :title="$t('auth.password')"
+                type="password"
+                :placeholder="$t('auth.at_least_8_max15_lower_case_characters')"
+                rules="required|min:8|max:15"
+                :keepAsterisk="true"
+                :onClearField="onPasswordClear"
+                @onFieldChange="onPasswordChange"
+              />
+              <Field class="hidden" name="passwordsMatch" v-model="password" />
+              <MainField
+                :title="$t('auth.confirm_password')"
+                type="password"
+                :placeholder="$t('auth.confirm_password')"
+                rules="required|min:8|max:15|confirmed:@passwordsMatch"
+                :keepAsterisk="true"
+                :onClearField="onConfirmPasswordClear"
+                @onFieldChange="onConfirmPasswordChange"
+              />
 
-            <MainButton :description="$t('auth.get_started')" :onClick="register" />
+              <MainButton
+                :description="$t('auth.get_started')"
+                :onClick="register"
+              />
+            </Form>
             <button
               @click="googleSignUp"
               class="font-[Helvetica Neue] mb-[3.5rem] flex w-full items-center justify-center rounded-[0.4rem] border-[1px] border-solid border-[#CED4DA] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF]"
@@ -73,7 +85,7 @@
                 >{{ $t("auth.log_in") }}</span
               >
             </div>
-          </Form>
+          </div>
         </div>
       </div>
     </div>
@@ -85,7 +97,7 @@ import MainField from "@/components/form/MainField.vue";
 import MainHeader from "@/components/form/MainHeader.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import GoogleIcon from "@/components/icons/component/GoogleIcon.vue";
-import { Form } from "vee-validate";
+import { Form, Field } from "vee-validate";
 import { useAuthStore } from "@/stores/auth";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
@@ -99,13 +111,22 @@ const email = ref("");
 const password = ref("");
 const confirmPassword = ref("");
 const formIsValid = ref(false);
+const usernameTaken = ref(false);
+const emailTaken = ref(false);
 
 const onUsernameClear = () => (username.value = "");
 const onEmailClear = () => (email.value = "");
 const onPasswordClear = () => (password.value = "");
 const onConfirmPasswordClear = () => (confirmPassword.value = "");
-const onUsernameChange = (val) => (username.value = val);
-const onEmailChange = (val) => (email.value = val);
+const onUsernameChange = (val) => {
+  username.value = val;
+  usernameTaken.value = false;
+};
+const onEmailChange = (val) => {
+  email.value = val;
+  emailTaken.value = false;
+};
+
 const onPasswordChange = (val) => (password.value = val);
 const onConfirmPasswordChange = (val) => (confirmPassword.value = val);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
@@ -113,7 +134,7 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const register = async () => {
   if (formIsValid.value && confirmPassword.value === password.value) {
     try {
-      await axios.post("http://127.0.0.1:8000/api/register", {
+      await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/register", {
         username: username.value,
         email: email.value,
         password: password.value,
@@ -124,11 +145,11 @@ const register = async () => {
         params: { modal: "check-email" },
       });
     } catch (err) {
-      if (err.response.data.errors.email !== undefined) {
-        console.log("username is taken");
+      if (err.response.data.errors.username !== undefined) {
+        usernameTaken.value = true;
       }
       if (err.response.data.errors.email !== undefined) {
-        console.log("email is taken");
+        emailTaken.value = true;
       }
     }
   }

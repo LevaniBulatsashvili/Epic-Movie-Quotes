@@ -9,7 +9,11 @@
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
           :title="$t('auth.check_your_email')"
-          :description="$t('auth.please_check_your_email_and_follow_the_instructions_to_reset_your_password')"
+          :description="
+            $t(
+              'auth.please_check_your_email_and_follow_the_instructions_to_reset_your_password'
+            )
+          "
           textColor="#FFFFFF"
         />
         <MainButton

@@ -1,13 +1,7 @@
 <template>
   <Teleport to="#app">
     <div
-      v-if="movieStore.movie"
-      @click="
-        router.push({
-          name: 'movieDescription',
-          params: { id: route.params.id },
-        })
-      "
+      @click="router.push({ name: 'newsFeed' })"
       class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
       <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
@@ -17,56 +11,22 @@
           <div
             class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
-            {{ $t("movie_modal.add_quote") }}
+            {{ $t("news.write_new_quote") }}
           </div>
           <CloseIcon
-            @click="
-              router.push({
-                name: 'movieDescription',
-                params: { id: route.params.id },
-              })
-            "
+            @click="router.push({ name: 'newsFeed' })"
             class="mr-[4.1rem] cursor-pointer"
           />
         </div>
 
         <div class="mx-[3.2rem]">
-          <MovieProfile :user="auth.user" />
-
-          <div class="my-[3rem] flex">
-            <img
-              class="mx-[0rem] max-h-[15.8rem] max-w-[29rem]"
-              :src="
-  backendUrl + '/storage/' + movieStore.movie.thumbnail
-              "
-            />
-            <div class="ml-[2.7rem]">
-              <div
-                class="font-[Halvetica Neue] mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
-              >
-                {{ movieStore.movie.name[locale] }}
-              </div>
-              <div class="mt-[1.5rem] mb-[2.1rem] flex">
-                <div
-                  class="ml-[0rem] mr-[0.85rem]"
-                  v-for="genre in genres"
-                  :key="genre"
-                >
-                  <MovieGenre :genre="genre.genre[locale]" />
-                </div>
-              </div>
-              <div
-                class="font-[Halvetica Neue] text-[1.8rem] capitalize text-[#CED4DA]"
-              >
-                {{ $t("movie_modal.director") }}:
-                <span
-                  class="font-[Halvetica Neue] ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
-                  >{{ movieStore.movie.director[locale] }}</span
-                >
-              </div>
+          <div class="flex items-center mt-[3rem] mb-[1.9rem]">
+            <img v-if="!auth.user.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
+            <img v-else class="mx-[0rem]" :src="backendUrl + '/storage/' + auth.user.thumbnail" />
+            <div class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]">
+              {{ auth.user.username }}
             </div>
           </div>
-
           <div class="mb-[3.2rem] flex">
             <Form
               class="w-full max-w-[89.7rem]"
@@ -82,7 +42,7 @@
                 as="textarea"
                 title="quote_en"
                 type="textarea"
-                :placeholder="$t('movie_modal.quote')"
+                :placeholder="$t('news.start_create_new_quote')"
                 rules="required|max:255"
                 :lang="$t('movie_modal.en')"
               />
@@ -91,17 +51,43 @@
                 as="textarea"
                 title="quote_ka"
                 type="textarea"
-                :placeholder="$t('movie_modal.quote')"
+                :placeholder="$t('news.start_create_new_quote')"
                 rules="required|max:255"
                 :lang="$t('movie_modal.ka')"
               />
 
               <FileDropdown @onFileChanged="onFileChanged" />
 
-              <MainButton
-                :description="$t('movie_modal.add_quote')"
-                :onClick="addQuote"
-              />
+              <div>
+                <div
+                  @click="toggleMovieDropdown"
+                  class="font-[Halvetica Neue] flex cursor-pointer items-center rounded-[0.4rem] bg-[#000000] py-[2.5rem]"
+                >
+                  <CameraIcon class="ml-[2.4rem] mr-[1.2rem]" />
+                  <div class="ml-[0rem] text-[2.4rem] text-[#FFFFFF]">
+                    {{ $t("news.choose_movie") }}
+                  </div>
+                  <DropArrowIcon class="mr-[2.4rem]" />
+                </div>
+                <div v-if="movieDropdown" class="bg-[#000000]">
+                  <button
+                    v-for="movie in movieStore.movies"
+                    :key="movie.id"
+                    @click="setMovieId(movie.id)"
+                    class="mx-auto block w-full border-[1px] border-solid border-purple-400 py-[1.5rem] text-[2rem] text-[#FFFFFF] hover:bg-purple-900"
+                  >
+                    {{ movie.name[locale] }}
+                  </button>
+                </div>
+              </div>
+              <div
+                v-if="movieNotSelected"
+                class="font-[Halvetica Neue] mt-[0.5rem] bg-purple-800 p-[1rem] text-[1.6rem] text-[#FFFFFF]"
+              >
+                {{ $t("news.please_select_a_movie") }}
+              </div>
+
+              <MainButton :description="$t('news.post')" :onClick="addQuote" />
             </Form>
           </div>
         </div>
@@ -113,25 +99,25 @@
 <script setup>
 import MovieField from "@/components/form/MovieField.vue";
 import MainButton from "@/components/form/MainButton.vue";
-import MovieGenre from "@/components/movie/MovieGenre.vue";
-import MovieProfile from "@/components/movie/MovieProfile.vue";
 import FileDropdown from "@/components/movie/FileDropdown.vue";
+import CameraIcon from "@/components/icons/newsFeed/CameraIcon.vue";
+import DropArrowIcon from "@/components/icons/newsFeed/DropArrowIcon.vue";
 import CloseIcon from "@/components/icons/movie/CloseIcon.vue";
 import { Form } from "vee-validate";
-import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { onBeforeMount, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie.js";
 import axios from "@/config/axios.js";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
-const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
-const genres = ref([]);
+const movieId = ref(null);
 const locale = sessionStorage.getItem("locale") ?? "en";
-setTimeout(() => (genres.value = movieStore.movie.genres), 300);
+const movieDropdown = ref(false);
+const movieNotSelected = ref(false);
 
 const quoteEn = ref("");
 const quoteKa = ref("");
@@ -144,8 +130,19 @@ const onFileChanged = (val) => (file.value = val);
 const formIsValid = ref(false);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
+const setMovieId = (id) => {
+  movieDropdown.value = false;
+  movieId.value = id;
+};
+
+const toggleMovieDropdown = () => {
+  movieNotSelected.value = false;
+  movieDropdown.value = !movieDropdown.value;
+};
+
 const addQuote = async () => {
-  if (formIsValid.value && file.value) {
+  if (!movieId.value) movieNotSelected.value = true;
+  if (formIsValid.value && file.value && movieId.value) {
     const fd = new FormData();
     fd.append("username", auth.user.username);
     fd.append("quote_en", quoteEn.value);
@@ -155,17 +152,16 @@ const addQuote = async () => {
 
     try {
       const res = await axios.post(
-        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${route.params.id}/quotes`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${movieId.value}/quotes`,
         fd
       );
-      movieStore.quotes.push(res.data.quote);
-      router.push({
-        name: "movieDescription",
-        params: { id: route.params.id },
-      });
+      movieStore.quotes.unshift(res.data.quote);
+      router.push({ name: "newsFeed" });
     } catch (err) {
       console.log(err);
     }
   }
 };
+
+onBeforeMount(() => movieStore.getMovies(auth.user.id));
 </script>

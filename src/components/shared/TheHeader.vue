@@ -86,7 +86,7 @@ import i18n from "@/config/i18n/index.js";
 const auth = useAuthStore();
 const router = useRouter();
 const locale = ref(sessionStorage.getItem("locale") === "ka" ? "ქარ" : "Eng");
-if (sessionStorage.getItem("locale") === "ka") (i18n.global.locale = "ka");
+if (sessionStorage.getItem("locale") === "ka") i18n.global.locale = "ka";
 
 const langDropdown = ref(false);
 const toggleDropdown = () => (langDropdown.value = !langDropdown.value);
@@ -107,7 +107,7 @@ const setLocaleKa = () => {
 };
 
 const logout = async () => {
-  await axios.post("http://127.0.0.1:8000/api/logout");
+  await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/logout");
   auth.isAuthenticated = false;
   router.push({ name: "home" });
 };

@@ -12,15 +12,23 @@
           <div
             class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] font-medium text-[#FFFFFF]"
           >
-            {{ $t("movie.my_list_of_movies") }} ({{ $t("movie.total") }} {{ movieStore.movies.length }})
+            {{ $t("movie.my_list_of_movies") }} ({{ $t("movie.total") }}
+            {{ movieStore.movies.length }})
           </div>
 
           <div class="mr-[0rem] flex items-center">
-            <input @click.stop @keyup.enter="onSearch" class="search font-[Halvetica Neue] bg-transparent px-[1.5rem] py-[0.5rem] mr-[5rem] border-b-[1px] border-solid border-searchBorder text-[2rem] text-searchText" :class="{ 'hidden': !searching }" type="text" :placeholder="$t('movie.enter_to_search')" />
+            <input
+              @click.stop
+              @keyup.enter="onSearch"
+              class="search font-[Halvetica Neue] border-searchBorder text-searchText mr-[5rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] py-[0.5rem] text-[2rem]"
+              :class="{ hidden: !searching }"
+              type="text"
+              :placeholder="$t('movie.enter_to_search')"
+            />
             <div
               v-if="!searching"
               @click.stop="onSearchClicked"
-              class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex items-center gap-[1.6rem] text-[2rem] text-[#CED4DA] cursor-pointer"
+              class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex cursor-pointer items-center gap-[1.6rem] text-[2rem] text-[#CED4DA]"
             >
               <SearchIcon />
               {{ $t("movie.search") }}

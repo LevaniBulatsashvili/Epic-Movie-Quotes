@@ -3,7 +3,7 @@
     <img
       @click="toMovieDescription"
       class="ml-[0rem] cursor-pointer"
-      :src="'http://127.0.0.1:8000/storage/' + thumbnail"
+      :src="backendUrl + '/storage/' + thumbnail"
     />
     <div
       class="font-[Helvetica Neue] mt-[1.6rem] mb-[1.7rem] text-[2.4rem] font-medium uppercase text-[#FFFFFF]"
@@ -22,6 +22,7 @@
 import MessageIcon from "@/components/icons/movie/MessageIcon.vue";
 import { useRouter } from "vue-router";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const lang = sessionStorage.getItem("locale") ?? "en";
 
@@ -44,6 +45,6 @@ const props = defineProps({
   thumbnail: {
     type: String,
     required: true,
-  }
+  },
 });
 </script>

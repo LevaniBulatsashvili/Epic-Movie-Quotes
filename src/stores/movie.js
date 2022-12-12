@@ -42,15 +42,17 @@ export const useMovieStore = defineStore("movie", {
     };
   },
   actions: {
-    getMovies(userId, lang="", search="") {
+    getMovies(userId, lang = "", search = "") {
       axios
-        .get(`http://127.0.0.1:8000/api/user/${userId}/movies?lang=${lang}&search=${search}`)
+        .get(
+          import.meta.env.VITE_BACKEND_API_BASE_URL + `/user/${userId}/movies?lang=${lang}&search=${search}`
+        )
         .then((res) => (this.movies = res.data.movies))
         .catch((err) => console.log(err));
     },
     getMovie(id) {
       axios
-        .get(`http://127.0.0.1:8000/api/movies/${id}`)
+        .get(import.meta.env.VITE_BACKEND_API_BASE_URL + `/movies/${id}`)
         .then((res) => {
           const movie = res.data.movie;
           movie.genres = res.data.genres;
@@ -60,7 +62,7 @@ export const useMovieStore = defineStore("movie", {
     },
     deleteMovie(id) {
       axios
-        .delete(`http://127.0.0.1:8000/api/admin/movies/${id}`)
+        .delete(import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${id}`)
         .then(
           () => (this.movies = this.movies.filter((movie) => movie.id !== id))
         )
@@ -68,15 +70,17 @@ export const useMovieStore = defineStore("movie", {
     },
     getQuote(quoteId) {
       axios
-        .get(`http://127.0.0.1:8000/api/quote/${quoteId}`)
+        .get(import.meta.env.VITE_BACKEND_API_BASE_URL + `/quote/${quoteId}`)
         .then((res) => {
           this.quote = res.data.quote;
         })
         .catch((err) => console.log(err));
     },
-    getQuotes(movieId, lang="", search="", from="") {
+    getQuotes(movieId, lang = "", search = "", from = "") {
       axios
-        .get(`http://127.0.0.1:8000/api/quotes/${movieId}?lang=${lang}&search=${search}&from=${from}`)
+        .get(
+          import.meta.env.VITE_BACKEND_API_BASE_URL + `/quotes/${movieId}?lang=${lang}&search=${search}&from=${from}`
+        )
         .then((res) => {
           this.quotes = res.data.quotes;
         })
@@ -84,7 +88,7 @@ export const useMovieStore = defineStore("movie", {
     },
     getRecentQuotes() {
       axios
-        .get(`http://127.0.0.1:8000/api/quotes/recent?page=${this.page}`)
+        .get(import.meta.env.VITE_BACKEND_API_BASE_URL + `/quotes/recent?page=${this.page}`)
         .then((res) => {
           this.page++;
           this.quotes = [...this.quotes, ...res.data.quotes.data];
@@ -93,7 +97,7 @@ export const useMovieStore = defineStore("movie", {
     },
     deleteQuote(quoteId) {
       axios
-        .delete(`http://127.0.0.1:8000/api/admin/quotes/${quoteId}`)
+        .delete(import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/quotes/${quoteId}`)
         .then(
           () =>
             (this.quotes = this.quotes.filter((quote) => quote.id !== quoteId))
@@ -102,7 +106,7 @@ export const useMovieStore = defineStore("movie", {
     },
     likeOrDislikeQuote(quoteId, userId) {
       axios
-        .post(`http://127.0.0.1:8000/api/admin/quotes/${quoteId}/like`, {
+        .post(import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/quotes/${quoteId}/like`, {
           userId,
         })
         .then((res) => {
@@ -120,14 +124,14 @@ export const useMovieStore = defineStore("movie", {
     },
     commentOnQuote(quoteId, username, thumbnail, body) {
       axios
-        .post(`http://127.0.0.1:8000/api/admin/quotes/${quoteId}/comment`, {
+        .post(import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/quotes/${quoteId}/comment`, {
           username,
           thumbnail,
           body,
         })
         .then((res) => {
           if (this.quote.id) this.quote.comments.push(res.data.quoteComment);
-          this.quotes = this.quotes.map(quote => {
+          this.quotes = this.quotes.map((quote) => {
             if (quote.id !== quoteId) return quote;
             quote.comments.push(res.data.quoteComment);
             return quote;

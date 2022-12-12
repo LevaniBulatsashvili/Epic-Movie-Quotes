@@ -3,7 +3,7 @@
     <div
       class="border-quoteUnderline flex items-start border-b-[1px] border-solid pb-[2.4rem]"
     >
-      <img :src="'http://127.0.0.1:8000/storage/' + thumbnail" />
+      <img :src="backendUrl + '/storage/' + thumbnail" />
       <div class="ml-[3.4rem] w-full">
         <div @click="toggleQuoteDropdown" class="mb-[2.8rem] flex">
           <ThreeDotIcon class="mr-[0rem] cursor-pointer" />
@@ -90,6 +90,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useMovieStore } from "@/stores/movie";
 import { useAuthStore } from "@/stores/auth";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();

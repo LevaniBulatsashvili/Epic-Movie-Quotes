@@ -2,11 +2,11 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'movies' })"
-      class="fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center bg-movieModal"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
     >
       <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
         <div
-          class="mt-[0.9rem] flex items-center border-b-[1px] border-solid border-movieModalUnderline"
+          class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
           <div
             class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
@@ -111,7 +111,10 @@
 
             <FileDropdown @onFileChanged="onFileChanged" />
 
-            <MainButton :description="$t('movie_modal.add_movie')" :onClick="addMovie" />
+            <MainButton
+              :description="$t('movie_modal.add_movie')"
+              :onClick="addMovie"
+            />
           </Form>
         </div>
       </div>
@@ -179,7 +182,10 @@ const addMovie = async () => {
     fd.append("thumbnail", file.value);
 
     try {
-      const res = await axios.post("http://127.0.0.1:8000/api/admin/movies", fd);
+      const res = await axios.post(
+        import.meta.env.VITE_BACKEND_API_BASE_URL + "/admin/movies",
+        fd
+      );
       const movie = res.data.movie;
       movie.genres = res.data.genres;
       movieStore.movies.push(movie);

@@ -64,7 +64,7 @@
             <div
               class="font-[Halvetica Neue] absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
             >
-             {{ $t("movie_modal.en") }}
+              {{ $t("movie_modal.en") }}
             </div>
           </div>
 
@@ -82,7 +82,12 @@
           </div>
 
           <div class="mb-[3.2rem] flex">
-            <img class="w-full" :src="'http://127.0.0.1:8000/storage/' + movieStore.quote.thumbnail" />
+            <img
+              class="w-full"
+              :src="
+                backendUrl + '/storage/' + movieStore.quote.thumbnail
+              "
+            />
           </div>
 
           <div class="mt-[2.4rem] flex pb-[2.6rem]">
@@ -110,9 +115,16 @@
             class="mt-[2.4rem] max-w-[93rem]"
           >
             <div class="flex items-center">
-              <img v-if="!comment.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
-              <img v-else class="mx-[0rem] mr-[2.4rem]"
-                :src="'http://127.0.0.1:8000/storage/' + comment.thumbnail" />
+              <img
+                v-if="!comment.thumbnail"
+                class="mx-[0px]"
+                src="@/assets/png/profile.png"
+              />
+              <img
+                v-else
+                class="mx-[0rem] mr-[2.4rem]"
+                :src="backendUrl + '/storage/' + comment.thumbnail"
+              />
               <div
                 class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
               >
@@ -132,7 +144,11 @@
                 class="mx-[0px] mr-[2.4rem]"
                 src="@/assets/png/profile.png"
               />
-              <img v-else class="mx-[0rem] mr-[2.4rem]" :src="'http://127.0.0.1:8000/storage/' + auth.user.thumbnail" />
+              <img
+                v-else
+                class="mx-[0rem] mr-[2.4rem]"
+                :src="backendUrl + '/storage/' + auth.user.thumbnail"
+              />
               <input
                 @keyup.enter="writeComment"
                 class="font-[Helvetica Neue] w-full rounded-[1rem] bg-[#24222F] py-[1.1rem] px-[2.7rem] text-[2rem] text-[#CED4DA] opacity-[0.6]"
@@ -160,12 +176,12 @@ import { useAuthStore } from "@/stores/auth.js";
 import { useMovieStore } from "@/stores/movie";
 import { onBeforeMount, ref } from "vue-demi";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const router = useRouter();
 const route = useRoute();
 const auth = useAuthStore();
 const movieStore = useMovieStore();
 const comment = ref("");
-const locale = sessionStorage.getItem("locale") ?? "en";
 
 const deleteQuote = () => {
   movieStore.deleteQuote(route.params.quoteId);
@@ -176,7 +192,12 @@ const likeOrDislike = () =>
   movieStore.likeOrDislikeQuote(route.params.quoteId, auth.user.id);
 
 const writeComment = () => {
-  movieStore.commentOnQuote(+route.params.quoteId, auth.user.username, auth.user.thumbnail, comment.value);
+  movieStore.commentOnQuote(
+    +route.params.quoteId,
+    auth.user.username,
+    auth.user.thumbnail,
+    comment.value
+  );
   comment.value = "";
 };
 
