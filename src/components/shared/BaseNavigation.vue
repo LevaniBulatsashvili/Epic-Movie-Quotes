@@ -1,14 +1,14 @@
 <template>
-  <nav class="min-w-[22rem]">
+  <nav class="min-w-[22rem] lg:max-w-[18rem]">
     <div class="flex">
       <img
         v-if="!auth.user.thumbnail"
-        class="mx-[0rem]"
+        class="mx-[0rem] max-w-[6rem]"
         src="@/assets/png/profile.png"
       />
       <img
         v-else
-        class="mx-[0rem]"
+        class="mx-[0rem] max-w-[6rem]"
         :src="backendUrl + '/storage/' + auth.user.thumbnail"
       />
       <div>

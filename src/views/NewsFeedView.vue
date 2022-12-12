@@ -3,13 +3,14 @@
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
-      <div class="ml-[6.95rem]">
+      <div class="ml-[6.95rem] lg:ml-[3rem] md:hidden">
         <BaseNavigation />
       </div>
 
-      <div class="ml-[0rem]">
-        <div class="flex min-w-[70rem]">
+      <div class="ml-[0rem] max-w-[94rem] lg:max-w-[60rem] md:mx-auto md:px-[3.5rem] w-full">
+        <div class="flex">
           <div
+            v-if="!searching"
             class="mb-[2.2rem] flex flex-grow items-center rounded-[1rem] bg-[#24222F] opacity-[0.6]"
           >
             <WriteIcon
@@ -36,7 +37,7 @@
           <input
             @click.stop
             @keyup.enter="onSearch"
-            class="search font-[Halvetica Neue] border-searchBorder text-searchText ml-[5rem] mb-[2.2rem] w-[69rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] text-[2rem]"
+            class="search font-Halvetica_Neue border-searchBorder text-searchText mb-[2.2rem] w-full border-b-[1px] border-solid bg-transparent px-[1.5rem] text-[2rem] sm:px-[0.5rem] sm:text-[1.4]"
             :class="{ hidden: !searching }"
             type="text"
             :placeholder="`${$t('news.enter')} @ ${$t(

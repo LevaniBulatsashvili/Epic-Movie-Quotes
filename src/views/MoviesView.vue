@@ -3,54 +3,38 @@
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
-      <div class="ml-[6.95rem]">
+      <div class="ml-[6.95rem] lg:ml-[3rem] md:hidden">
         <BaseNavigation />
       </div>
 
-      <div class="ml-[12.7rem] mr-[7rem]">
-        <div class="flex">
-          <div
-            class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] font-medium text-[#FFFFFF]"
-          >
-            {{ $t("movie.my_list_of_movies") }} ({{ $t("movie.total") }}
-            {{ movieStore.movies.length }})
-          </div>
-
-          <div class="mr-[0rem] flex items-center">
-            <input
-              @click.stop
-              @keyup.enter="onSearch"
-              class="search font-[Halvetica Neue] border-searchBorder text-searchText mr-[5rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] py-[0.5rem] text-[2rem]"
-              :class="{ hidden: !searching }"
-              type="text"
-              :placeholder="$t('movie.enter_to_search')"
-            />
-            <div
-              v-if="!searching"
-              @click.stop="onSearchClicked"
-              class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex cursor-pointer items-center gap-[1.6rem] text-[2rem] text-[#CED4DA]"
-            >
-              <SearchIcon />
-              {{ $t("movie.search") }}
+      <div>
+        <div class="ml-[12.7rem] md:mx-[3.5rem]">
+          <div class="flex">
+            <div class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] font-medium text-[#FFFFFF] md:max-w-[20rem] sm:hidden">
+              {{ $t("movie.my_list_of_movies") }} ({{ $t("movie.total") }}
+              {{ movieStore.movies.length }})
             </div>
-            <button
-              @click="router.push({ name: 'addMovie' })"
-              class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
-            >
-              <PlusIcon />{{ $t("movie.add_movie") }}
-            </button>
-          </div>
-        </div>
 
-        <div class="mt-[3.8rem] grid grid-cols-3">
-          <MovieCard
-            v-for="movie in movieStore.movies"
-            :id="movie.id"
-            :name="movie.name"
-            :quotes="movie.quotes"
-            :thumbnail="movie.thumbnail"
-            :key="movie.id"
-          />
+            <div class="mr-[0rem] flex items-center">
+              <input @click.stop @keyup.enter="onSearch"
+                class="search font-Halvetica_Neue border-searchBorder text-searchText mr-[5rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] py-[0.5rem] text-[2rem]"
+                :class="{ hidden: !searching }" type="text" :placeholder="$t('movie.enter_to_search')" />
+              <div v-if="!searching" @click.stop="onSearchClicked"
+                class="font-[Helvetica Neue] ml-[1.6rem] mr-[3.1rem] flex cursor-pointer items-center gap-[1.6rem] text-[2rem] text-[#CED4DA] lg:hidden">
+                <SearchIcon />
+                {{ $t("movie.search") }}
+              </div>
+              <button @click="router.push({ name: 'addMovie' })"
+                class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] mr-[5rem] md:text-[1.6rem]">
+                <PlusIcon />{{ $t("movie.add_movie") }}
+              </button>
+            </div>
+          </div>
+        
+          <div class="mt-[3.8rem] grid grid-cols-3 lg:grid-cols-2 md:grid-cols-1 sm:ml-[5rem] md:mt-[1rem]">
+            <MovieCard v-for="movie in movieStore.movies" :id="movie.id" :name="movie.name" :quotes="movie.quotes"
+              :thumbnail="movie.thumbnail" :key="movie.id" />
+          </div>
         </div>
       </div>
     </div>

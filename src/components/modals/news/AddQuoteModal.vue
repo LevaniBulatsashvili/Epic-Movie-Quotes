@@ -9,7 +9,7 @@
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
           <div
-            class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
             {{ $t("news.write_new_quote") }}
           </div>
@@ -61,7 +61,7 @@
               <div>
                 <div
                   @click="toggleMovieDropdown"
-                  class="font-[Halvetica Neue] flex cursor-pointer items-center rounded-[0.4rem] bg-[#000000] py-[2.5rem]"
+                  class="font-Halvetica_Neue flex cursor-pointer items-center rounded-[0.4rem] bg-[#000000] py-[2.5rem]"
                 >
                   <CameraIcon class="ml-[2.4rem] mr-[1.2rem]" />
                   <div class="ml-[0rem] text-[2.4rem] text-[#FFFFFF]">
@@ -82,7 +82,7 @@
               </div>
               <div
                 v-if="movieNotSelected"
-                class="font-[Halvetica Neue] mt-[0.5rem] bg-purple-800 p-[1rem] text-[1.6rem] text-[#FFFFFF]"
+                class="font-Halvetica_Neue mt-[0.5rem] bg-purple-800 p-[1rem] text-[1.6rem] text-[#FFFFFF]"
               >
                 {{ $t("news.please_select_a_movie") }}
               </div>

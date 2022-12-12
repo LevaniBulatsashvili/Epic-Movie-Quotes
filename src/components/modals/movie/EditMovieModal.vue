@@ -15,7 +15,7 @@
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
           <div
-            class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
             {{ $t("movie_modal.edit_movie") }}
           </div>
@@ -78,7 +78,7 @@
                   "
                 >
                   <div
-                    class="font-[Halvetica Neue] text-[1.8rem] font-bold capitalize leading-[100%] text-[#FFFFFF]"
+                    class="font-Halvetica_Neue text-[1.8rem] font-bold capitalize leading-[100%] text-[#FFFFFF]"
                   >
                     {{ genre[locale] }}
                   </div>

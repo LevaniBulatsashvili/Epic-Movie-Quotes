@@ -12,11 +12,11 @@
     }"
   >
     <CameraIcon class="my-[3rem] ml-[1.8rem] mr-[1.1rem]" />
-    <div class="font-[Halvetica Neue] mx-[0rem] text-[2rem] text-[#FFFFFF]">
+    <div class="font-Halvetica_Neue mx-[0rem] text-[2rem] text-[#FFFFFF]">
       {{ $t("movie_modal.drag_drop_your_image_here_or") }}
     </div>
     <label
-      class="font-[Halvetica Neue] bg-dropdown ml-[0.8rem] cursor-pointer p-[1rem] text-[2rem] leading-[110%] text-[#FFFFFF]"
+      class="font-Halvetica_Neue bg-dropdown ml-[0.8rem] cursor-pointer p-[1rem] text-[2rem] leading-[110%] text-[#FFFFFF]"
       for="dropzone"
       >{{ $t("movie_modal.choose_file") }}</label
     >

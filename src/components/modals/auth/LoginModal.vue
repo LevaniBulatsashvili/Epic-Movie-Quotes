@@ -35,7 +35,7 @@
                 :onClearField="onPasswordClear"
                 @onFieldChange="onPasswordChange"
               />
-              <p v-if="asyncValidationFailed" class="font-[Halvetica Neue] mb-[1.5rem] text-[1.4rem] text-[#DC3545]">
+              <p v-if="asyncValidationFailed" class="font-Halvetica_Neue mb-[1.5rem] text-[1.4rem] text-[#DC3545]">
                 {{ $t("auth.user_does_not_exist") }}
               </p>
 

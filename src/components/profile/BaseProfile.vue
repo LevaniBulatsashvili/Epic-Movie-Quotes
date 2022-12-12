@@ -1,26 +1,26 @@
 <template>
-  <div class="ml-[18.7rem] box-border rounded-[1.2rem]">
+  <div class="box-border rounded-[1.2rem]">
     <div
-      class="font-[Helvetica Neue] mb-[12.6rem] ml-[3rem] text-[2.4rem] font-medium text-[#FFFFFF]"
+      class="font-Halvetica_Neue mb-[12.6rem] text-[2.4rem] font-medium text-[#FFFFFF]"
     >
       {{ $t("profile.my_profile") }}
     </div>
 
-    <div class="min-w-[100rem] bg-[#11101A] pt-[12.5rem] pb-[7.7rem]">
+    <div class="bg-[#11101A] pt-[12.5rem] pb-[7.7rem]">
       <div>
         <img
           v-if="!auth.user.thumbnail"
-          class="absolute bottom-[4rem] left-[40.5rem]"
+          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] lg:left-[23rem] md:left-[9rem]"
           src="@/assets/png/mainProfile.png"
         />
         <img
           v-else
-          class="absolute bottom-[4rem] left-[40.5rem]"
+          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] lg:left-[23rem] md:left-[9rem]"
           :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <div class="text-center">
           <label
-            class="font-[Helvetica Neue] cursor-pointer text-center text-[2rem] text-[#FFFFFF]"
+            class="font-Halvetica_Neue cursor-pointer text-center text-[2rem] text-[#FFFFFF]"
             for="fileUpload"
             >{{ $t("profile.upload_new_photo") }}</label
           >
@@ -32,7 +32,7 @@
           />
           <div
             v-if="wrongFileType"
-            class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+            class="font-Halvetica_Neue text-[1.4rem] text-[#DC3545]"
           >
             {{ $t("profile.please_upload_correct_file_type") }} (png, jpeg, jpg)
           </div>
