@@ -37,7 +37,7 @@
             <GarbageIcon @click="deleteQuote" class="cursor-pointer" />
           </div>
           <div
-            class="font-[Halvetica Neue] mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
             {{ $t("movie_modal.view_quote") }}
           </div>
@@ -57,12 +57,12 @@
 
           <div class="my-[2rem]">
             <div
-              class="font-[Halvetica Neue] box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
+              class="font-Halvetica_Neue box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
             >
               "{{ movieStore.quote.body.en }}"
             </div>
             <div
-              class="font-[Halvetica Neue] absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
+              class="font-Halvetica_Neue absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
             >
               {{ $t("movie_modal.en") }}
             </div>
@@ -70,12 +70,12 @@
 
           <div class="my-[2rem]">
             <div
-              class="font-[Halvetica Neue] box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
+              class="font-Halvetica_Neue box-border w-full rounded-[0.4rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[0.9rem] pl-[1.7rem] pr-[6rem] text-[2rem] text-[#FFFFFF] focus:outline-[#6C757D]"
             >
               "{{ movieStore.quote.body.ka }}"
             </div>
             <div
-              class="font-[Halvetica Neue] absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
+              class="font-Halvetica_Neue absolute right-[1.5rem] top-[0.8rem] text-[2rem] text-[#6C757D]"
             >
               {{ $t("movie_modal.ka") }}
             </div>
@@ -93,7 +93,7 @@
           <div class="mt-[2.4rem] flex pb-[2.6rem]">
             <div class="mx-[0rem] flex">
               <div
-                class="font-[Halvetica Neue] mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
+                class="font-Halvetica_Neue mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
               >
                 {{ movieStore.quote.comments.length }}
               </div>
@@ -101,7 +101,7 @@
             </div>
             <div class="mx-[3.2rem] flex flex">
               <div
-                class="font-[Halvetica Neue] mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
+                class="font-Halvetica_Neue mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
               >
                 {{ movieStore.quote.likes }}
               </div>

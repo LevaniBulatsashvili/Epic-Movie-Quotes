@@ -11,7 +11,7 @@
       :src="backendUrl + '/storage/' + user.thumbnail"
     />
     <div
-      class="font-[Halvetica Neue] ml-[1.6rem] text-[2rem] capitalize text-[#FFFFFF]"
+      class="font-Halvetica_Neue ml-[1.6rem] text-[2rem] capitalize text-[#FFFFFF]"
     >
       {{ user.username }}
     </div>

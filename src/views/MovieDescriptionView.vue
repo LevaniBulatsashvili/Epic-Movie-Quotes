@@ -3,12 +3,12 @@
     <TheHeader />
 
     <div v-if="movieStore.movie && movieStore.quotes" class="mt-[3.2rem] flex">
-      <div class="ml-[7rem] mr-[12.7rem]">
+      <div class="ml-[7rem] mr-[12.7rem] lg:ml-[3rem] lg:mr-[7rem] md:hidden">
         <BaseNavigation />
       </div>
-      <div class="pr-[7rem]">
+      <div class="pr-[7rem] md:pr-[0rem]">
         <div
-          class="font-[Halvetica Neue] mb-[3.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+          class="font-Halvetica_Neue mb-[3.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
         >
           {{ $t("movie_description.movie_description") }}
         </div>
@@ -20,7 +20,7 @@
           :genres="movieStore.movie.genres"
           :thumbnail="movieStore.movie.thumbnail"
         />
-        <div class="mt-[4rem] mb-[6rem] flex items-center">
+        <div class="mt-[4rem] mb-[6rem] flex items-center lg:mt-[1.5rem]">
           <div
             class="ml-[0rem] mr-[1.6rem] border-r-[1px] border-solid border-[#6C757D]"
           >

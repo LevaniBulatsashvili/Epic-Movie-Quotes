@@ -2,15 +2,15 @@
   <div>
     <TheHeader />
 
-    <div class="mt-[32rem] mb-[21.2rem] text-center">
+    <div class="mt-[28rem] mb-[21.2rem] px-[7.3rem] text-center lg:mt-[22rem] lg:mb-[15rem] sm:mt-[13rem] sm:mb-[10rem]">
       <div
-        class="text-center font-[Montserrat] text-[6rem] font-bold text-[#DDCCAA]"
+        class="text-center font-[Montserrat] text-[6rem] font-bold text-[#DDCCAA] lg:text-[4.5rem] sm:text-[2.4rem]"
       >
         {{ $t("home.find_any_quote_in_millions_of_movie_lines") }}
       </div>
       <button
         @click="router.push({ name: 'newsFeed' })"
-        class="font-[Halvetica Neue] mt-[3rem] rounded-[0.48rem] border-[1px] border-solid border-[#E31221] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10]"
+        class="font-Halvetica_Neue mt-[3rem] rounded-[0.48rem] border-[1px] border-solid border-[#E31221] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] hover:bg-[#CC0E10] sm:text-[1.6rem]"
       >
         {{ $t("home.get_started") }}
       </button>

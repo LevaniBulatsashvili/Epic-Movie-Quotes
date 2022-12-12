@@ -15,7 +15,7 @@
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
           <div
-            class="font-[Halvetica Neue] mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mr-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
             {{ $t("movie_modal.add_quote") }}
           </div>
@@ -42,7 +42,7 @@
             />
             <div class="ml-[2.7rem]">
               <div
-                class="font-[Halvetica Neue] mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
+                class="font-Halvetica_Neue mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
               >
                 {{ movieStore.movie.name[locale] }}
               </div>
@@ -56,11 +56,11 @@
                 </div>
               </div>
               <div
-                class="font-[Halvetica Neue] text-[1.8rem] capitalize text-[#CED4DA]"
+                class="font-Halvetica_Neue text-[1.8rem] capitalize text-[#CED4DA]"
               >
                 {{ $t("movie_modal.director") }}:
                 <span
-                  class="font-[Halvetica Neue] ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
+                  class="font-Halvetica_Neue ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
                   >{{ movieStore.movie.director[locale] }}</span
                 >
               </div>

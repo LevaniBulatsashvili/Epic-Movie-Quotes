@@ -16,13 +16,13 @@
         >
           <div
             @click="deleteQuote"
-            class="font-[Halvetica Neue] ml-[3.2rem] flex cursor-pointer gap-[1rem] text-[1.6rem] capitalize text-[#CED4DA]"
+            class="font-Halvetica_Neue ml-[3.2rem] flex cursor-pointer gap-[1rem] text-[1.6rem] capitalize text-[#CED4DA]"
           >
             <GarbageIcon />
             {{ $t("movie_modal.delete") }}
           </div>
           <div
-            class="font-[Halvetica Neue] mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
           >
             {{ $t("movie_modal.edit_quote") }}
           </div>
@@ -71,14 +71,16 @@
                 :baseValue="movieStore.quote.body.en"
               />
 
-              <FileDropdown @onFileChanged="onFileChanged" />
-
-              <img
-                class="w-full"
-                :src="
+              <div>
+                <label for="dropzone" class="top-[38%] left-[45%] absolute bg-[#181623] opacity-[0.65] px-[1.6rem] text-center pb-[1.4rem] pt-[2rem] rounded-[1rem] hover:opacity-[0.8] z-10 cursor-pointer">
+                  <CameraIcon />
+                  <div class="font-Halvetica_Neue text-[1.6rem] text-[#FFFFFF] mt-[1.5rem] capitalize">{{ $t("movie_modal.change_photo") }}</div>
+                  <input @change="onFileChanged" class="hidden" id="dropzone" type="file" />
+                </label>
+                <img :src="
                   backendUrl + '/storage/' + movieStore.quote.thumbnail
-                "
-              />
+                " />
+              </div>
 
               <MainButton
                 :description="$t('movie_modal.save_changes')"
@@ -96,7 +98,7 @@
 import MovieField from "@/components/form/MovieField.vue";
 import MainButton from "@/components/form/MainButton.vue";
 import MovieProfile from "@/components/movie/MovieProfile.vue";
-import FileDropdown from "@/components/movie/FileDropdown.vue";
+import CameraIcon from "@/components/icons/movie/CameraIcon.vue";
 import CloseIcon from "@/components/icons/movie/CloseIcon.vue";
 import GarbageIcon from "@/components/icons/movie/GarbageIcon.vue";
 
@@ -119,7 +121,13 @@ const file = ref("");
 
 const onQuoteEnChange = (val) => (quoteEn.value = val);
 const onQuoteKaChange = (val) => (quoteKa.value = val);
-const onFileChanged = (val) => (file.value = val);
+
+const onFileChanged = (e) => {
+  const fileType = e.target.files[0].type;
+  if (fileType === "image/png" || fileType === "image/jpeg") file.value = e.target.files[0];
+  else file.value = "";
+
+};
 
 const formIsValid = ref(false);
 const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
@@ -127,6 +135,8 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const editQuote = async () => {
   if (formIsValid.value) {
     const fd = new FormData();
+    if (!quoteEn.value) quoteEn.value = movieStore.quote.body.en;
+    if (!quoteKa.value) quoteKa.value = movieStore.quote.body.ka;
     fd.append("username", auth.user.username);
     fd.append("quote_en", quoteEn.value);
     fd.append("quote_ka", quoteKa.value);

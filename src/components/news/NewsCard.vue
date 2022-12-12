@@ -8,12 +8,12 @@
       <div class="flex items-center">
         <img
           v-if="!quote.user_thumbnail"
-          class="mx-[0px]"
+          class="mx-[0px] max-w-[6rem]"
           src="@/assets/png/profile.png"
         />
         <img
           v-else
-          class="mx-[0rem]"
+          class="mx-[0rem] max-w-[6rem]"
           :src="backendUrl + '/storage/' + quote.user_thumbnail"
         />
         <div
@@ -48,32 +48,19 @@
       </div>
     </div>
 
-    <div
-      v-for="comment in quote.comments"
-      :key="comment.id"
-      class="mt-[2.4rem] max-w-[93rem]"
-    >
-      <div class="flex items-center">
-        <img
-          v-if="!auth.user.thumbnail"
-          class="mx-[0px]"
-          src="@/assets/png/profile.png"
-        />
-        <img
-          v-else
-          class="mx-[0rem]"
-          :src="backendUrl + '/storage/' + auth.user.thumbnail"
-        />
-        <div
-          class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
-        >
-          {{ comment.username }}
+    <div class="max-h-[30rem] overflow-y-auto scroll">
+      <div v-for="comment in quote.comments" :key="comment.id" class="mt-[2.4rem] max-w-[93rem]">
+        <div class="flex items-center">
+          <img v-if="!auth.user.thumbnail" class="mx-[0px] max-w-[6rem]" src="@/assets/png/profile.png" />
+          <img v-else class="mx-[0rem] max-w-[6rem]" :src="backendUrl + '/storage/' + auth.user.thumbnail" />
+          <div class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]">
+            {{ comment.username }}
+          </div>
         </div>
-      </div>
-      <div
-        class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]"
-      >
-        {{ comment.body }}
+        <div
+          class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]">
+          {{ comment.body }}
+        </div>
       </div>
     </div>
 
@@ -81,12 +68,12 @@
       <div class="flex items-center">
         <img
           v-if="!auth.user.thumbnail"
-          class="mx-[0px] mr-[2.4rem]"
+          class="mx-[0px] mr-[2.4rem] max-w-[6rem]"
           src="@/assets/png/profile.png"
         />
         <img
           v-else
-          class="mx-[0rem]"
+          class="mr-[1.2rem] max-w-[6rem]"
           :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <input
@@ -134,3 +121,9 @@ const props = defineProps({
   },
 });
 </script>
+
+<style scoped>
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+</style>

@@ -1,15 +1,15 @@
 <template>
   <div class="rounder-[1rem] mb-[4rem] bg-[#11101A] px-[3.2rem] pt-[2.4rem]">
     <div
-      class="border-quoteUnderline flex items-start border-b-[1px] border-solid pb-[2.4rem]"
+      class="border-quoteUnderline flex items-start border-b-[1px] border-solid pb-[2.4rem] lg:flex-col"
     >
-      <img :src="backendUrl + '/storage/' + thumbnail" />
+      <img class="max-w-[26.6rem]" :src="backendUrl + '/storage/' + thumbnail" />
       <div class="ml-[3.4rem] w-full">
-        <div @click="toggleQuoteDropdown" class="mb-[2.8rem] flex">
+        <div @click="toggleQuoteDropdown" class="mb-[2.8rem] flex lg:absolute lg:top-[9rem] lg:left-[32rem] z-10 ">
           <ThreeDotIcon class="mr-[0rem] cursor-pointer" />
           <div
             v-if="quoteDropdown"
-            class="absolute left-[39rem] top-[2.5rem] z-10 min-w-[25rem] rounded-[1rem] bg-[#24222F] py-[3.2rem] pr-[9rem] pl-[4rem]"
+            class="absolute left-[95%] top-[100%] min-w-[22rem] rounded-[1rem] bg-[#24222F] py-[3.2rem] pl-[4rem] lg:left-[40%] md:left-[-730%] lg:min-w-[20rem]  z-10"
           >
             <button
               @click="
@@ -18,7 +18,7 @@
                   params: { id: route.params.id, quoteId: quoteId },
                 })
               "
-              class="font-[Halvetica Neue] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
+              class="font-Halvetica_Neue flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <EyeIcon />
               {{ $t("movie_description.view_quote") }}
@@ -30,21 +30,21 @@
                   params: { id: route.params.id, quoteId: quoteId },
                 })
               "
-              class="font-[Halvetica Neue] my-[3.2rem] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
+              class="font-Halvetica_Neue my-[3.2rem] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <PencilIcon />
               {{ $t("movie_description.edit") }}
             </button>
             <button
               @click="deleteQuote"
-              class="font-[Halvetica Neue] flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
+              class="font-Halvetica_Neue flex cursor-pointer items-center gap-[1.6rem] text-[1.6rem] capitalize text-[#FFFFFF]"
             >
               <GarbageIcon />
               {{ $t("movie_description.delete") }}
             </button>
           </div>
         </div>
-        <div class="font-[Halvetica Neue] text-[2.4rem] italic text-[#CED4DA]">
+        <div class="font-Halvetica_Neue text-[2.4rem] italic text-[#CED4DA]">
           "{{ body[locale] }}"
         </div>
       </div>
@@ -52,7 +52,7 @@
     <div class="mt-[2.4rem] flex pb-[2.6rem]">
       <div class="mx-[0rem] flex">
         <div
-          class="font-[Halvetica Neue] mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
+          class="font-Halvetica_Neue mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
         >
           {{ comments }}
         </div>
@@ -68,7 +68,7 @@
       </div>
       <div class="mx-[3.2rem] flex flex">
         <div
-          class="font-[Halvetica Neue] mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
+          class="font-Halvetica_Neue mr-[1.2rem] text-[2rem] text-[#FFFFFF]"
         >
           {{ likes }}
         </div>

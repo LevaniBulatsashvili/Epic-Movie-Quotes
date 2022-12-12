@@ -30,13 +30,13 @@
       />
       <p>
         <ErrorMessage
-          class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+          class="font-Halvetica_Neue text-[1.4rem] text-[#DC3545]"
           :name="title"
         />
       </p>
       <p
         v-if="asyncValidationFailed"
-        class="font-[Halvetica Neue] text-[1.4rem] text-[#DC3545]"
+        class="font-Halvetica_Neue text-[1.4rem] text-[#DC3545]"
       >
         {{ asyncError }}
       </p>

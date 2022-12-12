@@ -2,7 +2,15 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      "lg": {"max": "1420px"},
+      "md": {"max": "960px"},
+      "sm": {"max": "520px"},
+    },
     extend: {
+      fontFamily: {
+        Halvetica_Neue: ["Halvetica_Neue", "sans-serif"],
+      },
       backgroundImage: {
         intersteller: "url(@/assets/png/intersteller.png)",
         tenenbaums: "url(@/assets/png/inhouse.png)",
