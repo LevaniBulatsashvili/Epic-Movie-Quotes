@@ -1,6 +1,9 @@
 <template>
   <div class="flex lg:grid">
-    <img class="max-w-[44rem] md:max-w-[40rem] md:h-[25rem] md:ml-[0rem]" :src="backendUrl + '/storage/' + thumbnail" />
+    <img
+      class="max-w-[44rem] md:ml-[0rem] md:h-[25rem] md:max-w-[40rem]"
+      :src="backendUrl + '/storage/' + thumbnail"
+    />
     <div class="pl-[2.1rem] lg:my-[2.4rem] lg:ml-[0rem] lg:pl-[0rem]">
       <div class="flex">
         <div

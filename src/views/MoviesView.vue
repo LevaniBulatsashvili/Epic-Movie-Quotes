@@ -8,7 +8,7 @@
       </div>
 
       <div>
-        <div class="ml-[12.7rem] md:mx-[3.5rem] sm:mx-[0rem]">
+        <div class="ml-[12.7rem] sm:mx-[0rem] md:mx-[3.5rem]">
           <div class="flex">
             <div
               class="font-[Helvetica Neue] ml-[0rem] text-[2.4rem] font-medium text-[#FFFFFF] md:hidden md:max-w-[20rem]"

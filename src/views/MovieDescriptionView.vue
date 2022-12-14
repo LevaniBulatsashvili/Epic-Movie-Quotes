@@ -20,7 +20,9 @@
           :genres="movieStore.movie.genres"
           :thumbnail="movieStore.movie.thumbnail"
         />
-        <div class="mt-[4rem] mb-[6rem] flex items-center lg:mt-[1.5rem] md:block">
+        <div
+          class="mt-[4rem] mb-[6rem] flex items-center md:block lg:mt-[1.5rem]"
+        >
           <div
             class="ml-[0rem] mr-[1.6rem] border-r-[1px] border-solid border-[#6C757D] md:border-r-[0rem]"
           >
@@ -35,7 +37,7 @@
           </div>
           <button
             @click="router.push({ name: 'addQuote' })"
-            class="font-[Helvetica Neue] md:mt-[4rem] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
+            class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF] md:mt-[4rem]"
           >
             <PlusIcon />{{ $t("movie_description.add_quote") }}
           </button>

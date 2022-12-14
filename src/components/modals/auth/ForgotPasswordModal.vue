@@ -4,7 +4,10 @@
       @click="router.push({ name: 'home' })"
       class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030] md:w-[47rem] sm:w-[40rem]">
+      <div
+        @click.stop
+        class="w-[60rem] rounded-[1rem] bg-[#222030] sm:w-[40rem] md:w-[47rem]"
+      >
         <MainHeader
           class="px-[4rem]"
           :title="$t('auth.forgot_password')"
@@ -17,7 +20,7 @@
 
         <div class="mb-[5.3rem] flex">
           <Form
-            class="min-w-[36rem] md:min-w-[30rem] sm:min-w-[25rem]"
+            class="min-w-[36rem] sm:min-w-[25rem] md:min-w-[30rem]"
             @submit="forgotPassword"
             v-slot="{ meta }"
           >

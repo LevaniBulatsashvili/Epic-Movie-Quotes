@@ -10,12 +10,12 @@
       <div class="ml-[3.4rem] w-full">
         <div
           @click="toggleQuoteDropdown"
-          class="z-10 mb-[2.8rem] flex lg:absolute lg:top-[9rem] lg:left-[32rem] md:left-[20rem]"
+          class="z-10 mb-[2.8rem] flex md:left-[20rem] lg:absolute lg:top-[9rem] lg:left-[32rem]"
         >
           <ThreeDotIcon class="mr-[0rem] cursor-pointer" />
           <div
             v-if="quoteDropdown"
-            class="absolute left-[95%] top-[100%] z-10 min-w-[22rem] rounded-[1rem] bg-[#24222F] py-[3.2rem] pl-[4rem] lg:left-[150%] lg:top-[-800%] md:left-[150%] md:top-[-800%] lg:min-w-[20rem]"
+            class="absolute left-[95%] top-[100%] z-10 min-w-[22rem] rounded-[1rem] bg-[#24222F] py-[3.2rem] pl-[4rem] md:left-[150%] md:top-[-800%] lg:left-[150%] lg:top-[-800%] lg:min-w-[20rem]"
           >
             <button
               @click="

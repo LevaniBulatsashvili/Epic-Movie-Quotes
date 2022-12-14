@@ -2,9 +2,12 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'movies' })"
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex mt-[10.5rem] w-[100vw] items-center justify-center md:left-[-2rem]"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[90rem] rounded-[1rem] bg-[#222030] overflow-y-auto h-[70rem] md:w-[50rem] sm:w-[32rem]">
+      <div
+        @click.stop
+        class="h-[70rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] sm:w-[32rem] md:w-[50rem]"
+      >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
@@ -48,7 +51,7 @@
             />
 
             <div
-              class="mt-[1.5rem] mb-[2.1rem] flex rounded-[0.48rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[1.1rem] px-[1.9rem] overflow-x-auto scroll"
+              class="scroll mt-[1.5rem] mb-[2.1rem] flex overflow-x-auto rounded-[0.48rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[1.1rem] px-[1.9rem]"
             >
               <div
                 class="ml-[0rem] mr-[0.85rem]"

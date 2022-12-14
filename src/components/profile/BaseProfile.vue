@@ -15,7 +15,7 @@
         />
         <img
           v-else
-          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] rounded-[15rem]  md:left-[9rem] lg:left-[23rem]"
+          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] rounded-[15rem] md:left-[9rem] lg:left-[23rem]"
           :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <div class="text-center">

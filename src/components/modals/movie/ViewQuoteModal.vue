@@ -8,11 +8,11 @@
           params: { id: route.params.id },
         })
       "
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex mt-[10.5rem] w-[100vw] items-center justify-center md:left-[-2rem]"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
       <div
         @click.stop
-        class="w-[90rem] rounded-[1rem] max-h-[90rem] overflow-y-auto bg-[#222030] pb-[3.5rem] md:w-[50rem] sm:w-[32rem]"
+        class="max-h-[90rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] pb-[3.5rem] sm:w-[32rem] md:w-[50rem]"
       >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
@@ -83,7 +83,7 @@
 
           <div class="mb-[3.2rem] flex">
             <img
-              class="w-full lg:h-[40rem] object-cover"
+              class="w-full object-cover lg:h-[40rem]"
               :src="backendUrl + '/storage/' + movieStore.quote.thumbnail"
             />
           </div>

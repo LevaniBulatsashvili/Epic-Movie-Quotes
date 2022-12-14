@@ -4,7 +4,10 @@
       @click="router.push({ name: 'home' })"
       class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030] md:w-[47rem] sm:w-[40rem]">
+      <div
+        @click.stop
+        class="w-[60rem] rounded-[1rem] bg-[#222030] sm:w-[40rem] md:w-[47rem]"
+      >
         <MainHeader
           :title="$t('auth.log_in_to_your_account')"
           :description="$t('auth.welcome_back_please_enter_your_details')"
@@ -12,7 +15,11 @@
 
         <div class="mb-[5.3rem] flex">
           <div>
-            <Form class="min-w-[36rem] md:min-w-[30rem] sm:min-w-[25rem]" @submit="login" v-slot="{ meta }">
+            <Form
+              class="min-w-[36rem] sm:min-w-[25rem] md:min-w-[30rem]"
+              @submit="login"
+              v-slot="{ meta }"
+            >
               <div class="hidden">
                 {{ setFormIsValid(meta) }}
               </div>

@@ -43,7 +43,10 @@
     </router-link>
 
     <router-link :to="{ name: 'movies' }" class="flex gap-[4.2rem]">
-      <RedCameraIcon v-if="route.path.includes('movies')" class="mr-[0rem] ml-[0rem]" />
+      <RedCameraIcon
+        v-if="route.path.includes('movies')"
+        class="mr-[0rem] ml-[0rem]"
+      />
       <CameraIcon v-else class="mr-[0rem] ml-[0rem]" />
       <div
         v-if="route.path.includes('movies')"

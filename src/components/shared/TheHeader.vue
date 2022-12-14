@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-[0rem] w-[100%] z-20">
+  <header class="fixed top-[0rem] z-20 w-[100%]">
     <nav
       class="flex w-full items-center py-[2.4rem] px-[7rem] sm:px-[3rem] lg:px-[5rem]"
       :style="{ backgroundColor: !auth.isAuthenticated ? '' : '#222030' }"
@@ -27,9 +27,11 @@
           </div>
           <div
             v-if="notificationDropdown"
-            class="absolute right-[-20rem] top-[7rem] z-10 min-w-[90rem] lg:min-w-[65rem] md:min-w-[50rem] sm:min-w-[40rem] rounded-[1.2rem] bg-[#000000] px-[3.2rem] pt-[4.8rem] pb-[3.6]"
+            class="absolute right-[-20rem] top-[7rem] z-10 min-w-[90rem] rounded-[1.2rem] bg-[#000000] px-[3.2rem] pt-[4.8rem] pb-[3.6] sm:min-w-[40rem] md:min-w-[50rem] lg:min-w-[65rem]"
           >
-            <NotificationArrowIcon class="absolute z-30 top-[-3rem] left-[66.5rem] lg:left-[41.5rem] md:left-[28rem]" />
+            <NotificationArrowIcon
+              class="absolute top-[-3rem] left-[66.5rem] z-30 md:left-[28rem] lg:left-[41.5rem]"
+            />
             <div class="flex items-center pb-[2.3rem]">
               <div
                 class="font-Halvetica_Neue mx-[0rem] text-[3.2rem] font-medium text-[#FFFFFF]"
@@ -47,11 +49,19 @@
               <div
                 v-for="(notification, index) in notifications"
                 :key="notification.username + index"
-                class="border-notification mb-[1.6rem] flex md:block border-[1px] border-solid py-[1.8rem] px-[2.5rem]"
+                class="border-notification mb-[1.6rem] flex border-[1px] border-solid py-[1.8rem] px-[2.5rem] md:block"
               >
-                <div class="flex mx-[0rem]">
-                  <img v-if="!notification.thumbnail" class="mx-[0rem] max-w-[6rem]" src="@/assets/png/profile.png" />
-                  <img v-else class="mx-[0rem] max-w-[6rem]" :src="backendUrl + '/storage/' + notification.thumbnail" />
+                <div class="mx-[0rem] flex">
+                  <img
+                    v-if="!notification.thumbnail"
+                    class="mx-[0rem] max-w-[6rem]"
+                    src="@/assets/png/profile.png"
+                  />
+                  <img
+                    v-else
+                    class="mx-[0rem] max-w-[6rem]"
+                    :src="backendUrl + '/storage/' + notification.thumbnail"
+                  />
                   <div class="ml-[2.4rem]">
                     <div class="font-Halvetica_Neue text-[2rem] text-[#FFFFFF]">
                       {{ notification.username }}
@@ -59,16 +69,22 @@
                     <div class="flex gap-[1.2rem]">
                       <ChatCommentIcon v-if="notification.comment" />
                       <ChatLikeIcon v-else />
-                      <div v-if="notification.comment" class="font-Halvetica_Neue text-[2rem] text-[#CED4DA] overflow-hidden whitespace-nowrap">
+                      <div
+                        v-if="notification.comment"
+                        class="font-Halvetica_Neue overflow-hidden whitespace-nowrap text-[2rem] text-[#CED4DA]"
+                      >
                         {{ $t("news.commented_on_your_quote") }}
                       </div>
-                      <div v-else class="font-Halvetica_Neue text-[2rem] text-[#CED4DA] overflow-hidden whitespace-nowrap">
+                      <div
+                        v-else
+                        class="font-Halvetica_Neue overflow-hidden whitespace-nowrap text-[2rem] text-[#CED4DA]"
+                      >
                         {{ $t("news.reacted_on_your_quote") }}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="mr-[0rem] md:flex md:mt-[1rem]">
+                <div class="mr-[0rem] md:mt-[1rem] md:flex">
                   <div class="font-Halvetica_Neue text-[2rem] text-[#D9D9D9]">
                     5 {{ $t("news.min_ago") }}
                   </div>

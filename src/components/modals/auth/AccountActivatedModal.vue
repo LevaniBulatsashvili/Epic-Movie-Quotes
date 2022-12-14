@@ -4,7 +4,10 @@
       @click="router.push({ name: 'home' })"
       class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem] md:w-[44rem] sm:w-[37rem]">
+      <div
+        @click.stop
+        class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem] sm:w-[37rem] md:w-[44rem]"
+      >
         <CheckmarkIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"

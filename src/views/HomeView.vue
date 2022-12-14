@@ -3,7 +3,7 @@
     <TheHeader />
 
     <div
-      class="pt-[38rem] mb-[21.2rem] px-[7.3rem] text-center sm:mt-[13rem] sm:mb-[10rem] lg:mt-[22rem] lg:mb-[15rem]"
+      class="mb-[21.2rem] px-[7.3rem] pt-[38rem] text-center sm:mt-[13rem] sm:mb-[10rem] lg:mt-[22rem] lg:mb-[15rem]"
     >
       <div
         class="text-center font-[Montserrat] text-[6rem] font-bold text-[#DDCCAA] sm:text-[2.4rem] lg:text-[4.5rem]"
