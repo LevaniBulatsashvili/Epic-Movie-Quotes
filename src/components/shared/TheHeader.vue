@@ -1,7 +1,7 @@
 <template>
-  <header>
+  <header class="fixed top-[0rem] w-[100%] z-20">
     <nav
-      class="flex w-full items-center py-[2.4rem] px-[7rem] lg:px-[5rem] sm:px-[3rem]"
+      class="flex w-full items-center py-[2.4rem] px-[7rem] sm:px-[3rem] lg:px-[5rem]"
       :style="{ backgroundColor: !auth.isAuthenticated ? '' : '#222030' }"
     >
       <router-link
@@ -10,7 +10,9 @@
         >Movie Quotes</router-link
       >
 
-      <div class="mr-[0px] flex items-center justify-items-center gap-[1.6rem] lg:gap-[1rem] sm:gap-[0.5]">
+      <div
+        class="mr-[0px] flex items-center justify-items-center gap-[1.6rem] sm:gap-[0.5] lg:gap-[1rem]"
+      >
         <div
           v-if="auth.isAuthenticated"
           @click="toggleNotificationsDropdown"
@@ -23,27 +25,58 @@
           >
             {{ notifications.length }}
           </div>
-          <div v-if="notificationDropdown" class="absolute pt-[4.8rem] pb-[3.6] px-[3.2rem] bg-[#000000] rounded-[1.2rem] min-w-[960px] right-[0rem] z-10">
-            <div class="flex pb-[2.3rem]">
-              <div class="font-Halvetica_Neue font-medium mx-[0rem] text-[3.2rem] text-[#FFFFFF]">{{ $t("news.notifications") }}</div>
-              <div @click="markAllAsRead" class="font-Halvetica_Neue font-medium mr-[0rem] text-[2rem] text-[#FFFFFF] cursor-pointer">{{ $t("news.mark_all_as_read") }}</div>
+          <div
+            v-if="notificationDropdown"
+            class="absolute right-[-20rem] top-[7rem] z-10 min-w-[90rem] lg:min-w-[65rem] md:min-w-[50rem] sm:min-w-[40rem] rounded-[1.2rem] bg-[#000000] px-[3.2rem] pt-[4.8rem] pb-[3.6]"
+          >
+            <NotificationArrowIcon class="absolute z-30 top-[-3rem] left-[66.5rem] lg:left-[41.5rem] md:left-[28rem]" />
+            <div class="flex items-center pb-[2.3rem]">
+              <div
+                class="font-Halvetica_Neue mx-[0rem] text-[3.2rem] font-medium text-[#FFFFFF]"
+              >
+                {{ $t("news.notifications") }}
+              </div>
+              <div
+                @click="markAllAsRead"
+                class="font-Halvetica_Neue mr-[0rem] cursor-pointer text-[2rem] font-medium text-[#FFFFFF]"
+              >
+                {{ $t("news.mark_all_as_read") }}
+              </div>
             </div>
-            <div class="max-h-[57rem] overflow-y-auto scroll">
-              <div v-for="notification in notifications" class="py-[1.8rem] px-[2.5rem] mb-[1.6rem] flex border-[1px] border-solid border-notification">
-                <img v-if="!notification.thumbnail" class="mx-[0rem] max-w-[6rem]" src="@/assets/png/profile.png" />
-                <img v-else class="mx-[0rem] max-w-[6rem]" :src="backendUrl + '/storage/' + notification.thumbnail" />
-                <div class="ml-[2.4rem]">
-                  <div class="font-Halvetica_Neue text-[2rem] text-[#FFFFFF]">{{ notification.username }}</div>
-                  <div class="flex gap-[1.2rem]">
-                    <ChatCommentIcon v-if="notification.comment" />
-                    <ChatLikeIcon v-else />
-                    <div v-if="notification.comment" class="font-Halvetica_Neue text-[2rem] text-[#CED4DA]">{{ $t("news.commented_on_your_quote") }}</div>
-                    <div v-else class="font-Halvetica_Neue text-[2rem] text-[#CED4DA]">{{ $t("news.reacted_on_your_quote") }}</div>
+            <div class="scroll max-h-[57rem] overflow-y-auto">
+              <div
+                v-for="(notification, index) in notifications"
+                :key="notification.username + index"
+                class="border-notification mb-[1.6rem] flex md:block border-[1px] border-solid py-[1.8rem] px-[2.5rem]"
+              >
+                <div class="flex mx-[0rem]">
+                  <img v-if="!notification.thumbnail" class="mx-[0rem] max-w-[6rem]" src="@/assets/png/profile.png" />
+                  <img v-else class="mx-[0rem] max-w-[6rem]" :src="backendUrl + '/storage/' + notification.thumbnail" />
+                  <div class="ml-[2.4rem]">
+                    <div class="font-Halvetica_Neue text-[2rem] text-[#FFFFFF]">
+                      {{ notification.username }}
+                    </div>
+                    <div class="flex gap-[1.2rem]">
+                      <ChatCommentIcon v-if="notification.comment" />
+                      <ChatLikeIcon v-else />
+                      <div v-if="notification.comment" class="font-Halvetica_Neue text-[2rem] text-[#CED4DA] overflow-hidden whitespace-nowrap">
+                        {{ $t("news.commented_on_your_quote") }}
+                      </div>
+                      <div v-else class="font-Halvetica_Neue text-[2rem] text-[#CED4DA] overflow-hidden whitespace-nowrap">
+                        {{ $t("news.reacted_on_your_quote") }}
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="mr-[0rem]">
-                  <div class="font-Halvetica_Neue text-[2rem] text-[#D9D9D9]">5 min ago</div>
-                  <div class="font-Halvetica_Neue text-[2rem] text-end text-[#198754]">New</div>
+                <div class="mr-[0rem] md:flex md:mt-[1rem]">
+                  <div class="font-Halvetica_Neue text-[2rem] text-[#D9D9D9]">
+                    5 {{ $t("news.min_ago") }}
+                  </div>
+                  <div
+                    class="font-Halvetica_Neue text-end text-[2rem] text-[#198754]"
+                  >
+                    {{ $t("news.new") }}
+                  </div>
                 </div>
               </div>
             </div>
@@ -74,16 +107,26 @@
         </div>
 
         <div v-if="!isAuth">
-          <button @click="toggleAuthDropdown" class="hidden md:block cursor-pointer">
+          <button
+            @click="toggleAuthDropdown"
+            class="hidden cursor-pointer md:block"
+          >
             <DropdownIcon />
           </button>
-          <div v-if="authDropdown" class="absolute z-10 mt-[1rem] border hidden md:block left-[-4rem]">
-            <button @click="toRegister"
-              class="block text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400 mx-auto w-[12rem] py-[0.5rem]">
+          <div
+            v-if="authDropdown"
+            class="absolute left-[-4rem] z-10 mt-[1rem] hidden border md:block"
+          >
+            <button
+              @click="toRegister"
+              class="mx-auto block w-[12rem] py-[0.5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
+            >
               {{ $t("header.sign_up") }}
             </button>
-            <button @click="toLogin"
-              class="block text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400 mx-auto w-[12rem]  py-[0.5rem]">
+            <button
+              @click="toLogin"
+              class="mx-auto block w-[12rem] py-[0.5rem] text-[1.6rem] text-[#FFFFFF] hover:bg-blue-400"
+            >
               {{ $t("header.log_in") }}
             </button>
           </div>
@@ -106,7 +149,7 @@
         <button
           v-else
           @click="logout"
-          class="font-Halvetica_Neue w-[9.6rem] rounded-[0.4rem] border-[1px] border-solid border-[#FFFFFF] py-[0.7rem] px-[1.3rem] lg:px-[1rem] lg:py-[0.5rem] sm:px-[0.7rem] sm:py-[0.3rem] text-[1.6rem] text-[#FFFFFF]"
+          class="font-Halvetica_Neue w-[9.6rem] rounded-[0.4rem] border-[1px] border-solid border-[#FFFFFF] py-[0.7rem] px-[1.3rem] text-[1.6rem] text-[#FFFFFF] sm:px-[0.7rem] sm:py-[0.3rem] lg:px-[1rem] lg:py-[0.5rem]"
         >
           {{ $t("header.logout") }}
         </button>
@@ -121,6 +164,7 @@ import DownArrowIcon from "@/components/icons/component/DownArrowIcon.vue";
 import BellIcon from "@/components/icons/component/BellIcon.vue";
 import ChatLikeIcon from "@/components/icons/component/ChatLikeIcon.vue";
 import ChatCommentIcon from "@/components/icons/component/ChatCommentIcon.vue";
+import NotificationArrowIcon from "@/components/icons/newsFeed/NotificationArrowIcon.vue";
 import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
@@ -158,12 +202,12 @@ const toggleNotificationsDropdown = () => {
 
 const toLogin = () => {
   authDropdown.value = false;
-  router.push({ name: 'home', params: { modal: 'login' } });
+  router.push({ name: "home", params: { modal: "login" } });
 };
 
 const toRegister = () => {
   authDropdown.value = false;
-  router.push({ name: 'home', params: { modal: 'register' } });
+  router.push({ name: "home", params: { modal: "register" } });
 };
 
 const setLocaleEn = () => {
@@ -189,23 +233,30 @@ const logout = async () => {
 };
 
 const makeConnection = () => {
-  window.Echo.channel(`quotes.${auth.user.username.split(' ').join('-')}`).listen("UserQuoteUpdated", (e) => {
+  window.Echo.channel(
+    `quotes.${auth.user.username.split(" ").join("-")}`
+  ).listen("UserQuoteUpdated", (e) => {
     if (e.comment) {
       auth.notifications.push({
         ...e.comment,
-        comment: true
-      })
-      sessionStorage.setItem("notifications", JSON.stringify(auth.notifications));
-    }
-    else if (e.like) {
+        comment: true,
+      });
+      sessionStorage.setItem(
+        "notifications",
+        JSON.stringify(auth.notifications)
+      );
+    } else if (e.like) {
       auth.notifications.push({
         ...e.like,
-        comment: false
+        comment: false,
       });
-      sessionStorage.setItem("notifications", JSON.stringify(auth.notifications));
+      sessionStorage.setItem(
+        "notifications",
+        JSON.stringify(auth.notifications)
+      );
     }
   });
-}
+};
 
 const markAllAsRead = () => {
   sessionStorage.removeItem("notifications");
@@ -217,8 +268,11 @@ watch(isAuth, (newValue) => {
   if (newValue) makeConnection();
 });
 
-const checkIfChannelExists = Object.keys(window.Echo.connector.pusher.channels.channels).length === 0;
-onBeforeMount(() => checkIfChannelExists && auth.isAuthenticated ? makeConnection() : null);
+const checkIfChannelExists =
+  Object.keys(window.Echo.connector.pusher.channels.channels).length === 0;
+onBeforeMount(() =>
+  checkIfChannelExists && auth.isAuthenticated ? makeConnection() : null
+);
 </script>
 
 <style scoped>

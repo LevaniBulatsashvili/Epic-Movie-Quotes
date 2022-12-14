@@ -7,7 +7,7 @@
 <script setup>
 import "@/config/vee-validate/rules";
 import "@/config/vee-validate/messages";
-import "@/config/broadcasting.js"
+import "@/config/broadcasting.js";
 import { setLocale } from "@vee-validate/i18n";
 
 setLocale(sessionStorage.getItem("locale") ?? "en");

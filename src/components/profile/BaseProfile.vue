@@ -10,12 +10,12 @@
       <div>
         <img
           v-if="!auth.user.thumbnail"
-          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] lg:left-[23rem] md:left-[9rem]"
+          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] md:left-[9rem] lg:left-[23rem]"
           src="@/assets/png/mainProfile.png"
         />
         <img
           v-else
-          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] lg:left-[23rem] md:left-[9rem]"
+          class="absolute bottom-[4rem] left-[40.5rem] min-w-[20rem] rounded-[15rem]  md:left-[9rem] lg:left-[23rem]"
           :src="backendUrl + '/storage/' + auth.user.thumbnail"
         />
         <div class="text-center">

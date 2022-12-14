@@ -2,16 +2,16 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'home' })"
-      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
+      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030] md:w-[47rem] sm:w-[40rem]">
         <MainHeader
           :title="$t('auth.create_an_account')"
           :description="$t('auth.start_your_journey')"
         />
 
         <div class="mb-[5.3rem] flex">
-          <div class="min-w-[36rem]">
+          <div class="min-w-[36rem] md:min-w-[30rem] sm:min-w-[25rem]">
             <Form class="" @submit="() => ''" v-slot="{ meta }">
               <div class="hidden">
                 {{ setFormIsValid(meta) }}
@@ -134,12 +134,15 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 const register = async () => {
   if (formIsValid.value && confirmPassword.value === password.value) {
     try {
-      await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/register", {
-        username: username.value,
-        email: email.value,
-        password: password.value,
-        password_confirmation: confirmPassword.value,
-      });
+      await axios.post(
+        import.meta.env.VITE_BACKEND_API_BASE_URL + "/register",
+        {
+          username: username.value,
+          email: email.value,
+          password: password.value,
+          password_confirmation: confirmPassword.value,
+        }
+      );
       router.push({
         name: "home",
         params: { modal: "check-email" },

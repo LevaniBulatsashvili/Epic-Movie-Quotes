@@ -6,7 +6,9 @@ export const useAuthStore = defineStore("auth", {
     return {
       isAuthenticated: false,
       user: null,
-      notifications: sessionStorage.getItem("notifications") ? JSON.parse(sessionStorage.getItem("notifications")) : []
+      notifications: sessionStorage.getItem("notifications")
+        ? JSON.parse(sessionStorage.getItem("notifications"))
+        : [],
     };
   },
   actions: {
@@ -20,12 +22,19 @@ export const useAuthStore = defineStore("auth", {
     },
     verifyEmail(id, hash) {
       axios
-        .get(import.meta.env.VITE_BACKEND_API_BASE_URL + `/email/verify/${id}/${hash}`)
+        .get(
+          import.meta.env.VITE_BACKEND_API_BASE_URL +
+            `/email/verify/${id}/${hash}`
+        )
         .catch((err) => console.log(err));
     },
     uploadImage(id, image) {
       axios
-        .post(import.meta.env.VITE_BACKEND_API_BASE_URL + `/user/${id}/image-upload`, image)
+        .post(
+          import.meta.env.VITE_BACKEND_API_BASE_URL +
+            `/user/${id}/image-upload`,
+          image
+        )
         .then((res) => (this.user.thumbnail = res.data.thumbnail))
         .catch((err) => console.log(err));
     },

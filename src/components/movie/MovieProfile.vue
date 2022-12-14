@@ -7,7 +7,7 @@
     />
     <img
       v-else
-      class="mx-[0rem]"
+      class="mx-[0rem] max-w-[6rem] rounded-[5rem]"
       :src="backendUrl + '/storage/' + user.thumbnail"
     />
     <div

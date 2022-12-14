@@ -29,9 +29,6 @@
 import GhostIcon from "@/components/icons/notFound/GhostIcon.vue";
 import GhostUnderlineIcon from "@/components/icons/notFound/GhostUnderlineIcon.vue";
 import { useRouter } from "vue-router";
-import { setLocale } from "@vee-validate/i18n";
-
-setLocale("ka");
 
 const router = useRouter();
 

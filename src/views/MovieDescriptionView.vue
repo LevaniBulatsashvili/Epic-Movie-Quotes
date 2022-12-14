@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="pt-[10rem]">
     <TheHeader />
 
     <div v-if="movieStore.movie && movieStore.quotes" class="mt-[3.2rem] flex">
-      <div class="ml-[7rem] mr-[12.7rem] lg:ml-[3rem] lg:mr-[7rem] md:hidden">
+      <div class="ml-[7rem] mr-[12.7rem] md:hidden lg:ml-[3rem] lg:mr-[7rem]">
         <BaseNavigation />
       </div>
       <div class="pr-[7rem] md:pr-[0rem]">
@@ -20,9 +20,9 @@
           :genres="movieStore.movie.genres"
           :thumbnail="movieStore.movie.thumbnail"
         />
-        <div class="mt-[4rem] mb-[6rem] flex items-center lg:mt-[1.5rem]">
+        <div class="mt-[4rem] mb-[6rem] flex items-center lg:mt-[1.5rem] md:block">
           <div
-            class="ml-[0rem] mr-[1.6rem] border-r-[1px] border-solid border-[#6C757D]"
+            class="ml-[0rem] mr-[1.6rem] border-r-[1px] border-solid border-[#6C757D] md:border-r-[0rem]"
           >
             <div
               class="font-[Helvetica Neue] pr-[1.6rem] text-[2.4rem] text-[#FFFFFF]"
@@ -35,7 +35,7 @@
           </div>
           <button
             @click="router.push({ name: 'addQuote' })"
-            class="font-[Helvetica Neue] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
+            class="font-[Helvetica Neue] md:mt-[4rem] flex items-center gap-[0.8rem] rounded-[0.48rem] bg-[#E31221] py-[0.9rem] px-[1.7rem] text-[2rem] text-[#FFFFFF]"
           >
             <PlusIcon />{{ $t("movie_description.add_quote") }}
           </button>

@@ -12,3 +12,19 @@
   font-family: "Halvetica_Neue";
   src: url("Halvetica_Neue.otf") format("otf");
 }
+
+*{
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+}
+*::-webkit-scrollbar {
+  width: 0.7rem;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(155, 155, 155, 0.5);
+  border-radius: 2rem;
+  border: transparent;
+}

@@ -2,7 +2,7 @@
   <div class="my-[3rem] mr-[5rem]">
     <img
       @click="toMovieDescription"
-      class="ml-[0rem] cursor-pointer"
+      class="ml-[0rem] w-[44rem] h-[36rem] cursor-pointer"
       :src="backendUrl + '/storage/' + thumbnail"
     />
     <div

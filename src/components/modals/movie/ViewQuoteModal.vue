@@ -8,11 +8,11 @@
           params: { id: route.params.id },
         })
       "
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] flex mt-[10.5rem] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
       <div
         @click.stop
-        class="w-[95rem] rounded-[1rem] bg-[#222030] pb-[3.5rem]"
+        class="w-[90rem] rounded-[1rem] max-h-[90rem] overflow-y-auto bg-[#222030] pb-[3.5rem] md:w-[50rem] sm:w-[32rem]"
       >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
@@ -33,11 +33,11 @@
               class="cursor-pointer"
             />
           </div>
-          <div class="ml-[2.5rem]">
+          <div class="ml-[2.5rem] sm:my-[2.5rem]">
             <GarbageIcon @click="deleteQuote" class="cursor-pointer" />
           </div>
           <div
-            class="font-Halvetica_Neue mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF]"
+            class="font-Halvetica_Neue mx-[0rem] py-[2.5rem] text-[2.4rem] font-medium capitalize text-[#FFFFFF] sm:hidden"
           >
             {{ $t("movie_modal.view_quote") }}
           </div>
@@ -83,10 +83,8 @@
 
           <div class="mb-[3.2rem] flex">
             <img
-              class="w-full"
-              :src="
-                backendUrl + '/storage/' + movieStore.quote.thumbnail
-              "
+              class="w-full lg:h-[40rem] object-cover"
+              :src="backendUrl + '/storage/' + movieStore.quote.thumbnail"
             />
           </div>
 
@@ -109,32 +107,34 @@
             </div>
           </div>
 
-          <div
-            v-for="comment in movieStore.quote.comments"
-            :key="comment"
-            class="mt-[2.4rem] max-w-[93rem]"
-          >
-            <div class="flex items-center">
-              <img
-                v-if="!comment.thumbnail"
-                class="mx-[0px]"
-                src="@/assets/png/profile.png"
-              />
-              <img
-                v-else
-                class="mx-[0rem] mr-[2.4rem]"
-                :src="backendUrl + '/storage/' + comment.thumbnail"
-              />
-              <div
-                class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
-              >
-                {{ comment.username }}
-              </div>
-            </div>
+          <div class="scroll max-h-[30rem] overflow-y-auto">
             <div
-              class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]"
+              v-for="comment in movieStore.quote.comments"
+              :key="comment"
+              class="mt-[2.4rem] max-w-[93rem]"
             >
-              {{ comment.body }}
+              <div class="flex items-center">
+                <img
+                  v-if="!comment.thumbnail"
+                  class="mx-[0px]"
+                  src="@/assets/png/profile.png"
+                />
+                <img
+                  v-else
+                  class="mx-[0rem] mr-[2.4rem]"
+                  :src="backendUrl + '/storage/' + comment.thumbnail"
+                />
+                <div
+                  class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
+                >
+                  {{ comment.username }}
+                </div>
+              </div>
+              <div
+                class="font-[Helvetica Neue] border-NewsCardUnderline ml-[8.4rem] border-b-[1px] border-solid pb-[2.4rem] text-[2rem] text-[#FFFFFF]"
+              >
+                {{ comment.body }}
+              </div>
             </div>
           </div>
           <div class="mt-[2.4rem]">
@@ -146,7 +146,7 @@
               />
               <img
                 v-else
-                class="mx-[0rem] mr-[2.4rem]"
+                class="mx-[0rem] mr-[2.4rem] max-w-[6rem] rounded-[5rem]"
                 :src="backendUrl + '/storage/' + auth.user.thumbnail"
               />
               <input
@@ -205,3 +205,9 @@ onBeforeMount(() => {
   movieStore.getQuote(route.params.quoteId);
 });
 </script>
+
+<style scoped>
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+</style>

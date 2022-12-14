@@ -40,9 +40,7 @@
       >
         {{ asyncError }}
       </p>
-      <MainIconButton
-        v-if="icon === 'filled'"
-      >
+      <MainIconButton v-if="icon === 'filled'">
         <FilledIcon />
       </MainIconButton>
       <MainIconButton v-if="icon === 'success'">
@@ -77,7 +75,7 @@ const onFieldInput = () => (icon.value = "filled");
 const emit = defineEmits(["onFieldChange"]);
 const onFieldChange = (e) => emit("onFieldChange", e.target.value);
 
-const props = defineProps({
+defineProps({
   title: {
     type: String,
     required: true,
