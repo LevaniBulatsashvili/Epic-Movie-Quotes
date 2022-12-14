@@ -21,7 +21,3 @@ window.Echo = new Echo({
   enabledTransports: ["ws", "wss"],
   authEndpoint: import.meta.env.VITE_BACKEND_API_BASE_URL,
 });
-
-// window.Echo.private("quotes").listen("UserQuoteUpdated", (e) => {
-//   console.log(e);
-// });

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="auth.isAuthenticated" >
     <TheHeader />
     <div class="mt-[3.2rem] flex">
       <div class="ml-[6.95rem] lg:ml-[3rem] mx-[0rem] md:hidden">
@@ -58,4 +58,7 @@ import TheHeader from "@/components/shared/TheHeader.vue";
 import BaseNavigation from "@/components/shared/BaseNavigation.vue";
 import BaseProfile from "@/components/profile/BaseProfile.vue";
 import { Form, Field } from "vee-validate";
+import { useAuthStore } from "@/stores/auth";
+
+const auth = useAuthStore();
 </script>

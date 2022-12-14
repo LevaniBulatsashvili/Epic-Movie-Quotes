@@ -6,6 +6,7 @@ export const useAuthStore = defineStore("auth", {
     return {
       isAuthenticated: false,
       user: null,
+      notifications: sessionStorage.getItem("notifications") ? JSON.parse(sessionStorage.getItem("notifications")) : []
     };
   },
   actions: {

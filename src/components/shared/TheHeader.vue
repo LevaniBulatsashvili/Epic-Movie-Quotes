@@ -13,15 +13,40 @@
       <div class="mr-[0px] flex items-center justify-items-center gap-[1.6rem] lg:gap-[1rem] sm:gap-[0.5]">
         <div
           v-if="auth.isAuthenticated"
-          @click="notifications"
+          @click="toggleNotificationsDropdown"
           class="cursor-pointer"
         >
           <BellIcon />
           <div
-            v-if="notificationAmount > 0"
+            v-if="notifications.length > 0"
             class="font-Halvetica_Neue absolute top-[-0.5rem] left-[1.5rem] h-[2.5rem] w-[2.5rem] rounded-[10rem] bg-[#e84600] text-center text-[1.6rem] font-medium text-[#FFFFFF]"
           >
-            {{ notificationAmount }}
+            {{ notifications.length }}
+          </div>
+          <div v-if="notificationDropdown" class="absolute pt-[4.8rem] pb-[3.6] px-[3.2rem] bg-[#000000] rounded-[1.2rem] min-w-[960px] right-[0rem] z-10">
+            <div class="flex pb-[2.3rem]">
+              <div class="font-Halvetica_Neue font-medium mx-[0rem] text-[3.2rem] text-[#FFFFFF]">{{ $t("news.notifications") }}</div>
+              <div @click="markAllAsRead" class="font-Halvetica_Neue font-medium mr-[0rem] text-[2rem] text-[#FFFFFF] cursor-pointer">{{ $t("news.mark_all_as_read") }}</div>
+            </div>
+            <div class="max-h-[57rem] overflow-y-auto scroll">
+              <div v-for="notification in notifications" class="py-[1.8rem] px-[2.5rem] mb-[1.6rem] flex border-[1px] border-solid border-notification">
+                <img v-if="!notification.thumbnail" class="mx-[0rem] max-w-[6rem]" src="@/assets/png/profile.png" />
+                <img v-else class="mx-[0rem] max-w-[6rem]" :src="backendUrl + '/storage/' + notification.thumbnail" />
+                <div class="ml-[2.4rem]">
+                  <div class="font-Halvetica_Neue text-[2rem] text-[#FFFFFF]">{{ notification.username }}</div>
+                  <div class="flex gap-[1.2rem]">
+                    <ChatCommentIcon v-if="notification.comment" />
+                    <ChatLikeIcon v-else />
+                    <div v-if="notification.comment" class="font-Halvetica_Neue text-[2rem] text-[#CED4DA]">{{ $t("news.commented_on_your_quote") }}</div>
+                    <div v-else class="font-Halvetica_Neue text-[2rem] text-[#CED4DA]">{{ $t("news.reacted_on_your_quote") }}</div>
+                  </div>
+                </div>
+                <div class="mr-[0rem]">
+                  <div class="font-Halvetica_Neue text-[2rem] text-[#D9D9D9]">5 min ago</div>
+                  <div class="font-Halvetica_Neue text-[2rem] text-end text-[#198754]">New</div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div>
@@ -94,29 +119,41 @@
 import DropdownIcon from "@/components/icons/component/DropdownIcon.vue";
 import DownArrowIcon from "@/components/icons/component/DownArrowIcon.vue";
 import BellIcon from "@/components/icons/component/BellIcon.vue";
-import { computed, ref } from "vue";
+import ChatLikeIcon from "@/components/icons/component/ChatLikeIcon.vue";
+import ChatCommentIcon from "@/components/icons/component/ChatCommentIcon.vue";
+import { computed, onBeforeMount, reactive, ref, watch } from "vue";
 import { useAuthStore } from "@/stores/auth";
 import { useRouter } from "vue-router";
 import axios from "@/config/axios.js";
 import { setLocale } from "@vee-validate/i18n";
 import i18n from "@/config/i18n/index.js";
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 const auth = useAuthStore();
 const isAuth = computed(() => auth.isAuthenticated);
 const router = useRouter();
 const locale = ref(sessionStorage.getItem("locale") === "ka" ? "ქარ" : "Eng");
 if (sessionStorage.getItem("locale") === "ka") i18n.global.locale = "ka";
+let notifications = reactive(auth.notifications);
 
 const langDropdown = ref(false);
 const authDropdown = ref(false);
+const notificationDropdown = ref(false);
 
 const toggleAuthDropdown = () => {
   authDropdown.value = !authDropdown.value;
   langDropdown.value = false;
+  notificationDropdown.value = false;
 };
 const toggleDropdown = () => {
   langDropdown.value = !langDropdown.value;
   authDropdown.value = false;
+  notificationDropdown.value = false;
+};
+const toggleNotificationsDropdown = () => {
+  notificationDropdown.value = !notificationDropdown.value;
+  authDropdown.value = false;
+  langDropdown.value = false;
 };
 
 const toLogin = () => {
@@ -151,9 +188,41 @@ const logout = async () => {
   router.push({ name: "home" });
 };
 
-// axios.get(import.meta.env.VITE_BACKEND_API_BASE_URL + "/quotes/2/quote-updated");
+const makeConnection = () => {
+  window.Echo.channel(`quotes.${auth.user.username.split(' ').join('-')}`).listen("UserQuoteUpdated", (e) => {
+    if (e.comment) {
+      auth.notifications.push({
+        ...e.comment,
+        comment: true
+      })
+      sessionStorage.setItem("notifications", JSON.stringify(auth.notifications));
+    }
+    else if (e.like) {
+      auth.notifications.push({
+        ...e.like,
+        comment: false
+      });
+      sessionStorage.setItem("notifications", JSON.stringify(auth.notifications));
+    }
+  });
+}
 
-const notificationAmount = ref(1);
+const markAllAsRead = () => {
+  sessionStorage.removeItem("notifications");
+  auth.notifications = [];
+  notifications = auth.notifications;
+};
 
-const notifications = () => {};
+watch(isAuth, (newValue) => {
+  if (newValue) makeConnection();
+});
+
+const checkIfChannelExists = Object.keys(window.Echo.connector.pusher.channels.channels).length === 0;
+onBeforeMount(() => checkIfChannelExists && auth.isAuthenticated ? makeConnection() : null);
 </script>
+
+<style scoped>
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+</style>

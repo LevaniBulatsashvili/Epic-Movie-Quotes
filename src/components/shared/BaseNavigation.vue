@@ -1,5 +1,5 @@
 <template>
-  <nav class="min-w-[22rem] lg:max-w-[18rem]">
+  <nav v-if="auth.isAuthenticated" class="min-w-[22rem] lg:max-w-[18rem]">
     <div class="flex">
       <img
         v-if="!auth.user.thumbnail"
