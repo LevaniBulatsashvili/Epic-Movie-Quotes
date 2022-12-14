@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="auth.isAuthenticated"
     class="mb-[4rem] rounded-[1.2rem] bg-[#11101A] px-[2.4rem] pt-[2.4rem] pb-[4.1rem]"
   >
     <div
@@ -7,7 +8,7 @@
     >
       <div class="flex items-center">
         <img
-          v-if="!quote.user_thumbnail"
+          v-if="quote.user_thumbnail === 'null' || !quote.user_thumbnail "
           class="mx-[0px] max-w-[6rem]"
           src="@/assets/png/profile.png"
         />
