@@ -1,13 +1,15 @@
 <template>
-  <div @click="removeSearch">
+  <div class="pt-[10rem]" @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
-      <div class="ml-[6.95rem] lg:ml-[3rem] md:hidden">
+      <div class="ml-[6.95rem] md:hidden lg:ml-[3rem]">
         <BaseNavigation />
       </div>
 
-      <div class="ml-[0rem] max-w-[94rem] lg:max-w-[60rem] md:mx-auto md:px-[3.5rem] w-full">
+      <div
+        class="ml-[0rem] w-full max-w-[94rem] md:mx-auto md:px-[3.5rem] lg:max-w-[60rem]"
+      >
         <div class="flex">
           <div
             v-if="!searching"

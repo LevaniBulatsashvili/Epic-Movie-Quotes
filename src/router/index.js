@@ -84,7 +84,9 @@ router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore();
   if (!auth.isAuthenticated) {
     try {
-      const res = await axios.get(import.meta.env.VITE_BACKEND_API_BASE_URL + "/is-auth");
+      const res = await axios.get(
+        import.meta.env.VITE_BACKEND_API_BASE_URL + "/is-auth"
+      );
       if (!auth.isAuthenticated) {
         auth.isAuthenticated = true;
         auth.user = res.data.user;

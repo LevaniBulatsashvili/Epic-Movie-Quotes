@@ -8,9 +8,12 @@
           params: { id: route.params.id },
         })
       "
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="h-[70rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] sm:w-[32rem] md:w-[50rem]"
+      >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
@@ -72,14 +75,26 @@
               />
 
               <div>
-                <label for="dropzone" class="top-[38%] left-[45%] absolute bg-[#181623] opacity-[0.65] px-[1.6rem] text-center pb-[1.4rem] pt-[2rem] rounded-[1rem] hover:opacity-[0.8] z-10 cursor-pointer">
+                <label
+                  for="dropzone"
+                  class="absolute top-[38%] left-[45%] z-10 cursor-pointer rounded-[1rem] bg-[#181623] px-[1.6rem] pb-[1.4rem] pt-[2rem] text-center opacity-[0.65] hover:opacity-[0.8]"
+                >
                   <CameraIcon />
-                  <div class="font-Halvetica_Neue text-[1.6rem] text-[#FFFFFF] mt-[1.5rem] capitalize">{{ $t("movie_modal.change_photo") }}</div>
-                  <input @change="onFileChanged" class="hidden" id="dropzone" type="file" />
+                  <div
+                    class="font-Halvetica_Neue mt-[1.5rem] text-[1.6rem] capitalize text-[#FFFFFF]"
+                  >
+                    {{ $t("movie_modal.change_photo") }}
+                  </div>
+                  <input
+                    @change="onFileChanged"
+                    class="hidden"
+                    id="dropzone"
+                    type="file"
+                  />
                 </label>
-                <img :src="
-                  backendUrl + '/storage/' + movieStore.quote.thumbnail
-                " />
+                <img
+                  :src="backendUrl + '/storage/' + movieStore.quote.thumbnail"
+                />
               </div>
 
               <MainButton
@@ -124,9 +139,9 @@ const onQuoteKaChange = (val) => (quoteKa.value = val);
 
 const onFileChanged = (e) => {
   const fileType = e.target.files[0].type;
-  if (fileType === "image/png" || fileType === "image/jpeg") file.value = e.target.files[0];
+  if (fileType === "image/png" || fileType === "image/jpeg")
+    file.value = e.target.files[0];
   else file.value = "";
-
 };
 
 const formIsValid = ref(false);
@@ -145,7 +160,8 @@ const editQuote = async () => {
 
     try {
       const res = await axios.post(
-        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/quotes/${route.params.quoteId}`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL +
+          `/admin/quotes/${route.params.quoteId}`,
         fd
       );
       const editedQuote = res.data.quote;

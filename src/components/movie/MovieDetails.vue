@@ -1,6 +1,9 @@
 <template>
   <div class="flex lg:grid">
-    <img class="max-w-[44rem]" :src="backendUrl + '/storage/' + thumbnail" />
+    <img
+      class="max-w-[44rem] md:ml-[0rem] md:h-[25rem] md:max-w-[40rem]"
+      :src="backendUrl + '/storage/' + thumbnail"
+    />
     <div class="pl-[2.1rem] lg:my-[2.4rem] lg:ml-[0rem] lg:pl-[0rem]">
       <div class="flex">
         <div
@@ -36,18 +39,14 @@
           <MovieGenre :genre="genre.genre[locale]" />
         </div>
       </div>
-      <div
-        class="font-Halvetica_Neue text-[1.8rem] capitalize text-[#CED4DA]"
-      >
+      <div class="font-Halvetica_Neue text-[1.8rem] capitalize text-[#CED4DA]">
         {{ $t("movie_description.director") }}:
         <span
           class="font-Halvetica_Neue ml-[1rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"
           >{{ director[locale] }}</span
         >
       </div>
-      <div
-        class="font-Halvetica_Neue text-[1.8rem] capitalize text-[#CED4DA]"
-      >
+      <div class="font-Halvetica_Neue text-[1.8rem] capitalize text-[#CED4DA]">
         {{ $t("movie_description.budget") }}:
         <span
           class="font-Halvetica_Neue ml-[1.6rem] text-[1.8rem] font-medium capitalize text-[#FFFFFF]"

@@ -2,17 +2,17 @@
   <div class="grid h-[100vh] items-center">
     <div>
       <div class="max-w-[60rem]">
-        <GandalfUnion class="absolute top-[5rem] left-[18rem] sm:left-[4rem]"/>
+        <GandalfUnion class="absolute top-[5rem] left-[18rem] sm:left-[4rem]" />
         <GandalfIcon class="z-20" />
       </div>
       <div class="mt-[3rem] text-center">
         <div
-          class="font-Halvetica_Neue text-[4.7rem] font-bold text-[#FFFFFF] md:text-[3.2rem] sm:text-[2.4rem]"
+          class="font-Halvetica_Neue text-[4.7rem] font-bold text-[#FFFFFF] sm:text-[2.4rem] md:text-[3.2rem]"
         >
           {{ $t("forbidden.you_shall_not_pass") }}!
         </div>
         <div
-          class="font-Halvetica_Neue mt-[1rem] mb-[5rem] text-[2.4rem] font-medium text-[#FFFFFF] md:text-[2rem] sm:text-[1.6rem] sm:max-w-[30rem]"
+          class="font-Halvetica_Neue mt-[1rem] mb-[5rem] text-[2.4rem] font-medium text-[#FFFFFF] sm:max-w-[30rem] sm:text-[1.6rem] md:text-[2rem]"
         >
           {{
             $t(

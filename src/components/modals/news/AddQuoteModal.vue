@@ -2,9 +2,12 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'newsFeed' })"
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="h-[77rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] sm:w-[32rem] md:w-[50rem]"
+      >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
@@ -20,10 +23,20 @@
         </div>
 
         <div class="mx-[3.2rem]">
-          <div class="flex items-center mt-[3rem] mb-[1.9rem]">
-            <img v-if="!auth.user.thumbnail" class="mx-[0px]" src="@/assets/png/profile.png" />
-            <img v-else class="mx-[0rem]" :src="backendUrl + '/storage/' + auth.user.thumbnail" />
-            <div class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]">
+          <div class="mt-[3rem] mb-[1.9rem] flex items-center">
+            <img
+              v-if="!auth.user.thumbnail"
+              class="mx-[0px] max-w-[6rem] rounded-[5rem]"
+              src="@/assets/png/profile.png"
+            />
+            <img
+              v-else
+              class="mx-[0rem] max-w-[6rem] rounded-[5rem]"
+              :src="backendUrl + '/storage/' + auth.user.thumbnail"
+            />
+            <div
+              class="font-[Helvetica Neue] ml-[2.4rem] text-[2rem] text-[#FFFFFF]"
+            >
               {{ auth.user.username }}
             </div>
           </div>
@@ -152,7 +165,8 @@ const addQuote = async () => {
 
     try {
       const res = await axios.post(
-        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${movieId.value}/quotes`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL +
+          `/admin/movies/${movieId.value}/quotes`,
         fd
       );
       movieStore.quotes.unshift(res.data.quote);

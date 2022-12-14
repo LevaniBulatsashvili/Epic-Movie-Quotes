@@ -2,9 +2,12 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'home' })"
-      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem]">
+      <div
+        @click.stop
+        class="w-[54rem] rounded-[1rem] bg-[#222030] px-[6rem] sm:w-[40rem] md:w-[47rem]"
+      >
         <PaperPlaneIcon class="mt-[7.2rem]" />
         <MainHeader
           class="mt-[2.1rem] gap-[3.2rem]"
@@ -18,7 +21,7 @@
         />
         <MainButton
           @Click="router.push({ name: 'home' })"
-          class="mx-[9rem] mt-[4rem] mb-[3.2rem]"
+          class="mx-[9rem] mt-[4rem] mb-[3.2rem] md:mx-[4rem]"
           :description="$t('auth.go_to_my_email')"
         />
         <div

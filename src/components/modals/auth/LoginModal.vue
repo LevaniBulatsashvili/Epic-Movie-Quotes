@@ -2,9 +2,12 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'home' })"
-      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="w-[60rem] rounded-[1rem] bg-[#222030] sm:w-[40rem] md:w-[47rem]"
+      >
         <MainHeader
           :title="$t('auth.log_in_to_your_account')"
           :description="$t('auth.welcome_back_please_enter_your_details')"
@@ -12,7 +15,11 @@
 
         <div class="mb-[5.3rem] flex">
           <div>
-            <Form class="min-w-[36rem]" @submit="login" v-slot="{ meta }">
+            <Form
+              class="min-w-[36rem] sm:min-w-[25rem] md:min-w-[30rem]"
+              @submit="login"
+              v-slot="{ meta }"
+            >
               <div class="hidden">
                 {{ setFormIsValid(meta) }}
               </div>
@@ -35,12 +42,15 @@
                 :onClearField="onPasswordClear"
                 @onFieldChange="onPasswordChange"
               />
-              <p v-if="asyncValidationFailed" class="font-Halvetica_Neue mb-[1.5rem] text-[1.4rem] text-[#DC3545]">
+              <p
+                v-if="asyncValidationFailed"
+                class="font-Halvetica_Neue mb-[1.5rem] text-[1.4rem] text-[#DC3545]"
+              >
                 {{ $t("auth.user_does_not_exist") }}
               </p>
 
               <div class="flex">
-                <div class="ml-[0rem] flex gap-[0.8rem]">
+                <div class="ml-[0rem] mr-[2rem] flex gap-[0.8rem]">
                   <input
                     class="h-[2.4rem] w-[1.6rem]"
                     name="remember_me"
@@ -136,12 +146,16 @@ const auth = useAuthStore();
 const login = async () => {
   if (formIsValid.value) {
     try {
-      const res = await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/login", {
-        username_email: username_email.value,
-        password: password.value,
-        remember_me: rememberMe.value,
-      });
-      if (res.data.message) router.push({ name: "home", params: { modal: "check-email" } });
+      const res = await axios.post(
+        import.meta.env.VITE_BACKEND_API_BASE_URL + "/login",
+        {
+          username_email: username_email.value,
+          password: password.value,
+          remember_me: rememberMe.value,
+        }
+      );
+      if (res.data.message)
+        router.push({ name: "home", params: { modal: "check-email" } });
       else router.push({ name: "newsFeed" });
     } catch (err) {
       asyncValidationFailed.value = true;

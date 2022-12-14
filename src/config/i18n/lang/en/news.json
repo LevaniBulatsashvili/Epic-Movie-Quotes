@@ -12,5 +12,7 @@
   "notifications": "Notifications",
   "mark_all_as_read": "Mark all as read",
   "commented_on_your_quote": "Commented on your quote",
-  "reacted_on_your_quote": "Reacted on your quote"
+  "reacted_on_your_quote": "Reacted on your quote",
+  "new": "New",
+  "min_ago": "min ago"
 }

@@ -11,5 +11,7 @@
   "notifications": "შეტყობინებები",
   "mark_all_as_read": "მონიშმე წაკითხულად",
   "commented_on_your_quote": "დააკომენტარა თქვენი ციტატა",
-  "reacted_on_your_quote": "მოეწონა თქვენი ციტატა"
+  "reacted_on_your_quote": "მოეწონა თქვენი ციტატა",
+  "new": "ახალი",
+  "min_ago": "წუთის წინ"
 }

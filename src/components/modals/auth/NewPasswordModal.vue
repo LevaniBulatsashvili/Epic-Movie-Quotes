@@ -2,10 +2,14 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'home' })"
-      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-modal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[60rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="w-[60rem] rounded-[1rem] bg-[#222030] sm:w-[40rem] md:w-[47rem]"
+      >
         <MainHeader
+          class="px-[4rem]"
           :title="$t('auth.create_new_password')"
           :description="
             $t(
@@ -16,7 +20,7 @@
 
         <div class="mb-[5.3rem] flex">
           <Form
-            class="min-w-[36rem]"
+            class="min-w-[36rem] sm:min-w-[25rem] md:min-w-[30rem]"
             @submit="changePassword"
             v-slot="{ meta }"
           >
@@ -89,12 +93,15 @@ const setFormIsValid = (meta) => (formIsValid.value = meta.valid);
 
 const changePassword = async () => {
   if (formIsValid.value && confirmPassword.value === password.value) {
-    await axios.post(import.meta.env.VITE_BACKEND_API_BASE_URL + "/reset-password", {
-      email: email.value,
-      password: password.value,
-      password_confirmation: confirmPassword.value,
-      token,
-    });
+    await axios.post(
+      import.meta.env.VITE_BACKEND_API_BASE_URL + "/reset-password",
+      {
+        email: email.value,
+        password: password.value,
+        password_confirmation: confirmPassword.value,
+        token,
+      }
+    );
     router.push({
       name: "home",
       params: { modal: "password-changed" },

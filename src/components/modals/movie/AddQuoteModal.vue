@@ -8,9 +8,12 @@
           params: { id: route.params.id },
         })
       "
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="h-[70rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] sm:w-[32rem] md:w-[50rem]"
+      >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
@@ -33,20 +36,18 @@
         <div class="mx-[3.2rem]">
           <MovieProfile :user="auth.user" />
 
-          <div class="my-[3rem] flex">
+          <div class="my-[3rem] flex md:block">
             <img
               class="mx-[0rem] max-h-[15.8rem] max-w-[29rem]"
-              :src="
-  backendUrl + '/storage/' + movieStore.movie.thumbnail
-              "
+              :src="backendUrl + '/storage/' + movieStore.movie.thumbnail"
             />
-            <div class="ml-[2.7rem]">
+            <div class="ml-[2.7rem] md:ml-[0rem] md:mt-[2rem]">
               <div
                 class="font-Halvetica_Neue mr-[5rem] ml-[0rem] text-[2.4rem] font-medium capitalize text-[#DDCCAA]"
               >
                 {{ movieStore.movie.name[locale] }}
               </div>
-              <div class="mt-[1.5rem] mb-[2.1rem] flex">
+              <div class="scroll mt-[1.5rem] mb-[2.1rem] flex overflow-x-auto">
                 <div
                   class="ml-[0rem] mr-[0.85rem]"
                   v-for="genre in genres"
@@ -155,7 +156,8 @@ const addQuote = async () => {
 
     try {
       const res = await axios.post(
-        import.meta.env.VITE_BACKEND_API_BASE_URL + `/admin/movies/${route.params.id}/quotes`,
+        import.meta.env.VITE_BACKEND_API_BASE_URL +
+          `/admin/movies/${route.params.id}/quotes`,
         fd
       );
       movieStore.quotes.push(res.data.quote);
@@ -169,3 +171,10 @@ const addQuote = async () => {
   }
 };
 </script>
+
+<style scoped>
+.scroll::-webkit-scrollbar {
+  background: rgb(94, 2, 94);
+  height: 1rem;
+}
+</style>

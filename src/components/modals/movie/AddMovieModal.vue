@@ -2,9 +2,12 @@
   <Teleport to="#app">
     <div
       @click="router.push({ name: 'movies' })"
-      class="bg-movieModal fixed top-[0rem] left-[0rem] flex h-[100vh] w-[100vw] items-center justify-center"
+      class="bg-movieModal fixed top-[0rem] left-[0rem] mt-[10.5rem] flex w-[100vw] items-center justify-center md:left-[-2rem]"
     >
-      <div @click.stop class="w-[95rem] rounded-[1rem] bg-[#222030]">
+      <div
+        @click.stop
+        class="h-[70rem] w-[90rem] overflow-y-auto rounded-[1rem] bg-[#222030] sm:w-[32rem] md:w-[50rem]"
+      >
         <div
           class="border-movieModalUnderline mt-[0.9rem] flex items-center border-b-[1px] border-solid"
         >
@@ -48,7 +51,7 @@
             />
 
             <div
-              class="mt-[1.5rem] mb-[2.1rem] flex rounded-[0.48rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[1.1rem] px-[1.9rem]"
+              class="scroll mt-[1.5rem] mb-[2.1rem] flex overflow-x-auto rounded-[0.48rem] border-[1px] border-solid border-[#6C757D] bg-[#11101A] py-[1.1rem] px-[1.9rem]"
             >
               <div
                 class="ml-[0rem] mr-[0.85rem]"
@@ -196,3 +199,10 @@ const addMovie = async () => {
   }
 };
 </script>
+
+<style scoped>
+.scroll::-webkit-scrollbar {
+  background: rgb(94, 2, 94);
+  height: 1rem;
+}
+</style>
