@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem]">
+  <div>
     <TheHeader />
 
     <div v-if="movieStore.movie && movieStore.quotes" class="mt-[3.2rem] flex">

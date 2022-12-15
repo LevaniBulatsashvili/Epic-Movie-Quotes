@@ -82,6 +82,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore();
+  if (to.name === "home") {
+    document.title = "Epic Movie Quotes";
+  } else {
+    document.title = to.name
+      .split(/(?=[A-Z])/)
+      .map((a) => a.charAt(0).toUpperCase() + a.substr(1))
+      .join(" ");
+  }
   if (!auth.isAuthenticated) {
     try {
       const res = await axios.get(

@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem]" @click="removeSearch">
+  <div @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
@@ -45,6 +45,7 @@
             :placeholder="`${$t('news.enter')} @ ${$t(
               'news.to_search_movies_enter'
             )} # ${$t('news.to_search_quotes')}`"
+            ref="searchInput"
           />
           <div
             v-if="!searching"
@@ -88,9 +89,13 @@ const path = computed(() => useRoute().path);
 const movieStore = useMovieStore();
 const auth = useAuthStore();
 const searching = ref(false);
+const searchInput = ref(null);
 
 const onSearchClicked = () => {
   searching.value = true;
+  setTimeout(() => {
+    searchInput.value.focus();
+  }, 100);
 };
 
 const onSearch = (e) => {

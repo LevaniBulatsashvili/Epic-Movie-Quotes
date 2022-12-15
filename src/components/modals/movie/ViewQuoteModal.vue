@@ -121,7 +121,7 @@
                 />
                 <img
                   v-else
-                  class="mx-[0rem] mr-[2.4rem]"
+                  class="mx-[0rem] max-w-[6rem] mr-[2.4rem]"
                   :src="backendUrl + '/storage/' + comment.thumbnail"
                 />
                 <div

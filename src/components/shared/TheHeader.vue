@@ -1,5 +1,5 @@
 <template>
-  <header class="fixed top-[0rem] z-20 w-[100%]">
+  <header class="sticky top-0 z-20 w-[100%]">
     <nav
       class="flex w-full items-center py-[2.4rem] px-[7rem] sm:px-[3rem] lg:px-[5rem]"
       :style="{ backgroundColor: !auth.isAuthenticated ? '' : '#222030' }"

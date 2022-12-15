@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem]" v-if="auth.isAuthenticated">
+  <div v-if="auth.isAuthenticated">
     <TheHeader />
     <div class="mt-[3.2rem] flex">
       <div class="mx-[0rem] ml-[6.95rem] md:hidden lg:ml-[3rem]">

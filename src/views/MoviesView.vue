@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem]" @click="removeSearch">
+  <div @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
@@ -22,9 +22,10 @@
                 @click.stop
                 @keyup.enter="onSearch"
                 class="search font-Halvetica_Neue border-searchBorder text-searchText mr-[5rem] border-b-[1px] border-solid bg-transparent px-[1.5rem] py-[0.5rem] text-[2rem] md:mb-[2rem]"
-                :class="{ hidden: !searching }"
                 type="text"
                 :placeholder="$t('movie.enter_to_search')"
+                ref="searchInput"
+                v-if="searching"
               />
               <div
                 v-if="!searching"
@@ -80,9 +81,13 @@ const movieStore = useMovieStore();
 const auth = useAuthStore();
 const path = computed(() => useRoute().path);
 const searching = ref(false);
+const searchInput = ref(null);
 
 const onSearchClicked = () => {
   searching.value = true;
+  setTimeout(() => {
+    searchInput.value.focus();
+  }, 100);
 };
 
 const removeSearch = () => (searching.value = false);
