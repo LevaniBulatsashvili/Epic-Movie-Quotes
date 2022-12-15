@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-[10rem]" @click="removeSearch">
+  <div @click="removeSearch">
     <TheHeader />
 
     <div class="mt-[3.2rem] flex">
